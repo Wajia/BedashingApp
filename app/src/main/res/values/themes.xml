@@ -1,0 +1,236 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.TVGApp" parent="Theme.MaterialComponents.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/primvar</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="materialButtonStyle">@style/Widget.App.Button</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/black_second</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="Theme.TVGApp.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="Theme.TVGApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.TVGApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="myMenuPopStyle" parent="@style/ThemeOverlay.MaterialComponents">
+        <item name="android:textColorPrimary">@color/colorDark</item>
+        <item name="android:background">@drawable/overflow_menu_bg</item>
+        <item name="android:popupBackground">@drawable/overflow_menu_bg</item>
+        <item name="android:colorBackground">@color/colorWhite</item>
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorOnBackground">@color/appbar_color</item>
+        <item name="android:itemBackground">@color/appbar_color</item>
+        <item name="popupMenuBackground">@drawable/overflow_menu_bg</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:minWidth">20dp</item>
+        <item name="android:minHeight">0dp</item>
+
+    </style>
+
+
+    <style name="ToolbarColoredBackArrow" parent="Theme.TVGApp">
+        <item name="android:textColorSecondary">@color/colorPrimary</item>
+        <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:fontFamily">@font/open_sans_bold</item>
+
+    </style>
+
+    <!--    Button Styling-->
+
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textSize">14sp</item>
+
+    </style>
+
+    <style name="Widget.App.Button.Light" parent="Widget.MaterialComponents.Button">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button.Light</item>
+        <item name="android:textAppearance">@style/TextAppearance.App.Button</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textSize">14sp</item>
+
+    </style>
+
+
+    <style name="TextAppearance.App.Button" parent="TextAppearance.MaterialComponents.Button">
+        <item name="fontFamily">@font/open_sans_semibold</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+    </style>
+
+    <style name="ShapeAppearance.App.SmallComponent" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">4dp</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Button" parent="">
+        <item name="colorPrimary">@color/btnbg</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+
+    <style name="ThemeOverlay.App.Button.Light" parent="">
+        <item name="colorPrimary">#6E7272</item>
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+
+
+
+    <!--    TextField Styling-->
+
+    <style name="TextInputLayoutStyle" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxCornerRadiusBottomEnd">4dp</item>
+        <item name="boxCornerRadiusBottomStart">4dp</item>
+        <item name="boxCornerRadiusTopEnd">4dp</item>
+        <item name="boxCornerRadiusTopStart">4dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColorHint">#8C000000</item> <!--Unfocused-->
+        <item name="hintTextColor">@color/colorPrimary</item> <!--after focus-->
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small.Inverse</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+
+    <style name="TextInputExposedSpinner" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/text_input_box_stroke</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxCornerRadiusBottomEnd">4dp</item>
+        <item name="boxCornerRadiusBottomStart">4dp</item>
+        <item name="boxCornerRadiusTopEnd">4dp</item>
+        <item name="boxCornerRadiusTopStart">4dp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/open_sans</item>
+        <item name="android:textColorHint">#8C000000</item> <!--Unfocused-->
+        <item name="hintTextColor">@color/colorPrimary</item> <!--after focus-->
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small.Inverse</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+
+    <!--    HeadingStyle-->
+
+    <style name="myHeadingStyle" parent="">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textAllCaps">true</item>
+
+
+    </style>
+
+
+
+    <!--    app bar-->
+
+    <style name="myMenuStyle" parent="Widget.MaterialComponents.AppBarLayout.PrimarySurface">
+        <item name="android:textSize">@dimen/sp16</item>
+        <item name="android:fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:spotShadowAlpha" tools:targetApi="lollipop">0.5</item>
+
+
+    </style>
+
+
+    <style name="dashboardCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">4dp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">#80ADB5BD</item>
+        <item name="contentPadding">@dimen/dp20</item>
+
+
+    </style>
+
+    <style name="CustomCardViewStyle" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay_card_custom_corners</item>
+        <item name="contentPadding">@dimen/dp15</item>
+        <item name="cardBackgroundColor">#495057</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay_card_custom_corners" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">6dp</item>
+        <item name="cornerSizeTopLeft">6dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="tableCard" parent="Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">4dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">3dp</item>
+        <item name="backgroundTint">@color/white</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="strokeColor">#DEE2E6</item>
+        <item name="contentPadding">@dimen/dp20</item>
+
+
+    </style>
+
+    <!--    For popup-->
+    <style name="MypopUp"  parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:background">@drawable/popup_bg</item>
+        <item name="colorBackgroundFloating">#03FFFFFF</item>
+        <item name="android:radius">16dp</item>
+        <item name="background">@drawable/popup_bg</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/TitleTextStyle</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/BodyTextStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/PositiveButtonStyle</item>
+        <item name="buttonBarNegativeButtonStyle">@style/NegativeButtonStyle</item>
+    </style>
+
+
+    <style name="TitleTextStyle" parent="MaterialAlertDialog.MaterialComponents.Title.Text">
+        <item name="android:textColor">@color/colorDark</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="BodyTextStyle" parent="MaterialAlertDialog.MaterialComponents.Body.Text">
+        <item name="android:textColor">@color/primvar</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="PositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="rippleColor">@color/colorBlack</item>
+        <item name="backgroundTint">@color/colorDark</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">10dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+    <style name="NegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorDark</item>
+        <item name="rippleColor">@color/colorBlack</item>
+        <item name="android:layout_marginBottom">5dp</item>
+    </style>
+
+
+</resources>

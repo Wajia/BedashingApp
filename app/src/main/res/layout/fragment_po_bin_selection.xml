@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".views.goodsreceiving.purchaseorder.POBinSelectionFragment"
+    android:background="@color/white">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_above="@id/btn_next_bin"
+            android:layout_marginHorizontal="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp20">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Scan / Enter Bin"
+                style="@style/myHeadingStyle"
+                android:visibility="gone"
+                android:layout_marginBottom="@dimen/dp10"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/barcode_field_bg"
+                android:drawableEnd="@drawable/ic_barcode_icon"
+                android:singleLine="true"
+                android:visibility="gone"
+                android:scrollHorizontally="true"
+                android:imeOptions="actionDone"
+                android:fontFamily="@font/open_sans"
+                android:hint="Bin - Stage - 01"
+                android:padding="15dp"
+                android:textColor="#333333"
+                android:textColorHint="#6E7272"
+                android:textSize="14sp"/>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="@dimen/dp30"
+                >
+
+                <EditText
+                    android:id="@+id/edSearch"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="2"
+                    android:background="@drawable/search_view"
+                    android:drawableEnd="@drawable/ic_fi_rr_search"
+                    android:drawablePadding="4dp"
+                    android:elevation="1dp"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:imeOptions="actionSearch"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Search bin locations"
+                    android:padding="11dp"
+                    android:layout_marginRight="@dimen/dp15"
+                    android:textColor="#333333"
+                    android:textColorHint="#6E7272"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filter_bg"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomCardViewStyle"
+                    android:layout_marginBottom="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:textAlignment="center"
+                            android:text="ID"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/open_sans"
+                            android:textSize="@dimen/sp14"/>
+
+<!--                        <TextView-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="3"-->
+<!--                            android:textAlignment="center"-->
+<!--                            android:text="Bins"-->
+<!--                            android:textColor="@color/white"-->
+<!--                            android:fontFamily="@font/open_sans"-->
+<!--                            android:textSize="@dimen/sp14"/>-->
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:textAlignment="center"
+                            android:text="Quantity"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/open_sans"
+                            android:textSize="@dimen/sp14"/>
+
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/rv_bins_po"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/list_po_bins_single_item"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+
+    <Button
+        android:id="@+id/btn_next_bin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_alignParentBottom="true"
+        style="@style/Widget.App.Button"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp10"
+        android:text="Next"
+        android:visibility="visible"
+        />
+
+    </RelativeLayout>
+
+    <include layout="@layout/progress_layout"/>
+
+</FrameLayout>

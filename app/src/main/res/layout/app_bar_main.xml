@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/white">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+        app:elevation="@dimen/dp4"
+        app:liftOnScroll="true"
+        android:fitsSystemWindows="true">
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/appbar_color"
+            style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
+            android:elevation="@dimen/dp16"
+            app:title="@string/app_name"
+            android:theme="@style/ToolbarColoredBackArrow"
+            app:elevation="@dimen/dp10"
+            app:titleTextColor="@color/colorPrimary"
+            app:navigationIcon="@drawable/home_icon"
+            app:titleTextAppearance="@style/Theme.TVGApp.AppBarOverlay"
+            app:contentInsetStartWithNavigation="1dp"
+            app:menu="@menu/main"
+            app:popupTheme="@style/myMenuPopStyle"
+            />
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--  Place Your Layout Here  -->
+
+        <include layout="@layout/content_main" />
+
+        <View
+            android:id="@+id/shadow_view"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_marginTop="56dp"
+            android:background="@drawable/toolbar_dropshadow" />
+
+    </FrameLayout>
+
+
+
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:srcCompat="@android:drawable/ic_dialog_email"
+        android:visibility="invisible"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

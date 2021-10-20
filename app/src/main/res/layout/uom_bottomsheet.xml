@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_gravity="bottom"
+    android:gravity="bottom"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="@dimen/dp10"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dp10"
+            app:cardUseCompatPadding="false"
+            android:paddingEnd="@dimen/dp5"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp15"
+                android:paddingVertical="@dimen/dp15">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:gravity="center_vertical"
+                    android:text="UOM"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp16" />
+
+
+
+                <Button
+                    android:layout_width="@dimen/dp10"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp4"
+                    android:layout_weight="1"
+                    android:visibility="gone"
+                    android:layout_gravity="bottom"
+                    style="@style/Widget.App.Button"
+                    android:text="OK"/>
+
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/unselected_item_stroke_color" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layout_option_1"
+                android:paddingHorizontal="@dimen/dp18"
+                android:paddingVertical="@dimen/dp14"
+                android:weightSum="3">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bullet"
+                        android:layout_marginRight="@dimen/dp10"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Each"
+                        android:id="@+id/lbl_option_1"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="start"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="@dimen/sp15"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/layout_option_2"
+                android:paddingHorizontal="@dimen/dp18"
+                android:paddingVertical="@dimen/dp14"
+                android:weightSum="3">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="7dp"
+                        android:layout_height="7dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@drawable/bullet"
+                        android:layout_marginRight="@dimen/dp10"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Carton"
+                        android:id="@+id/lbl_option_2"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="start"
+                        android:textColor="@color/black"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="@dimen/sp15"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+
+
+    </LinearLayout>
+
+</LinearLayout>

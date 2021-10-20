@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ItemListingFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginTop="@dimen/dp20"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:textSize="@dimen/sp16"
+            android:textColor="@color/colorBlack"
+            android:text="Payload"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/dp5"
+            android:layout_marginTop="@dimen/dp2"
+            android:layout_weight="0.7"
+            android:id="@+id/tv_payload"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/open_sans_light"
+            android:scrollbars="vertical"
+            android:textSize="@dimen/sp12"
+            android:background="#DFD6D6"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans_bold"
+            android:textSize="@dimen/sp16"
+            android:layout_marginTop="@dimen/dp15"
+            android:textColor="@color/colorBlack"
+            android:text="Response"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:padding="@dimen/dp5"
+            android:layout_weight="0.25"
+            android:layout_marginTop="@dimen/dp2"
+            android:id="@+id/tv_response"
+            android:textColor="@color/colorBlack"
+            android:fontFamily="@font/open_sans_light"
+            android:scrollbars="vertical"
+            android:textSize="@dimen/sp12"
+            android:background="#DFD6D6"
+            />
+
+
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/teal_700" />
+    </RelativeLayout>
+
+
+</FrameLayout>

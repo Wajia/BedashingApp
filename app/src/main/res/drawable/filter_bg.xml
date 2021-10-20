@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+
+        <shape android:shape="oval">
+            <stroke android:width="@dimen/dp1" android:color="#ADB5BD"/>
+            <corners android:radius="8dp"></corners>
+            <padding android:bottom="10dp"></padding>
+            <padding android:top="10dp"></padding>
+            <padding android:right="10dp"></padding>
+            <padding android:left="10dp"></padding>
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_fi_rr_filter" />
+</layer-list>

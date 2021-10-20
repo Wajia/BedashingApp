@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".views.goodsreceiving.purchaseorder.GoodsReceivingPDFFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="#F3F5F7"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/dp16"
+                android:paddingVertical="@dimen/dp15">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginBottom="@dimen/dp4"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="Goods Receiving"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp15" />
+
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:fontFamily="@font/open_sans"
+                        android:text="13/07/2021"
+                        android:textColor="#A6000000"
+                        android:textSize="@dimen/sp14"
+
+                        />
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="@dimen/dp140"
+                    android:layout_height="55dp"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/logo" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_gravity="center"
+                android:background="#868E96" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="1"
+                android:paddingHorizontal="@dimen/dp16"
+                android:paddingVertical="@dimen/dp18">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.4"
+                    android:orientation="horizontal">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/dp4"
+                    android:fontFamily="@font/open_sans_semibold"
+                    android:text="Bill For"
+                    android:textColor="#6E7272"
+                    android:textSize="@dimen/sp15" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="end"
+                    android:layout_weight="0.6"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp4"
+                        android:fontFamily="@font/open_sans"
+                        android:text="Vendor Name"
+                        android:maxLines="2"
+                        android:autoSizeTextType="uniform"
+                        android:autoSizeMaxTextSize="15sp"
+                        android:autoSizeMinTextSize="@dimen/sp10"
+                        android:autoSizeStepGranularity="@dimen/dp1"
+                        android:id="@+id/tv_vendor_name"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/sp15" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="2"
+                        android:id="@+id/tv_vendor_id"
+                        android:layout_marginBottom="@dimen/dp4"
+                        android:fontFamily="@font/open_sans"
+                        android:text="V#XXX765333"
+                        android:textAlignment="textEnd"
+                        android:textColor="#BF000000"
+                        android:textSize="@dimen/sp14" />
+
+
+                    <TextView
+                        android:layout_width="@dimen/dp100"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/dp4"
+                        android:fontFamily="@font/open_sans"
+                        android:lines="2"
+                        android:minLines="2"
+                        android:singleLine="false"
+                        android:text="Street# 2, Lane 5, Dubai, UAE"
+                        android:textAlignment="textEnd"
+                        android:textColor="#BF000000"
+                        android:textSize="@dimen/sp14" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp10"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="@dimen/dp16"
+                    android:paddingTop="@dimen/dp14"
+                    android:paddingBottom="@dimen/dp3">
+
+                    <TextView
+                        android:layout_width="@dimen/dp100"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="Items"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/dp5"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="Ordered Qty"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp5"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="Received Qty"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <TextView
+                        android:layout_width="@dimen/dp50"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/open_sans_semibold"
+                        android:text="UoM"
+                        android:textAlignment="textEnd"
+                        android:textAllCaps="true"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_gravity="center"
+                    android:layout_marginVertical="10dp"
+                    android:background="#DADADA" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_po_pdf"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:itemCount="3"
+                    tools:listitem="@layout/list_goods_receiving_pdf_single_item" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_save_pdf"
+                style="@style/Widget.App.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_marginHorizontal="@dimen/dp16"
+                android:layout_marginBottom="@dimen/dp10"
+                android:text="Save"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+    <RelativeLayout
+        android:id="@+id/rlProgress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/teal_700" />
+    </RelativeLayout>
+
+</FrameLayout>

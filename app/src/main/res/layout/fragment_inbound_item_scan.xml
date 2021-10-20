@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".InboundItemScanFragment"
+    android:background="@color/white">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp20"
+            android:paddingBottom="58dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/dp18">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="From Warehouse"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_marginBottom="@dimen/dp14"
+                        android:layout_marginRight="4dp"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextInputLayoutStyle"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Date"
+                        style="@style/TextInputLayoutStyle"
+                        android:layout_marginBottom="@dimen/dp14"
+                        android:layout_marginLeft="4dp"
+                        >
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextInputLayoutStyle"
+                            />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:layout_gravity="start"
+                    android:hint="Comments"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_marginBottom="@dimen/dp15"
+                    >
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="start"
+                        android:gravity="start"
+                        android:inputType="textMultiLine"
+                        android:overScrollMode="always"
+                        android:scrollbarStyle="insideInset"
+                        android:scrollbars="vertical"
+                        style="@style/TextInputLayoutStyle"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/scan_enter_item"
+                style="@style/myHeadingStyle"
+                android:layout_marginBottom="@dimen/dp10"
+                />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/barcode_field_bg"
+                android:drawableEnd="@drawable/ic_barcode_icon"
+                android:singleLine="true"
+                android:scrollHorizontally="true"
+                android:imeOptions="actionDone"
+                android:fontFamily="@font/open_sans"
+                android:hint="01-XS125TW"
+                android:padding="15dp"
+                android:textColor="#333333"
+                android:textColorHint="#6E7272"
+                android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginBottom="@dimen/dp30"
+                android:layout_marginTop="@dimen/dp40">
+
+                <EditText
+                    android:id="@+id/edSearchVC"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="2"
+                    android:background="@drawable/search_view"
+                    android:drawableEnd="@drawable/ic_fi_rr_search"
+                    android:drawablePadding="4dp"
+                    android:elevation="1dp"
+                    android:singleLine="true"
+                    android:scrollHorizontally="true"
+                    android:imeOptions="actionSearch"
+                    android:fontFamily="@font/open_sans"
+                    android:hint="Search.."
+                    android:padding="11dp"
+                    android:layout_marginRight="@dimen/dp15"
+                    android:textColor="#333333"
+                    android:textColorHint="#6E7272"
+                    android:textSize="15sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/filter_bg"
+                    android:layout_gravity="center_vertical"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/CustomCardViewStyle"
+                    android:layout_marginBottom="5dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Item Code/Name"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/open_sans"
+                            android:textSize="@dimen/sp14"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Proposed Qty"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/open_sans"
+                            android:textSize="@dimen/sp14"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Received Qty"
+                            android:layout_gravity="center_vertical"
+                            android:gravity="center"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/open_sans"
+                            android:textSize="@dimen/sp14"/>
+
+
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/tableCard"
+                            android:layout_marginBottom="@dimen/dp8"
+                            app:contentPaddingTop="@dimen/dp25"
+                            app:contentPaddingBottom="@dimen/dp25"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="01-XS657WR"
+                                    android:textColor="#A6000000"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/sp14"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="20 Ea"
+                                    android:textAlignment="center"
+                                    android:textColor="#A6000000"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/sp14"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="20 Ea"
+                                    android:textAlignment="center"
+                                    android:textColor="#A6000000"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/sp14"/>
+
+
+                            </LinearLayout>
+
+
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/tableCard"
+                            android:layout_marginBottom="@dimen/dp8"
+                            app:contentPaddingTop="@dimen/dp25"
+                            app:contentPaddingBottom="@dimen/dp25"
+                            >
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="01-XS657WR"
+                                    android:textColor="#A6000000"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/sp14"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="20 Ea"
+                                    android:textAlignment="center"
+                                    android:textColor="#A6000000"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/sp14"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="20 Ea"
+                                    android:textAlignment="center"
+                                    android:textColor="#A6000000"
+                                    android:fontFamily="@font/open_sans"
+                                    android:textSize="@dimen/sp14"/>
+
+
+                            </LinearLayout>
+
+
+
+                        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+                    </LinearLayout>
+
+
+
+
+
+
+                </androidx.core.widget.NestedScrollView>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+    <Button
+        android:id="@+id/btn_click_me"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        style="@style/Widget.App.Button"
+        android:layout_marginHorizontal="@dimen/dp16"
+        android:layout_marginBottom="@dimen/dp10"
+        android:text="Enter Item"
+        />
+
+</FrameLayout>

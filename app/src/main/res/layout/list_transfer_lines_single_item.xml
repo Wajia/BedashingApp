@@ -1,0 +1,64 @@
+<com.google.android.material.card.MaterialCardView style="@style/tableCard"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/dp8"
+    app:contentPaddingBottom="@dimen/dp25"
+    android:id="@+id/main_card_view"
+    app:contentPaddingTop="@dimen/dp25"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="3">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:id="@+id/tv_item_id"
+            android:autoSizeTextType="uniform"
+            android:maxLines="2"
+            android:autoSizeMaxTextSize="@dimen/sp14"
+            android:autoSizeMinTextSize="@dimen/sp8"
+            android:autoSizeStepGranularity="@dimen/dp1"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:text="XXXXXXXX"
+            android:textColor="#A6000000"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:id="@+id/tv_proposed_qty"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:text="XX Ea"
+            android:textAlignment="center"
+            android:textColor="#A6000000"
+            android:textSize="@dimen/sp14" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:id="@+id/tv_picked_qty"
+            android:fontFamily="@font/open_sans"
+            android:gravity="center"
+            android:text="XX Ea"
+            android:textAlignment="center"
+            android:textColor="#A6000000"
+            android:textSize="@dimen/sp14" />
+
+
+    </LinearLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

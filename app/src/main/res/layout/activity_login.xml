@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_fi_rr_settings"
         android:layout_alignParentRight="true"
+        android:id="@+id/btn_server_settings"
         android:layout_marginHorizontal="@dimen/dp14"
         android:background="@color/white"
         android:layout_marginVertical="@dimen/dp14"/>
@@ -143,6 +144,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp16"
                 android:layout_marginTop="@dimen/dp8"
+                android:visibility="invisible"
                 android:layout_weight="1"
                 android:fontFamily="@font/open_sans_light"
                 android:gravity="center_vertical"
@@ -173,6 +175,7 @@
             <ImageView
                 android:layout_width="150dp"
                 android:layout_height="35dp"
+                android:id="@+id/btn_test"
                 android:src="@drawable/sapbyd" />
 
             <TextView

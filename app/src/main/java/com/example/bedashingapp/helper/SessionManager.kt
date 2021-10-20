@@ -13,7 +13,7 @@ class SessionManager(_context: Context) {
     private val PRIVATE_MODE: Int = 0
 
     //Shared Preferences filename
-    private val SHARED_PREFS = "TVGAppPrefs"
+    private val SHARED_PREFS = "BedashingAppPrefs"
 
 
 

@@ -50,9 +50,7 @@ class DashboardFragment : BaseFragment() {
             }
 
             btn_transfer_order.setOnClickListener{
-                val navController =
-                    Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                navController.navigate(R.id.nav_transfer_order, Bundle())
+
             }
         }
 

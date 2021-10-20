@@ -32,10 +32,6 @@ import com.example.bedashingapp.views.dashboard.DashboardFragment
 import com.example.bedashingapp.views.goodsreceiving.GoodsReceivingFragment
 import com.example.bedashingapp.views.goodsreceiving.purchaseorder.*
 import com.example.bedashingapp.views.login.LoginActivity
-import com.example.bedashingapp.views.transferorder.OutboundItemScanFragment
-import com.example.bedashingapp.views.transferorder.OutboundQtyBinsFragment
-import com.example.bedashingapp.views.transferorder.OutboundTasksFragment
-import com.example.bedashingapp.views.transferorder.TransferOrderFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -363,8 +359,6 @@ class MainActivity : BaseActivity() {
         if (fragment != null) {
             if (fragment is POItemScanFragment)
                 fragment.onActivityResult(requestCode, resultCode, data)
-            else if (fragment is OutboundItemScanFragment)
-                fragment.onActivityResult(requestCode, resultCode, data)
 
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -394,10 +388,8 @@ class MainActivity : BaseActivity() {
             if (fragment is POItemScanFragment) {
                 Navigation.findNavController(this, R.id.nav_host_fragment)
                     .navigate(R.id.nav_po_list, Bundle())
-            } else if (fragment is OutboundItemScanFragment) {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_outbound_tasks, Bundle())
-            } else {
+            }
+            else {
                 super.onBackPressed()
             }
         }
@@ -444,21 +436,7 @@ class MainActivity : BaseActivity() {
                 Navigation.findNavController(this, R.id.nav_host_fragment)
                     .navigate(R.id.nav_po_list, Bundle())
             }
-            is TransferOrderFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_dashboard, Bundle())
-            }
-            is OutboundTasksFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_transfer_order, Bundle())
-            }
-            is OutboundItemScanFragment -> {
-                showOnExitPrompt(fragment)
-            }
-            is OutboundQtyBinsFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_outbound_item_scan, Bundle())
-            }
+
 
         }
     }
@@ -473,11 +451,7 @@ class MainActivity : BaseActivity() {
             is GoodsReceivingFragment,
             is POItemQtyFragment,
             is POBinSelectionFragment,
-            is GoodsReceivingPDFFragment,
-            is TransferOrderFragment,
-            is OutboundTasksFragment,
-            is OutboundItemScanFragment,
-            is OutboundQtyBinsFragment
+            is GoodsReceivingPDFFragment
             -> {
                 true
             }
@@ -496,11 +470,7 @@ class MainActivity : BaseActivity() {
             is GoodsReceivingFragment,
             is POItemQtyFragment,
             is POBinSelectionFragment,
-            is GoodsReceivingPDFFragment,
-            is TransferOrderFragment,
-            is OutboundTasksFragment,
-            is OutboundItemScanFragment,
-            is OutboundQtyBinsFragment
+            is GoodsReceivingPDFFragment
             -> {
                 true
             }
@@ -537,21 +507,6 @@ class MainActivity : BaseActivity() {
             is GoodsReceivingPDFFragment -> {
                 Navigation.findNavController(this, R.id.nav_host_fragment)
                     .navigate(R.id.nav_po_list, Bundle())
-            }
-            is TransferOrderFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_dashboard, Bundle())
-            }
-            is OutboundTasksFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_transfer_order, Bundle())
-            }
-            is OutboundItemScanFragment -> {
-                showOnExitPrompt(fragment)
-            }
-            is OutboundQtyBinsFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_outbound_item_scan, Bundle())
             }
 
         }

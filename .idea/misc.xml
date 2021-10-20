@@ -9,15 +9,18 @@
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_carbon_location_company.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_fluent_serial_port_16_regular.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_username.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/spinnerbg.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/appsetting.xml" value="0.2" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/update_branch.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/menu/main.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.18020833333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

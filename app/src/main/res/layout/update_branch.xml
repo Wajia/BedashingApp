@@ -19,14 +19,16 @@
             android:text="Select a Branch"
             style="@style/myHeadingStyle"
             android:layout_marginBottom="@dimen/dp10"
+
             />
 
-        <androidx.appcompat.widget.AppCompatSpinner
+        <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp10"
+            android:padding="@dimen/dp25"
             android:spinnerMode="dropdown"
-            android:autofillHints="name"
+            android:theme="@style/ThemeOverlay.AppCompat.Light"
+
             android:layout_marginBottom="@dimen/dp20"/>
 
         <TextView

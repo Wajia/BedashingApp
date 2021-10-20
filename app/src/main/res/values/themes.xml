@@ -232,5 +232,10 @@
         <item name="android:layout_marginBottom">5dp</item>
     </style>
 
+    <style name="Widget.App.Spinner" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="overlapAnchor">true</item>
+        <item name="android:background">@drawable/spinnerbg</item>
+    </style>
+
 
 </resources>

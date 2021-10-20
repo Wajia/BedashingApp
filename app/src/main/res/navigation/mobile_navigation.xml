@@ -59,34 +59,6 @@
         android:label="Document Payload"
         tools:layout="@layout/fragment_payload_document"/>
 
-    <fragment
-        android:id="@+id/nav_transfer_order"
-        android:name="com.example.bedashingapp.views.transferorder.TransferOrderFragment"
-        android:label="Delivery Tasks"
-        tools:layout="@layout/fragment_transfer_order"/>
 
-    <fragment
-        android:id="@+id/nav_outbound_tasks"
-        android:name="com.example.bedashingapp.views.transferorder.OutboundTasksFragment"
-        android:label="Tasks"
-        tools:layout="@layout/fragment_outbound_tasks"/>
-
-    <fragment
-        android:id="@+id/nav_outbound_item_scan"
-        android:name="com.example.bedashingapp.views.transferorder.OutboundItemScanFragment"
-        android:label="Outbound Delivery"
-        tools:layout="@layout/fragment_outbound_item_scan"/>
-
-    <fragment
-        android:id="@+id/nav_outbound_bins"
-        android:name="com.example.bedashingapp.views.transferorder.OutboundQtyBinsFragment"
-        android:label="Quantity &amp; Bins"
-        tools:layout="@layout/fragment_outbound_qty_bins"/>
-
-    <fragment
-        android:id="@+id/nav_transfer_summary"
-        android:name="com.example.bedashingapp.views.transferorder.TransferSummaryFragment"
-        android:label="Summary"
-        tools:layout="@layout/fragment_transfer_summary"/>
 
 </navigation>

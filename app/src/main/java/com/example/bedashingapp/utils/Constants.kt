@@ -9,7 +9,7 @@ class Constants {
 
         const val BASE_URL_FOR_MIDDLEWARE_API = "http://65.52.176.142/"
 
-        const val DATABASE_NAME = "tvgApp_database"
+        const val DATABASE_NAME = "bedashingApp_database"
 
 
         const val EACH_UNIT_CODE = "EA"

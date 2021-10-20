@@ -17,6 +17,7 @@ import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
+import com.example.bedashingapp.views.server_settings.ServerSettingsActivity
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity() {
@@ -54,6 +55,17 @@ class LoginActivity : BaseActivity() {
             } else {
                 showToastShort("Please enter username/ password")
             }
+        }
+
+        btn_server_settings.setOnClickListener {
+            startActivity(Intent(this, ServerSettingsActivity::class.java))
+        }
+
+
+//       ************************** For Wajeeha *****************************
+        btn_test.setOnClickListener{
+            //change layout here
+            setContentView(R.layout.activity_main)
         }
     }
 

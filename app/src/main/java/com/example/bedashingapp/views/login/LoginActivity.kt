@@ -65,7 +65,7 @@ class LoginActivity : BaseActivity() {
 //       ************************** For Wajeeha *****************************
         btn_test.setOnClickListener{
             //change layout here
-            setContentView(R.layout.activity_main)
+            setContentView(R.layout.update_branch)
         }
     }
 

@@ -17,8 +17,8 @@ class ViewModelFactory(
         if (modelClass.isAssignableFrom(MainActivityViewModel::class.java)) {
             return MainActivityViewModel(
                 MainActivityRepository(
-                    apiHelper, TVGDatabase.getDatabase(application).itemDao(),
-                    TVGDatabase.getDatabase(application).logisticDao(),
+                    apiHelper,
+                    TVGDatabase.getDatabase(application).itemDao(),
                     TVGDatabase.getDatabase(application).postedDocumentDao()
                 )
             ) as T

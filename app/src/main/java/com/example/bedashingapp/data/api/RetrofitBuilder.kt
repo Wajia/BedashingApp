@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit
 class RetrofitBuilder {
 
     companion object {
-        private const val BASE_URL = "https://my357593.sapbydesign.com/sap/byd/odata/cust/v1/"
+        private const val BASE_URL = "http://40.115.107.97:50001/b1s/v1/"
 
 
         @Volatile

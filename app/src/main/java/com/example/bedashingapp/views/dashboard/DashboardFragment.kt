@@ -44,9 +44,7 @@ class DashboardFragment : BaseFragment() {
         arguments?.let{
 //            setupObserver()
             btn_goods_receiving.setOnClickListener{
-                val navController =
-                    Navigation.findNavController(requireActivity(), R.id.nav_host_fragment)
-                navController.navigate(R.id.nav_po_list, Bundle())
+
             }
 
             btn_transfer_order.setOnClickListener{
@@ -57,23 +55,7 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun setupObserver(){
-        mainActivityViewModel.getPurchaseOrders().observe(viewLifecycleOwner, Observer {
-            it?.let{resource->
-                when(resource.status){
-                    Status.SUCCESS->{
-                        hideProgressBar()
-                        showToastLong(resource.data?.d?.results!![0].ID)
-                    }
-                    Status.LOADING->{
-                        showProgressBar("","")
-                    }
-                    Status.ERROR->{
-                        showToastLong(resource.message!!)
-                        hideProgressBar()
-                    }
-                }
-            }
-        })
+        
     }
 
     private fun setUpViewModel() {

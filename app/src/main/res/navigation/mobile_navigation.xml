@@ -5,11 +5,7 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/nav_dashboard">
 
-    <fragment
-        android:id="@+id/nav_goods_receiving"
-        android:name="com.example.bedashingapp.views.goodsreceiving.GoodsReceivingFragment"
-        android:label="Goods Receiving"
-        tools:layout="@layout/fragment_goods_receiving" />
+
 
     <fragment
         android:id="@+id/nav_dashboard"
@@ -17,35 +13,7 @@
         android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
-    <fragment
-        android:id="@+id/nav_po_list"
-        android:name="com.example.bedashingapp.views.goodsreceiving.purchaseorder.PurchaseOrderListFragment"
-        android:label="Purchase Order"
-        tools:layout="@layout/fragment_purchase_orders" />
 
-    <fragment
-        android:id="@+id/nav_po_item_scan"
-        android:name="com.example.bedashingapp.views.goodsreceiving.purchaseorder.POItemScanFragment"
-        android:label="Item in PO"
-        tools:layout="@layout/fragment_po_item_scan" />
-
-    <fragment
-        android:id="@+id/nav_po_enter_quantity"
-        android:name="com.example.bedashingapp.views.goodsreceiving.purchaseorder.POItemQtyFragment"
-        android:label="Item Quantity"
-        tools:layout="@layout/fragment_po_item_qty" />
-
-    <fragment
-        android:id="@+id/nav_po_bin_selection"
-        android:name="com.example.bedashingapp.views.goodsreceiving.purchaseorder.POBinSelectionFragment"
-        android:label="Enter Bin"
-        tools:layout="@layout/fragment_po_bin_selection" />
-
-    <fragment
-        android:id="@+id/nav_po_pdf"
-        android:name="com.example.bedashingapp.views.goodsreceiving.purchaseorder.GoodsReceivingPDFFragment"
-        android:label="PDF"
-        tools:layout="@layout/fragment_goods_receiving_pdf" />
 
     <fragment
         android:id="@+id/nav_completed_docs"

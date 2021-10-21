@@ -29,8 +29,6 @@ import com.example.bedashingapp.utils.Constants
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.dashboard.DashboardFragment
-import com.example.bedashingapp.views.goodsreceiving.GoodsReceivingFragment
-import com.example.bedashingapp.views.goodsreceiving.purchaseorder.*
 import com.example.bedashingapp.views.login.LoginActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -148,180 +146,17 @@ class MainActivity : BaseActivity() {
         sessionManager!!.putIsSynced(false)
         showProgressBar("Syncing...")
 
-        mainActivityViewModel.removeLogisticsDB().observe(this, Observer {
-            it?.let { resource1 ->
-                when (resource1.status) {
-                    Status.SUCCESS -> {
-                        getLogisticsAreaCollection()
-                    }
-                    Status.ERROR -> {
-                        hideProgressBar()
-                        showToastShort(resource1.message!!)
-                    }
-                }
-            }
-        })
+
 
 
     }
 
 
-    private fun getLogisticsAreaCollection() {
-        if (isConnectedToNetwork()) {
 
-            mainActivityViewModel.getLogisticsAreaCollection().observe(this, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            mainActivityViewModel.addLogisticsDB(resource.data?.d?.results!!)
-                                .observe(this, { it1 ->
-                                    it1?.let { resource ->
-                                        when (resource.status) {
-                                            Status.SUCCESS -> {
-                                                mainActivityViewModel.removeItemsDB()
-                                                    .observe(this, { it2 ->
-                                                        it2?.let { resource1 ->
-                                                            when (resource1.status) {
-                                                                Status.SUCCESS -> {
-                                                                    getAllItems()
-                                                                }
-                                                                Status.ERROR -> {
-                                                                    hideProgressBar()
-                                                                    showToastShort(resource1.message!!)
-                                                                }
-                                                            }
-                                                        }
-                                                    })
-                                            }
-                                            Status.ERROR -> {
-                                                hideProgressBar()
-                                                showToastShort(resource.message!!)
-                                            }
-                                        }
-                                    }
-                                })
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            showToastShort(resource.message!!)
-                        }
-                    }
-                }
-            })
-        } else {
-            hideProgressBar()
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
-    }
-
-    private fun getAllItems() {
-        if (isConnectedToNetwork()) {
-            mainActivityViewModel.getAllItems().observe(this, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            mainActivityViewModel.addItems(resource.data?.d?.results!!)
-                                .observe(this, Observer {
-                                    it?.let { resource1 ->
-
-                                        when (resource1.status) {
-                                            Status.SUCCESS -> {
-
-                                                hideProgressBar()
-                                                showSnackBar(
-                                                    resources.getString(R.string.successful_sync_msg),
-                                                    drawer_layout
-                                                )
-                                                sessionManager!!.putIsSynced(flag = true)
-//                                            sessionManager.putLastUpdated((DateUtilsApp.getDateTimeFromMiliSecond(DateUtilsApp.currentDateTimeMS, "dd/MM/yyyy")!!))
-
-                                            }
-                                            Status.LOADING -> {
-
-                                            }
-                                            Status.ERROR -> {
-                                                showToastLong(resource1.message!!)
-                                                hideProgressBar()
-                                            }
-                                        }
-                                    }
-                                })
-                        }
-                        Status.LOADING -> {
-
-                        }
-                        Status.ERROR -> {
-                            showToastLong(resource.message!!)
-                            hideProgressBar()
-                        }
-                    }
-                }
-            })
-        } else {
-            hideProgressBar()
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
-    }
 
 
     //for posting documents
-    fun postDocumentPO(receiveGoodsPORequest: ReceiveGoodsPORequest) {
-        mainActivityViewModel.receiveGoodsPO(receiveGoodsPORequest).observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        hideProgressBar()
-                        if (resource.data?.Success!!) {
-                            updateStatusOfDocument(resource.data.Message, Constants.SYNCED, "")
-                        } else {
-                            updateStatusOfDocument(
-                                receiveGoodsPORequest.ID,
-                                Constants.FAILED,
-                                resource.data.Message
-                            )
-                        }
-                    }
-                    Status.ERROR -> {
-                        showToastLong(resource.message!!)
-                        updateStatusOfDocument(
-                            receiveGoodsPORequest.ID,
-                            Constants.FAILED,
-                            resource.message
-                        )
-                    }
-                }
-            }
-        })
-    }
 
-    fun createOutboundDelivery(outboundDeliveryRequest: CreateOutboundDeliveryRequest) {
-        mainActivityViewModel.createOutboundDelivery(outboundDeliveryRequest).observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        hideProgressBar()
-                        if (resource.data?.Success!!) {
-                            updateStatusOfDocument(mainActivityViewModel.outBoundDeliveryRequestIDForDB, Constants.SYNCED, "")
-                        } else {
-                            updateStatusOfDocument(
-                                mainActivityViewModel.outBoundDeliveryRequestIDForDB,
-                                Constants.FAILED,
-                                resource.data.Message
-                            )
-                        }
-                    }
-                    Status.ERROR -> {
-                        showToastLong(resource.message!!)
-                        updateStatusOfDocument(
-                            mainActivityViewModel.outBoundDeliveryRequestIDForDB,
-                            Constants.FAILED,
-                            resource.message
-                        )
-                    }
-                }
-            }
-        })
-    }
 
     private fun updateStatusOfDocument(id: String, status: String, response: String) {
         mainActivityViewModel.updateStatusOfDocument(id, status, response).observe(this, Observer {
@@ -357,8 +192,8 @@ class MainActivity : BaseActivity() {
         val navHostFragment = fm.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         if (fragment != null) {
-            if (fragment is POItemScanFragment)
-                fragment.onActivityResult(requestCode, resultCode, data)
+//            if (fragment is POItemScanFragment)
+//                fragment.onActivityResult(requestCode, resultCode, data)
 
         }
         super.onActivityResult(requestCode, resultCode, data)
@@ -385,13 +220,13 @@ class MainActivity : BaseActivity() {
         builder.setMessage(text)
 
         builder.setPositiveButton("YES") { _, _ ->
-            if (fragment is POItemScanFragment) {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_po_list, Bundle())
-            }
-            else {
-                super.onBackPressed()
-            }
+//            if (fragment is POItemScanFragment) {
+//                Navigation.findNavController(this, R.id.nav_host_fragment)
+//                    .navigate(R.id.nav_po_list, Bundle())
+//            }
+//            else {
+//                super.onBackPressed()
+//            }
         }
         builder.setNegativeButton("NO") { _, _ ->
 
@@ -413,29 +248,7 @@ class MainActivity : BaseActivity() {
             is DashboardFragment -> {
                 this.finish()
             }
-            is POItemScanFragment -> {
-                showOnExitPrompt(fragment)
-            }
-            is PurchaseOrderListFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_dashboard, Bundle())
-            }
-            is GoodsReceivingFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_dashboard, Bundle())
-            }
-            is POItemQtyFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_po_item_scan, Bundle())
-            }
-            is POBinSelectionFragment -> {
-                //do nothing
-                showToastShort("Please select bin")
-            }
-            is GoodsReceivingPDFFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_po_list, Bundle())
-            }
+
 
 
         }
@@ -445,13 +258,7 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
-            is DashboardFragment,
-            is POItemScanFragment,
-            is PurchaseOrderListFragment,
-            is GoodsReceivingFragment,
-            is POItemQtyFragment,
-            is POBinSelectionFragment,
-            is GoodsReceivingPDFFragment
+            is DashboardFragment
             -> {
                 true
             }
@@ -465,12 +272,7 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
-            is POItemScanFragment,
-            is PurchaseOrderListFragment,
-            is GoodsReceivingFragment,
-            is POItemQtyFragment,
-            is POBinSelectionFragment,
-            is GoodsReceivingPDFFragment
+            is DashboardFragment
             -> {
                 true
             }
@@ -485,29 +287,7 @@ class MainActivity : BaseActivity() {
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         when (fragment) {
 
-            is POItemScanFragment -> {
-                showOnExitPrompt(fragment)
-            }
-            is PurchaseOrderListFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_dashboard, Bundle())
-            }
-            is GoodsReceivingFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_dashboard, Bundle())
-            }
-            is POItemQtyFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_po_item_scan, Bundle())
-            }
-            is POBinSelectionFragment -> {
-                //do nothing
-                showToastShort("Please select bin")
-            }
-            is GoodsReceivingPDFFragment -> {
-                Navigation.findNavController(this, R.id.nav_host_fragment)
-                    .navigate(R.id.nav_po_list, Bundle())
-            }
+
 
         }
     }

@@ -11,49 +11,7 @@ import java.io.Serializable
 
 class DataConverter : Serializable {
 
-    @TypeConverter
-    fun fromGlobalTradeItemNumber(lstGlobalTradeItemNumber: List<GlobalTradeItemNumber>?) : String?{
-        if(lstGlobalTradeItemNumber == null){
-            return (null)
-        }
-        var gson = Gson();
-        var type = object: TypeToken<List<GlobalTradeItemNumber>>(){}.type
 
-        return gson.toJson(lstGlobalTradeItemNumber, type)
-    }
-
-    @TypeConverter
-    fun toGlobalTradeItemNumber(lstGlobalTradeItemString: String?): List<GlobalTradeItemNumber>?{
-        if(lstGlobalTradeItemString == null){
-            return (null)
-        }
-        var gson = Gson()
-        var type = object: TypeToken<List<GlobalTradeItemNumber>>(){}.type
-
-        return gson.fromJson(lstGlobalTradeItemString, type)
-    }
-
-    @TypeConverter
-    fun fromLogistics(lstLogistics: List<Logistic>?) : String?{
-        if(lstLogistics == null){
-            return (null)
-        }
-        var gson = Gson();
-        var type = object: TypeToken<List<Logistic>>(){}.type
-
-        return gson.toJson(lstLogistics, type)
-    }
-
-    @TypeConverter
-    fun toLogistic(lstLogisticsString: String?): List<Logistic>?{
-        if(lstLogisticsString == null){
-            return (null)
-        }
-        var gson = Gson()
-        var type = object: TypeToken<List<Logistic>>(){}.type
-
-        return gson.fromJson(lstLogisticsString, type)
-    }
 
     @TypeConverter
     fun fromQuantityConversion(lstQuantityConversion: List<QuantityConversion>?) : String?{

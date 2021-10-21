@@ -71,44 +71,7 @@ class LoginActivity : BaseActivity() {
 
 
     private fun login(username: String, pw: String) {
-//        if(username == "admin" && pw == "admin"){
-//            sessionManager?.putIsSynced(false)
-//            sessionManager?.putIsLoggedIn(true)
-//            navigateToDashboard()
-//        }else{
-//            showToastShort("Incorrect username/ password")
-//        }
 
-        if (isConnectedToNetwork()) {
-            mainActivityViewModel.login().observe(this, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            val employee = resource.data?.d?.results?.find { employee -> employee.EmployeeCommon[0].UserName_KUT == username && employee.EmployeeCommon[0].Password_KUT == pw }
-                            if (employee != null){
-                                hideProgressBar()
-                                sessionManager?.putEmployeeID(employee.EmployeeID)
-                                sessionManager?.putIsSynced(false)
-                                sessionManager?.putIsLoggedIn(true)
-                                navigateToDashboard()
-                            }else{
-                                hideProgressBar()
-                                showToastShort("Incorrect username/ password")
-                            }
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("Signing in")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            showToastLong(resource.message!!)
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
     }
 
     private fun navigateToDashboard() {

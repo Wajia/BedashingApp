@@ -18,6 +18,25 @@ class ApiHelper(private val apiService: ApiService) {
 //        return apiService.receiveGoodsPO(headers, payload)
 //    }
 
+    suspend fun login(mainURL: String, payload: LoginRequest): LoginResponse{
+        val url = "$mainURL/b1s/v1/Login"
+        return apiService.login(url, payload)
+    }
+
+    suspend fun getUserDetails(mainURL: String, companyName: String, sessionID: String, userCode: String): GetUserDetailsResponse{
+        val url = "$mainURL/b1s/v1/Users?\$filter= UserCode eq '$userCode'"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getUserDetails(url, headers)
+    }
+
+    suspend fun checkConnection(mainURL: String, companyName: String, sessionID: String, userID: String): GetUserDetailsResponse{
+        val url = "$mainURL/b1s/v1/Users($userID)"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.checkConnection(url, headers)
+    }
+
 
 
 }

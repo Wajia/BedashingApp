@@ -10,6 +10,7 @@ import com.example.bedashingapp.BaseFragment
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
+import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
@@ -24,6 +25,7 @@ import kotlinx.android.synthetic.main.fragment_dashboard.*
 class DashboardFragment : BaseFragment() {
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
+    private var sessionManager: SessionManager? = null
 
     override fun getLayout(): Int {
         return R.layout.fragment_dashboard
@@ -33,6 +35,7 @@ class DashboardFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
 
         arguments?.let{
+            sessionManager = SessionManager(requireContext())
             setUpViewModel()
         }
 
@@ -50,6 +53,9 @@ class DashboardFragment : BaseFragment() {
             btn_transfer_order.setOnClickListener{
 
             }
+
+            tv_welcome.text = "WELCOME, ${sessionManager!!.getUserName()}"
+
         }
 
     }

@@ -72,6 +72,7 @@ class SessionManager(_context: Context) {
 
         private const val USER_DFLT_REGION = "user_default_region"
         private const val USER_DFLT_STORE = "user_default_store"
+        private const val SESSION_TIMEOUT = "session_timeout"
     }
 
     init {
@@ -309,6 +310,10 @@ class SessionManager(_context: Context) {
         editor!!.commit()
     }
 
+    fun setSessionTimeOut(timeout: Int){
+        editor!!.putInt(SESSION_TIMEOUT, timeout).commit()
+    }
+
 
     //getters
     fun getWareHouseID(): String {
@@ -364,92 +369,96 @@ class SessionManager(_context: Context) {
     }
 
     fun getBaseURL(): String {
-        return ""
+        return getServer() + ":" + getPort()
     }
 
 
-    fun getUserDfltRegion(): String? {
+    fun getUserDfltRegion(): String {
         return sharedPreferences?.getString(
             USER_DFLT_REGION,
             ""
-        )
+        )!!
     }
 
-    fun getUserDfltStore(): String? {
+    fun getUserDfltStore(): String {
         return sharedPreferences?.getString(
             USER_DFLT_STORE,
             ""
-        )
+        )!!
     }
 
-    fun getServer(): String? {
-        return sharedPreferences?.getString(SERVER, "")
+    fun getServer(): String {
+        return sharedPreferences?.getString(SERVER, "")!!
     }
 
-    fun getPort(): String? {
-        return sharedPreferences?.getString(PORT, "")
+    fun getPort(): String {
+        return sharedPreferences?.getString(PORT, "")!!
     }
 
-    fun getPlatform(): String? {
-        return sharedPreferences?.getString(PLATFORM, "")
+    fun getPlatform(): String {
+        return sharedPreferences?.getString(PLATFORM, "")!!
     }
 
-    fun getCompany(): String? {
-        return sharedPreferences?.getString(COMPANY, "")
+    fun getCompany(): String {
+        return sharedPreferences?.getString(COMPANY, "")!!
     }
 
 
 
-    fun getUserName(): String? {
-        return sharedPreferences?.getString(USER_NAME, "")
+    fun getUserName(): String {
+        return sharedPreferences?.getString(USER_NAME, "")!!
     }
 
-    fun getUserId(): String? {
-        return sharedPreferences?.getString(USER_ID, "")
+    fun getUserId(): String {
+        return sharedPreferences?.getString(USER_ID, "")!!
     }
 
-    fun getSessionId(): String? {
-        return sharedPreferences?.getString(SESSION_ID, "")
+    fun getSessionId(): String {
+        return sharedPreferences?.getString(SESSION_ID, "")!!
     }
 
-    fun getUserDefaultWhs(): String? {
+    fun getUserDefaultWhs(): String {
         return sharedPreferences?.getString(
             USER_DEFAULT_WHS,
             ""
-        )
+        )!!
     }
 
-    fun getUserBranch(): String? {
-        return sharedPreferences?.getString(USER_BRANCH, "")
+    fun getUserBranch(): String {
+        return sharedPreferences?.getString(USER_BRANCH, "")!!
     }
 
-    fun getUserCode(): String? {
-        return sharedPreferences?.getString(USER_CODE, "")
+    fun getUserCode(): String {
+        return sharedPreferences?.getString(USER_CODE, "")!!
     }
 
-    fun getUserBplid(): String? {
-        return sharedPreferences?.getString(USER_BPLID, "")
+    fun getUserBplid(): String {
+        return sharedPreferences?.getString(USER_BPLID, "")!!
     }
 
-    fun getUserAuthGroup(): String? {
+    fun getUserAuthGroup(): String {
         return sharedPreferences?.getString(
             USER_AUTH_GROUP,
             ""
-        )
+        )!!
     }
 
-    fun getUserSyncTime(): String? {
+    fun getUserSyncTime(): String {
         return sharedPreferences?.getString(
             USER_SYNC_TIME,
             ""
-        )
+        )!!
     }
 
-    fun getUserTimeFormat(): String? {
+    fun getUserTimeFormat(): String {
         return sharedPreferences?.getString(
             USER_TIME_FORMAT,
             ""
-        )
+        )!!
+    }
+
+    fun getSessionTimeout(): Int {
+        return sharedPreferences?.getInt(SESSION_TIMEOUT, 0)!!
     }
 
 

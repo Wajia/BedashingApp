@@ -34,6 +34,21 @@ class ServerSettingsActivity : BaseActivity() {
             this.onBackPressed()
         }
 
+        //fetching data if exists
+        et_serverip.setText(sessionManager!!.getServer())
+        et_port.setText(sessionManager!!.getPort())
+        et_company.setText(sessionManager!!.getCompany())
+
+
+        btn_save_sv_settings.setOnClickListener{
+            if(validate()){
+                sessionManager!!.setServer(et_serverip.text.toString())
+                sessionManager!!.setPort(et_port.text.toString())
+                sessionManager!!.setCompany(et_company.text.toString())
+                showToastLong("Server configurations successfully saved")
+            }
+        }
+
 
     }
 
@@ -46,5 +61,21 @@ class ServerSettingsActivity : BaseActivity() {
                 application
             )
         ).get(MainActivityViewModel::class.java)
+    }
+
+    private fun validate(): Boolean{
+        if(et_serverip.text.toString().isEmpty() || !et_serverip.text.toString().matches(("^((http://)|(https://))(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\$").toString().toRegex())){
+            showToastShort("Please enter valid Server IP")
+            return false
+        }
+        if(et_port.text.toString().isEmpty()){
+            showToastShort("Please enter Port")
+            return false
+        }
+        if(et_company.text.toString().isEmpty()){
+            showToastShort("Please enter company name")
+            return false
+        }
+        return true
     }
 }

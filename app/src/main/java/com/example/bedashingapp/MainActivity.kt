@@ -21,11 +21,8 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.*
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
-import com.example.bedashingapp.data.model.remote.CreateOutboundDeliveryRequest
-import com.example.bedashingapp.data.model.remote.ReceiveGoodsPORequest
 import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
-import com.example.bedashingapp.utils.Constants
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.dashboard.DashboardFragment
@@ -62,7 +59,7 @@ class MainActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_logout -> {
-                sessionManager!!.putIsSynced(false)
+//                sessionManager!!.putIsSynced(false)
                 sessionManager!!.putIsLoggedIn(false)
                 sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
                 sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
@@ -104,12 +101,7 @@ class MainActivity : BaseActivity() {
         setSupportActionBar(toolbar)
 
         setUpViewModel()
-        if (sessionManager!!.isSynced()) {
 
-        } else {
-            //Syncing process
-            syncingProcess()
-        }
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
@@ -139,6 +131,22 @@ class MainActivity : BaseActivity() {
         //so that view model can work in fragment dashboard because it is start destination  of Navigation Component
         navigateToFragmentDashboard()
 
+        if (sessionManager!!.isSynced()) {
+
+        } else {
+            //Syncing process
+
+            //check if branch is updated or not
+            //if it is updated then start syncing directly
+            if (sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID()
+                    .isNotEmpty()
+            ) {
+                syncingProcess()
+            } else {
+                navigateToFragmentUpdateBranch()
+            }
+        }
+
     }
 
 
@@ -147,12 +155,7 @@ class MainActivity : BaseActivity() {
         showProgressBar("Syncing...")
 
 
-
-
     }
-
-
-
 
 
     //for posting documents
@@ -183,6 +186,12 @@ class MainActivity : BaseActivity() {
         bundle.putBoolean("ready", true)
         Navigation.findNavController(this, R.id.nav_host_fragment).navigate(
             R.id.nav_dashboard, bundle
+        )
+    }
+
+    private fun navigateToFragmentUpdateBranch() {
+        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(
+            R.id.nav_update_branch
         )
     }
 
@@ -250,7 +259,6 @@ class MainActivity : BaseActivity() {
             }
 
 
-
         }
     }
 
@@ -286,7 +294,6 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         when (fragment) {
-
 
 
         }

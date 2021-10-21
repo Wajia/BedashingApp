@@ -65,13 +65,111 @@ class LoginActivity : BaseActivity() {
 //       ************************** For Wajeeha *****************************
         btn_test.setOnClickListener{
             //change layout here
-            setContentView(R.layout.update_branch)
+            setContentView(R.layout.fragment_update_branch)
         }
     }
 
 
     private fun login(username: String, pw: String) {
+        if(isConnectedToNetwork()) {
+            mainActivityViewModel.login(
+                sessionManager!!.getBaseURL(),
+                sessionManager!!.getCompany(),
+                pw,
+                username = username
+            ).observe(this, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            if(resource.data!!.error == null) {
+                                sessionManager!!.setSessionId(resource.data.SessionId)
+                                sessionManager!!.setSessionTimeOut(resource.data.SessionTimeout!!)
+                                getUserDetails(username, pw)
+                            }else{
+                                hideProgressBar()
+                                showToastLong(resource.data.error!!.message.value)
+                            }
+                        }
+                        Status.LOADING -> {
+                            showProgressBar("Signing in...")
+                        }
+                        Status.ERROR -> {
+                            hideProgressBar()
+                            if(resource.data?.error == null) {
+                                showToastLong(resource.message!!)
+                            }else {
+                                showToastLong(resource.data.error.message.value)
+                            }
+                        }
+                    }
+                }
+            })
+        }else{
+            showToastLong(resources.getString(R.string.network_not_connected_msg))
+        }
+    }
 
+    private fun getUserDetails(userCode: String, password: String){
+        mainActivityViewModel.getUserDetails(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            userCode).observe(
+            this,
+            Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            hideProgressBar()
+                            if (resource.data != null && resource.data.value.isNotEmpty()) {
+                                sessionManager!!.putIsLoggedIn(true)
+
+                                val userData = resource.data.value[0]
+                                //now saving user details
+                                sessionManager!!.putCurrentUserName(userCode)
+                                sessionManager!!.putCurrentPassword(password)
+                                sessionManager!!.setUserId(userData.InternalKey.toString())
+                                sessionManager!!.setUserCode(userData.UserCode)
+                                sessionManager!!.setName(userData.UserName)
+                                sessionManager!!.setUserEmail(userData.eMail)
+                                sessionManager!!.setUserPhone(userData.MobilePhoneNumber)
+                                sessionManager!!.setUserSuperUser(userData.Superuser)
+                                sessionManager!!.setUserBranch(userData.Branch)
+                                sessionManager!!.setUserDepartment(userData.Department)
+                                sessionManager!!.setUserLocked(userData.Locked)
+                                sessionManager!!.setUserGroup(userData.Group)
+                                sessionManager!!.setUserDfltRegion(userData.U_DfltRegn)
+                                sessionManager!!.setUserDfltStore(userData.U_DfltStor)
+
+
+                                //now check if the new user logged in is same as previous user
+                                //if same then no syncing required
+                                //else syncing required
+
+                                if(sessionManager!!.isPreviousUser()){
+                                    sessionManager!!.putIsSynced(sessionManager!!.isSynced())
+                                    sessionManager!!.setUserBPLID(sessionManager!!.getUserBplid())
+                                    sessionManager!!.putWareHouseID(sessionManager!!.getWareHouseID())
+                                }else{
+                                    sessionManager!!.putIsSynced(false)
+                                    sessionManager!!.setUserBPLID("")
+                                    sessionManager!!.putWareHouseID("")
+                                }
+                                navigateToDashboard()
+                            } else {
+                                showToastLong("User is not configured. Please contact Head Office")
+                            }
+                        }
+                        Status.LOADING -> {
+                            showProgressBar("Fetching User Details...")
+                        }
+                        Status.ERROR -> {
+                            hideProgressBar()
+                            showToastLong(resource.message!!)
+                        }
+                    }
+                }
+            })
     }
 
     private fun navigateToDashboard() {

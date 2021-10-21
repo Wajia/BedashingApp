@@ -3,6 +3,7 @@ package com.example.bedashingapp.data.respository
 
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.model.db.PostedDocumentEntity
+import com.example.bedashingapp.data.model.remote.LoginRequest
 import com.example.bedashingapp.data.room.dao.ItemDao
 import com.example.bedashingapp.data.room.dao.PostedDocumentDao
 
@@ -14,6 +15,13 @@ class MainActivityRepository(
 
     //-------------------------------------------------------------api calls--------------------------------------------------------------------------
 
+    suspend fun login(mainURL: String, payload: LoginRequest) = apiHelper.login(mainURL, payload)
+
+    suspend fun getUserDetails(mainURL: String, companyName: String, sessionID: String, userCode: String) =
+        apiHelper.getUserDetails(mainURL, companyName, sessionID,userCode)
+
+    suspend fun checkConnection(mainURL: String, companyName: String, sessionID: String, userID: String) =
+        apiHelper.checkConnection(mainURL, companyName, sessionID, userID)
 
 
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------

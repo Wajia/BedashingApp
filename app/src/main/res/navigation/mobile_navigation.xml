@@ -13,6 +13,12 @@
         android:label="Dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
+    <fragment
+        android:id="@+id/nav_update_branch"
+        android:name="com.example.bedashingapp.views.update_branch.UpdateBranchFragment"
+        android:label="Update Branch"
+        tools:layout="@layout/fragment_update_branch" />
+
 
 
     <fragment

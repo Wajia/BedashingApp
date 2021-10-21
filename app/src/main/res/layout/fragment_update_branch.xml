@@ -47,10 +47,11 @@
             android:hint="Current Branch">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_userName"
+                android:id="@+id/et_branch"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp10"
@@ -68,10 +69,11 @@
             android:hint="Current Warehouse">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/warehouse"
+                android:id="@+id/et_warehouse"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp10"
@@ -89,10 +91,11 @@
             android:hint="Default Vendor">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/vendor"
+                android:id="@+id/et_vendor"
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:enabled="false"
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp10"
@@ -107,5 +110,7 @@
 
 
     </LinearLayout>
+
+    <include layout="@layout/progress_layout"/>
 
 </LinearLayout>

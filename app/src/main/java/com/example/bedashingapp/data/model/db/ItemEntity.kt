@@ -2,7 +2,6 @@ package com.example.bedashingapp.data.model.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.bedashingapp.data.model.remote.QuantityConversion
 
 @Entity(tableName = "table_item")
 data class ItemEntity(
@@ -13,8 +12,7 @@ data class ItemEntity(
         val BaseMeasureUnitCode: String,
         val BaseMeasureUnitCodeText: String,
         val PackagingBarcode_KUT: String,
-        val Barcode_KUT: String,
-        val QuantityConversion: List<QuantityConversion>
+        val Barcode_KUT: String
 
 )
 

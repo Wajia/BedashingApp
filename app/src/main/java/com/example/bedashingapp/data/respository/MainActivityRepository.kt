@@ -23,6 +23,12 @@ class MainActivityRepository(
     suspend fun checkConnection(mainURL: String, companyName: String, sessionID: String, userID: String) =
         apiHelper.checkConnection(mainURL, companyName, sessionID, userID)
 
+    suspend fun getBranches(mainURL: String, companyName: String, sessionID: String) =
+        apiHelper.getBranches(mainURL, companyName, sessionID)
+
+    suspend fun getWarehouses(mainURL: String, companyName: String, sessionID: String) =
+        apiHelper.getWarehouses(mainURL, companyName, sessionID)
+
 
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------
 

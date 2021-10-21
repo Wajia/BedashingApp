@@ -8,36 +8,62 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_weight="1"
         android:layout_marginHorizontal="@dimen/dp16"
-        android:layout_marginTop="@dimen/dp20">
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_weight="1"
+        android:orientation="vertical">
 
         <TextView
+            style="@style/myHeadingStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select a Branch"
-            style="@style/myHeadingStyle"
             android:layout_marginBottom="@dimen/dp10"
+            android:text="Select a Branch"
 
             />
 
-        <Spinner
+        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            android:id="@+id/spinner_branch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dp25"
-            android:spinnerMode="dropdown"
-            android:theme="@style/ThemeOverlay.AppCompat.Light"
+            android:layout_marginBottom="@dimen/dp20"
             android:background="@drawable/spinnerbg"
-            android:layout_marginBottom="@dimen/dp20"/>
+
+            android:spinnerMode="dropdown"
+            android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/layout_warehouse"
+            android:layout_height="wrap_content">
+
+            <TextView
+                style="@style/myHeadingStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp10"
+                android:text="Select a Warehouse"
+
+                />
+
+            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                android:id="@+id/spinner_warehouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp20"
+                android:background="@drawable/spinnerbg"
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+        </LinearLayout>
 
         <TextView
+            style="@style/myHeadingStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Other Details"
-            style="@style/myHeadingStyle"
             android:layout_marginBottom="@dimen/dp18"
-            />
+            android:text="Other Details" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/outlinedTextFieldone"
@@ -51,11 +77,10 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:drawableStart="@drawable/ic_username"
+                android:layout_marginBottom="@dimen/dp10"
                 android:drawableStart="@drawable/ic_ion_git_branch_outline"
                 android:drawablePadding="@dimen/dp8"
-                android:layout_marginBottom="@dimen/dp10"
+                android:enabled="false"
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -74,11 +99,10 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
-                android:drawableStart="@drawable/ic_username"
+                android:layout_marginBottom="@dimen/dp10"
                 android:drawableStart="@drawable/ic_warehouse"
                 android:drawablePadding="@dimen/dp8"
-                android:layout_marginBottom="@dimen/dp10"
+                android:enabled="false"
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true" />
@@ -97,22 +121,27 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:enabled="false"
+                android:layout_marginBottom="@dimen/dp10"
                 android:drawableStart="@drawable/ic_username"
                 android:drawablePadding="@dimen/dp8"
-                android:layout_marginBottom="@dimen/dp10"
+                android:enabled="false"
                 android:inputType="text"
                 android:maxLines="1"
                 android:singleLine="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-
-
-
+        <Button
+            android:id="@+id/btn_save_branch_details"
+            style="@style/Widget.App.Button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginTop="@dimen/dp15"
+            android:text="save" />
 
     </LinearLayout>
 
-    <include layout="@layout/progress_layout"/>
+    <include layout="@layout/progress_layout" />
 
 </LinearLayout>

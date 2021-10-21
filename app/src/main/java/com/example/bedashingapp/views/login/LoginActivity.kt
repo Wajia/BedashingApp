@@ -154,6 +154,8 @@ class LoginActivity : BaseActivity() {
                                     sessionManager!!.putIsSynced(false)
                                     sessionManager!!.setUserBPLID("")
                                     sessionManager!!.putWareHouseID("")
+                                    sessionManager!!.putWareHouseName("")
+                                    sessionManager!!.setUserHeadOfficeCardCode("")
                                 }
                                 navigateToDashboard()
                             } else {

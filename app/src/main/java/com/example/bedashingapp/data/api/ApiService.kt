@@ -33,4 +33,16 @@ interface ApiService {
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
     ): GetUserDetailsResponse
+
+    @GET
+    suspend fun getBranches(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetBranchesResponse
+
+    @GET
+    suspend fun getWarehouses(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetWarehousesResponse
 }

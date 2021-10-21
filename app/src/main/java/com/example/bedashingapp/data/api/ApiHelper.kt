@@ -37,6 +37,20 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.checkConnection(url, headers)
     }
 
+    suspend fun getBranches(mainURL: String, companyName: String, sessionID: String): GetBranchesResponse{
+        val url = "$mainURL/b1s/v1/BusinessPlaces?\$select=BPLID,BPLName,BPLNameForeign,DefaultCustomerID,DefaultVendorID,DefaultWarehouseID&\$filter=Disabled eq 'tNO'"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getBranches(url, headers)
+    }
+
+    suspend fun getWarehouses(mainURL: String, companyName: String, sessionID: String): GetWarehousesResponse{
+        val url = "$mainURL/b1s/v1/Warehouses?\$select=BusinessPlaceID,WarehouseCode,WarehouseName&\$filter=Inactive eq 'tNO'"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getWarehouses(url, headers)
+    }
+
 
 
 }

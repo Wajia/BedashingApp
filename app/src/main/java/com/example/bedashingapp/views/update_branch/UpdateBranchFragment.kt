@@ -3,22 +3,33 @@ package com.example.bedashingapp.views.update_branch
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.bedashingapp.BaseFragment
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
+import com.example.bedashingapp.data.model.remote.Branch
+import com.example.bedashingapp.data.model.remote.Warehouse
 import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.login.LoginActivity
+import kotlinx.android.synthetic.main.fragment_update_branch.*
 
 class UpdateBranchFragment : BaseFragment() {
 
     private lateinit var mainActivityViewModel: MainActivityViewModel
     private var sessionManager: SessionManager? = null
+
+
+    private var branchesList: ArrayList<Branch> = ArrayList()
+    private var warehousesList: ArrayList<Warehouse> = ArrayList()
+    private var spinnerWarehousesList: ArrayList<Warehouse> = ArrayList()
+
 
     override fun getLayout(): Int {
         return R.layout.fragment_update_branch
@@ -34,6 +45,41 @@ class UpdateBranchFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         checkSessionConnection()
+
+
+        spinner_branch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if(position != 0){
+                    spinnerWarehousesList.clear()
+                    spinnerWarehousesList.addAll(warehousesList.filter { it.WarehouseCode == null || it.BusinessPlaceID == branchesList[position].BPLID })
+
+                    val adapter = ArrayAdapter(requireContext(), R.layout.spinner_row, spinnerWarehousesList)
+                    spinner_warehouse.adapter = adapter
+
+                    et_vendor.setText(branchesList[position].DefaultVendorID)
+
+                    layout_warehouse.visibility = View.VISIBLE
+                }else{
+                    et_vendor.setText("")
+                    layout_warehouse.visibility = View.GONE
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+        }
+
+        btn_save_branch_details.setOnClickListener{
+            if(validate()){
+
+            }
+        }
     }
 
 
@@ -49,7 +95,7 @@ class UpdateBranchFragment : BaseFragment() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-
+                            getData()
                         }
                         Status.LOADING-> {
                             showProgressBar("", "")
@@ -73,6 +119,89 @@ class UpdateBranchFragment : BaseFragment() {
 
 
     private fun getData(){
+        branchesList.add(Branch(null, "", "Select a Branch", "", "", ""))
+        warehousesList.add(Warehouse(null, "Select a Warehouse", -985))
+
+        //fetching branches and warehouses
+        getBranches()
+    }
+
+    private fun getBranches(){
+        mainActivityViewModel.getBranches(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId()
+        ).observe(viewLifecycleOwner, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        branchesList.addAll(resource.data?.value as ArrayList)
+                        getWarehouses()
+                    }
+                    Status.LOADING->{
+
+                    }
+                    Status.ERROR->{
+                        hideProgressBar()
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getWarehouses(){
+        mainActivityViewModel.getWarehouses(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId()
+        ).observe(viewLifecycleOwner, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        warehousesList.addAll(resource.data?.value as ArrayList)
+                        hideProgressBar()
+                        setData()
+                    }
+                    Status.LOADING->{
+
+                    }
+                    Status.ERROR->{
+                        hideProgressBar()
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
+    }
+
+
+    private fun setData(){
+        //setting data if it was saved before
+        et_branch.setText(branchesList.find { it.BPLID.toString() == sessionManager!!.getUserBplid() }?.BPLName)
+        et_warehouse.setText(sessionManager!!.getWareHouseName())
+        et_vendor.setText(sessionManager!!.getUserHeadOfficeCardCode())
+
+        //populating branches spinner
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_row, branchesList)
+        spinner_branch.adapter = adapter
+    }
+
+
+    private fun validate(): Boolean{
+        if(spinner_branch.selectedItemPosition == -1 || branchesList[spinner_branch.selectedItemPosition].BPLID == null){
+            showToastShort("Please select a branch")
+            return false
+        }
+        if(spinner_warehouse.selectedItemPosition == -1 || spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseCode == null){
+            showToastShort("Please select a warehouse")
+            return false
+        }
+        if(et_vendor.text.toString().isEmpty()){
+            showToastShort("Branch does not have a default vendor!")
+            return false
+        }
+        return true
 
     }
 

@@ -436,6 +436,13 @@ class SessionManager(_context: Context) {
         return sharedPreferences?.getString(USER_BPLID, "")!!
     }
 
+    fun getUserHeadOfficeCardCode(): String {
+        return sharedPreferences?.getString(
+            USER_HEAD_OFFICE_CARD_CODE,
+            ""
+        )!!
+    }
+
     fun getUserAuthGroup(): String {
         return sharedPreferences?.getString(
             USER_AUTH_GROUP,

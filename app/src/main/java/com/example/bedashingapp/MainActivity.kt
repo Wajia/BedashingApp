@@ -27,6 +27,7 @@ import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.dashboard.DashboardFragment
 import com.example.bedashingapp.views.login.LoginActivity
+import com.example.bedashingapp.views.update_branch.UpdateBranchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity() {
@@ -258,6 +259,10 @@ class MainActivity : BaseActivity() {
                 this.finish()
             }
 
+            is UpdateBranchFragment -> {
+                showToastShort("Please update required details")
+            }
+
 
         }
     }
@@ -266,7 +271,8 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
-            is DashboardFragment
+            is DashboardFragment,
+            is UpdateBranchFragment
             -> {
                 true
             }
@@ -280,7 +286,7 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
-            is DashboardFragment
+            is UpdateBranchFragment
             -> {
                 true
             }
@@ -294,7 +300,9 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         when (fragment) {
-
+            is UpdateBranchFragment -> {
+                showToastShort("Please update required details")
+            }
 
         }
     }

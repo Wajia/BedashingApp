@@ -28,7 +28,7 @@
             android:padding="@dimen/dp25"
             android:spinnerMode="dropdown"
             android:theme="@style/ThemeOverlay.AppCompat.Light"
-
+            android:background="@drawable/spinnerbg"
             android:layout_marginBottom="@dimen/dp20"/>
 
         <TextView
@@ -53,6 +53,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:drawableStart="@drawable/ic_username"
+                android:drawableStart="@drawable/ic_ion_git_branch_outline"
                 android:drawablePadding="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp10"
                 android:inputType="text"
@@ -75,6 +76,7 @@
                 android:layout_height="wrap_content"
                 android:enabled="false"
                 android:drawableStart="@drawable/ic_username"
+                android:drawableStart="@drawable/ic_warehouse"
                 android:drawablePadding="@dimen/dp8"
                 android:layout_marginBottom="@dimen/dp10"
                 android:inputType="text"

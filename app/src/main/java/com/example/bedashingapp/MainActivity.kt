@@ -83,6 +83,9 @@ class MainActivity : BaseActivity() {
                     return true
                 }
             }
+            R.id.action_settings -> {
+                navigateToFragmentUpdateBranch()
+            }
         }
         return super.onOptionsItemSelected(item)
 
@@ -142,7 +145,7 @@ class MainActivity : BaseActivity() {
             if (sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID()
                     .isNotEmpty()
             ) {
-                syncingProcess()
+//                syncingProcess()
             } else {
                 navigateToFragmentUpdateBranch()
             }
@@ -260,7 +263,11 @@ class MainActivity : BaseActivity() {
             }
 
             is UpdateBranchFragment -> {
-                showToastShort("Please update required details")
+                if(sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()){
+                    navigateToFragmentDashboard()
+                }else {
+                    showToastShort("Please update required details")
+                }
             }
 
 
@@ -301,7 +308,11 @@ class MainActivity : BaseActivity() {
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         when (fragment) {
             is UpdateBranchFragment -> {
-                showToastShort("Please update required details")
+                if(sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()){
+                    navigateToFragmentDashboard()
+                }else {
+                    showToastShort("Please update required details")
+                }
             }
 
         }

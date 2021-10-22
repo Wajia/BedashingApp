@@ -6,14 +6,16 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "table_item")
 data class ItemEntity(
         @PrimaryKey
-        val ObjectID : String,
-        val InternalID : String,
-        val Description : String?,
-        val BaseMeasureUnitCode: String,
-        val BaseMeasureUnitCodeText: String,
-        val PackagingBarcode_KUT: String,
-        val Barcode_KUT: String
-
+        val ItemCode: String,
+        val ItemName: String,
+        val BarCode: String,
+        val UoMGroupEntry: String,
+        val U_Deprtmnt: String,
+        val U_PrdctCat: String,
+        val Frozen: String,
+        val ItemsGroupCode: Int,
+        val WarehouseCode: String,
+        val InStock: Double
 )
 
 

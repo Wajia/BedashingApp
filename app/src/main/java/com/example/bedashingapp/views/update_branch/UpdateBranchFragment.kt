@@ -1,4 +1,4 @@
-package com.example.bedashingapp.views.update_branch
+ package com.example.bedashingapp.views.update_branch
 
 import android.content.Intent
 import android.os.Bundle
@@ -30,6 +30,8 @@ class UpdateBranchFragment : BaseFragment() {
     private var warehousesList: ArrayList<Warehouse> = ArrayList()
     private var spinnerWarehousesList: ArrayList<Warehouse> = ArrayList()
 
+    private var defaultVendorID: String = ""
+
 
     override fun getLayout(): Int {
         return R.layout.fragment_update_branch
@@ -60,12 +62,13 @@ class UpdateBranchFragment : BaseFragment() {
 
                     val adapter = ArrayAdapter(requireContext(), R.layout.spinner_row, spinnerWarehousesList)
                     spinner_warehouse.adapter = adapter
+                    spinner_warehouse.setTitle("Warehouses")
 
-                    et_vendor.setText(branchesList[position].DefaultVendorID)
+                    defaultVendorID = branchesList[position].DefaultVendorID
 
                     layout_warehouse.visibility = View.VISIBLE
                 }else{
-                    et_vendor.setText("")
+                    defaultVendorID = ""
                     layout_warehouse.visibility = View.GONE
                 }
             }
@@ -78,6 +81,16 @@ class UpdateBranchFragment : BaseFragment() {
         btn_save_branch_details.setOnClickListener{
             if(validate()){
 
+                val branchCode = branchesList[spinner_branch.selectedItemPosition].BPLID.toString()
+                val warehouseCode = spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseCode.toString()
+                val warehouseName = spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseName
+
+                sessionManager!!.setUserBPLID(branchCode)
+                sessionManager!!.setUserBranch(branchCode)
+                sessionManager!!.putWareHouseID(warehouseCode)
+                sessionManager!!.setUserDefaultWhs(warehouseName)
+                sessionManager!!.putWareHouseName(warehouseName)
+                sessionManager!!.setUserHeadOfficeCardCode(defaultVendorID)
             }
         }
     }
@@ -185,6 +198,7 @@ class UpdateBranchFragment : BaseFragment() {
         //populating branches spinner
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_row, branchesList)
         spinner_branch.adapter = adapter
+        spinner_branch.setTitle("Branches")
     }
 
 
@@ -197,7 +211,7 @@ class UpdateBranchFragment : BaseFragment() {
             showToastShort("Please select a warehouse")
             return false
         }
-        if(et_vendor.text.toString().isEmpty()){
+        if(defaultVendorID.isEmpty()){
             showToastShort("Branch does not have a default vendor!")
             return false
         }

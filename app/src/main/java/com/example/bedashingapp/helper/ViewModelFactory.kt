@@ -19,6 +19,9 @@ class ViewModelFactory(
                 MainActivityRepository(
                     apiHelper,
                     TVGDatabase.getDatabase(application).itemDao(),
+                    TVGDatabase.getDatabase(application).uomDao(),
+                    TVGDatabase.getDatabase(application).uomGroupDao(),
+                    TVGDatabase.getDatabase(application).barcodeDao(),
                     TVGDatabase.getDatabase(application).postedDocumentDao()
                 )
             ) as T

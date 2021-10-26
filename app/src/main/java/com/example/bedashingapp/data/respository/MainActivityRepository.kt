@@ -2,14 +2,16 @@ package com.example.bedashingapp.data.respository
 
 
 import com.example.bedashingapp.data.api.ApiHelper
-import com.example.bedashingapp.data.model.db.PostedDocumentEntity
-import com.example.bedashingapp.data.model.remote.LoginRequest
-import com.example.bedashingapp.data.room.dao.ItemDao
-import com.example.bedashingapp.data.room.dao.PostedDocumentDao
+import com.example.bedashingapp.data.model.db.*
+import com.example.bedashingapp.data.model.remote.*
+import com.example.bedashingapp.data.room.dao.*
 
 class MainActivityRepository(
     private val apiHelper: ApiHelper,
     private val itemDao: ItemDao,
+    private val uomDao: UOMDao,
+    private val uomGroupDao: UomGroupDao,
+    private val barcodeDao: BarcodeDao,
     private val postedDocumentDao: PostedDocumentDao
 ) {
 
@@ -17,10 +19,20 @@ class MainActivityRepository(
 
     suspend fun login(mainURL: String, payload: LoginRequest) = apiHelper.login(mainURL, payload)
 
-    suspend fun getUserDetails(mainURL: String, companyName: String, sessionID: String, userCode: String) =
-        apiHelper.getUserDetails(mainURL, companyName, sessionID,userCode)
+    suspend fun getUserDetails(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        userCode: String
+    ) =
+        apiHelper.getUserDetails(mainURL, companyName, sessionID, userCode)
 
-    suspend fun checkConnection(mainURL: String, companyName: String, sessionID: String, userID: String) =
+    suspend fun checkConnection(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        userID: String
+    ) =
         apiHelper.checkConnection(mainURL, companyName, sessionID, userID)
 
     suspend fun getBranches(mainURL: String, companyName: String, sessionID: String) =
@@ -29,20 +41,70 @@ class MainActivityRepository(
     suspend fun getWarehouses(mainURL: String, companyName: String, sessionID: String) =
         apiHelper.getWarehouses(mainURL, companyName, sessionID)
 
+    suspend fun getItemsMaster(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        warehouseCode: String,
+        from: Int
+    ): GetItemsMasterResponse {
+        if (from == 0) {
+            itemDao.removeAllItems()
+        }
+        return apiHelper.getItemsMaster(mainURL, companyName, sessionID, warehouseCode, from)
+    }
+
+    suspend fun getUoms(mainURL: String, companyName: String, sessionID: String): GetUOMsResponse {
+        uomDao.removeAllUoms()
+        return apiHelper.getUoms(mainURL, companyName, sessionID)
+    }
+
+    suspend fun getUomGroups(
+        mainURL: String,
+        companyName: String,
+        sessionID: String
+    ): GetUomGroupsResponse {
+        uomGroupDao.removeAllUomGroups()
+        return apiHelper.getUomGroups(mainURL, companyName, sessionID)
+    }
+
+    suspend fun getBarcodes(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        from: Int
+    ): GetBarcodesResponse {
+        if (from == 0) {
+            barcodeDao.removeAllBarcodes()
+        }
+        return apiHelper.getBarcodes(mainURL, companyName, sessionID, from)
+    }
+
 
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------
 
 
+    suspend fun addItemsDB(data: List<ItemEntity>) =
+        itemDao.insertItems(data)
+
+    suspend fun addUOMs(data: List<UOMEntity>) =
+        uomDao.insertUOMs(data)
+
+    suspend fun addUOMGroups(data: List<UOMGroupEntity>) =
+        uomGroupDao.insertUOMGroups(data)
+
+    suspend fun addBarcodes(data: List<BarcodeEntity>) =
+        barcodeDao.insertBarcodes(data)
 
     suspend fun insertDocument(document: PostedDocumentEntity): Long {
         return postedDocumentDao.insertDocument(document)
     }
 
-    suspend fun getAllDocuments(): List<PostedDocumentEntity>{
+    suspend fun getAllDocuments(): List<PostedDocumentEntity> {
         return postedDocumentDao.getPostedDocuments()
     }
 
-    suspend fun updateStatusOfDocument(id: String, status: String, response: String){
+    suspend fun updateStatusOfDocument(id: String, status: String, response: String) {
         return postedDocumentDao.updateStatus(status, response, id)
     }
 

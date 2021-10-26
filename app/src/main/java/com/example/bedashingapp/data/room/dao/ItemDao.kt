@@ -15,17 +15,17 @@ interface ItemDao {
     @Query("SELECT * FROM table_item")
     fun getAllItems() : List<ItemEntity>
 
-    @Query("SELECT * FROM table_item WHERE ObjectID = :itemCode")
+    @Query("SELECT * FROM table_item WHERE ItemCode = :itemCode")
     suspend fun getItemByItemCode(itemCode: String): ItemEntity
 
     @Query("DELETE FROM table_item")
     fun removeAllItems(): Int
 
-    @Query("SELECT * FROM table_item WHERE InternalID IN (:ids)")
-    fun getItemsBarcode(ids: List<String>): List<ItemEntity>
+//    @Query("SELECT * FROM table_item WHERE InternalID IN (:ids)")
+//    fun getItemsBarcode(ids: List<String>): List<ItemEntity>
 
-    @Query("SELECT * FROM table_item WHERE ObjectID = :id")
-    fun getItem(id: String): ItemEntity
+//    @Query("SELECT * FROM table_item WHERE ObjectID = :id")
+//    fun getItem(id: String): ItemEntity
 //
 //    @Query("SELECT * FROM table_item WHERE Category = :category")
 //    fun getAllItemsByCategory(category: String): List<ItemEntity>

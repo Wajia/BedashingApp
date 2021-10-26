@@ -2,6 +2,7 @@ package com.example.bedashingapp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -42,6 +43,8 @@ class MainActivity : BaseActivity() {
     private var globalProgressLayout: RelativeLayout? = null
     private var globalProgressBar: ProgressBar? = null
     private var progressErrorTxt: TextView? = null
+
+    private var dataCount: Int = 0
 
     override fun onBackPressed() {
         if (eligibleForHandlingBackPress()) {
@@ -145,7 +148,7 @@ class MainActivity : BaseActivity() {
             if (sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID()
                     .isNotEmpty()
             ) {
-//                syncingProcess()
+                syncingProcess()
             } else {
                 navigateToFragmentUpdateBranch()
             }
@@ -155,10 +158,210 @@ class MainActivity : BaseActivity() {
 
 
     private fun syncingProcess() {
-        sessionManager!!.putIsSynced(false)
-        showProgressBar("Syncing...")
+
+        if(isConnectedToNetwork()) {
+            mainActivityViewModel.checkConnection(
+                sessionManager!!.getBaseURL(),
+                sessionManager!!.getCompany(),
+                sessionManager!!.getSessionId(),
+                sessionManager!!.getUserId()
+            ).observe(this, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            dataCount = 0
+                            sessionManager!!.putIsSynced(false)
+                            showProgressBar("Syncing...")
+                            getItemsMaster()
+                        }
+                        Status.LOADING-> {
+                            showProgressBar("")
+                        }
+                        Status.ERROR->{
+                            hideProgressBar()
+                            sessionManager!!.putIsLoggedIn(false)
+                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
+                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
+
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finishAffinity()
+                        }
+                    }
+                }
+            })
+        }else{
+            showToastLong(resources.getString(R.string.network_not_connected_msg))
+        }
+
+    }
+
+    private fun getItemsMaster(){
+        mainActivityViewModel.getItemsMasterData(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            sessionManager!!.getWareHouseID(),
+            dataCount
+        ).observe(this, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        if(resource.data!!.value.isNotEmpty()){
+                            dataCount += resource.data.value.size
+                            mainActivityViewModel.saveItemsMaster(resource.data.value).observe(this, Observer { it1->
+                                it1?.let{resource1 ->
+                                    when(resource1.status){
+                                        Status.SUCCESS->{
+                                            getItemsMaster()
+                                        }
+                                        Status.LOADING->{
+
+                                        }
+                                        Status.ERROR->{
+                                            showToastLong(resource.message!!)
+                                            hideProgressBar()
+                                        }
+                                    }
+                                }
+                            })
+                        }else{
+                            dataCount = 0
+                            getUoms()
+                        }
+                    }
+                    Status.LOADING->{
+                        showProgressBar("Syncing Items...")
+                    }
+                    Status.ERROR->{
+                        hideProgressBar()
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
+    }
 
 
+    private fun getUoms(){
+        mainActivityViewModel.getUoms(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId()
+        ).observe(this, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        mainActivityViewModel.saveUoms(resource.data!!.value).observe(this, Observer { it1->
+                            it1?.let { resource1 ->
+                                when(resource1.status){
+                                    Status.SUCCESS->{
+                                        getUomGroups()
+                                    }
+                                    Status.LOADING->{
+
+                                    }
+                                    Status.ERROR->{
+                                        hideProgressBar()
+                                        showToastLong(resource.message!!)
+                                    }
+                                }
+                            }
+                        })
+                    }
+                    Status.LOADING->{
+                        showProgressBar("Syncing UOMs...")
+                    }
+                    Status.ERROR->{
+                        hideProgressBar()
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun  getUomGroups(){
+        mainActivityViewModel.getUomGroups(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId()
+        ).observe(this, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        mainActivityViewModel.saveUomGroups(resource.data!!.value).observe(this, Observer { it1->
+                            it1?.let { resource1 ->
+                                when(resource1.status){
+                                    Status.SUCCESS->{
+                                        getBarcodes()
+                                    }
+                                    Status.LOADING->{
+
+                                    }
+                                    Status.ERROR->{
+                                        hideProgressBar()
+                                        showToastLong(resource.message!!)
+                                    }
+                                }
+                            }
+                        })
+                    }
+                    Status.LOADING->{
+                        showProgressBar("Syncing UOM Groups...")
+                    }
+                    Status.ERROR->{
+                        hideProgressBar()
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getBarcodes(){
+        mainActivityViewModel.getBarcodes(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            dataCount
+        ).observe(this, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        if(resource.data!!.value.isNotEmpty()){
+                            dataCount += resource.data.value.size
+                            mainActivityViewModel.saveBarcodes(resource.data.value).observe(this, Observer { it1->
+                                it1?.let{resource1 ->
+                                    when(resource1.status){
+                                        Status.SUCCESS->{
+                                            getBarcodes()
+                                        }
+                                        Status.LOADING->{
+
+                                        }
+                                        Status.ERROR->{
+                                            showToastLong(resource.message!!)
+                                            hideProgressBar()
+                                        }
+                                    }
+                                }
+                            })
+                        }else{
+                            sessionManager!!.putIsSynced(true)
+                            hideProgressBar()
+                            showSnackBar("Database synchronized successfully", drawer_layout)
+                        }
+                    }
+                    Status.LOADING->{
+                        showProgressBar("Syncing barcodes...")
+                    }
+                    Status.ERROR->{
+                        hideProgressBar()
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
     }
 
 
@@ -197,6 +400,11 @@ class MainActivity : BaseActivity() {
         Navigation.findNavController(this, R.id.nav_host_fragment).navigate(
             R.id.nav_update_branch
         )
+    }
+
+    fun reloadActivity(){
+        finishAffinity()
+        startActivity(Intent(applicationContext, MainActivity::class.java))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -319,6 +527,7 @@ class MainActivity : BaseActivity() {
     }
 
     private fun showProgressBar(message: String) {
+        Log.i("PROGRESS_BAR", message)
         globalProgressBar?.visibility = View.VISIBLE
         progressErrorTxt?.visibility = View.VISIBLE
         progressErrorTxt?.text = message

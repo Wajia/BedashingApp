@@ -51,6 +51,36 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.getWarehouses(url, headers)
     }
 
+    suspend fun getItemsMaster(mainURL: String, companyName: String, sessionID: String, warehouseCode: String, from: Int): GetItemsMasterResponse{
+        val url = "$mainURL/b1s/v1/\$crossjoin(Items,Items/ItemWarehouseInfoCollection)?\$expand=Items(\$select=ItemCode,ItemName,BarCode,UoMGroupEntry,U_Deprtmnt,U_PrdctCat,Frozen,ItemsGroupCode),Items/ItemWarehouseInfoCollection(\$select=WarehouseCode,InStock)&\$filter=Items/ItemWarehouseInfoCollection/ItemCode eq Items/ItemCode and Items/ItemWarehouseInfoCollection/WarehouseCode eq '$warehouseCode' and ((Items/BarCode ne 'X') and (Items/BarCode ne '0') and (Items/BarCode ne null) and (Items/BarCode ne 'xx')) and ((Items/Series eq 70)  or  (Items/Series eq 71)  or  (Items/Series eq 74) )&\$skip=$from"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=500"
+        return apiService.getItemsMaster(url, headers)
+    }
+
+    suspend fun getUoms(mainURL: String, companyName: String, sessionID: String): GetUOMsResponse{
+        val url = "$mainURL/b1s/v1/UnitOfMeasurements"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getUoms(url, headers)
+    }
+
+    suspend fun getUomGroups(mainURL: String, companyName: String, sessionID: String): GetUomGroupsResponse{
+        val url = "$mainURL/b1s/v1/UnitOfMeasurementGroups?\$select=AbsEntry,UoMGroupDefinitionCollection"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getUomGroups(url, headers)
+    }
+
+    suspend fun getBarcodes(mainURL: String, companyName: String, sessionID: String, from: Int): GetBarcodesResponse{
+        val url = "$mainURL/b1s/v1/\$crossjoin(BarCodes,Items)?\$expand=BarCodes(\$select=AbsEntry,ItemNo,UoMEntry,Barcode)&\$filter=BarCodes/ItemNo eq Items/ItemCode and ((Items/BarCode ne 'X') and (Items/BarCode ne '0') and (Items/BarCode ne null) and (Items/BarCode ne 'xx')) and ((Items/Series eq 70)  or  (Items/Series eq 71)  or  (Items/Series eq 74) )&\$skip=$from"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=500"
+        return apiService.getBarcodes(url, headers)
+    }
+
 
 
 }

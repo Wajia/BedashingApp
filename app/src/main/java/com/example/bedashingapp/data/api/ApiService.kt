@@ -45,4 +45,28 @@ interface ApiService {
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
     ): GetWarehousesResponse
+
+    @GET
+    suspend fun getItemsMaster(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetItemsMasterResponse
+
+    @GET
+    suspend fun getUoms(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetUOMsResponse
+
+    @GET
+    suspend fun getUomGroups(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetUomGroupsResponse
+
+    @GET
+    suspend fun getBarcodes(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetBarcodesResponse
 }

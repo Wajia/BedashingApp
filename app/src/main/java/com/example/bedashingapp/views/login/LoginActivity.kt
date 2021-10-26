@@ -51,7 +51,11 @@ class LoginActivity : BaseActivity() {
             if (et_userName.text.toString().isNotEmpty() && et_password.text.toString()
                     .isNotEmpty()
             ) {
-                login(et_userName.text.toString(), et_password.text.toString())
+                if(sessionManager!!.getServer().isNotEmpty()) {
+                    login(et_userName.text.toString(), et_password.text.toString())
+                }else{
+                    showToastLong("Please specify Server IP, Port & Company name")
+                }
             } else {
                 showToastShort("Please enter username/ password")
             }

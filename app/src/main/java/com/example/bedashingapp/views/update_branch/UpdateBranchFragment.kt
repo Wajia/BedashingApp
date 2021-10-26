@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.example.bedashingapp.BaseFragment
+import com.example.bedashingapp.MainActivity
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
@@ -91,6 +92,9 @@ class UpdateBranchFragment : BaseFragment() {
                 sessionManager!!.setUserDefaultWhs(warehouseName)
                 sessionManager!!.putWareHouseName(warehouseName)
                 sessionManager!!.setUserHeadOfficeCardCode(defaultVendorID)
+
+                sessionManager!!.putIsSynced(false)
+                (requireActivity() as MainActivity).reloadActivity()
             }
         }
     }

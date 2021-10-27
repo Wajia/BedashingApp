@@ -80,6 +80,17 @@ class MainActivityRepository(
         return apiHelper.getBarcodes(mainURL, companyName, sessionID, from)
     }
 
+    suspend fun getPOCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int, VendorCode: String) =
+        apiHelper.getPOCount(mainURL, companyName, sessionID, BPLID, VendorCode)
+
+    suspend fun getGRPOCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int, VendorCode: String) =
+        apiHelper.getGRPOCount(mainURL, companyName, sessionID, BPLID, VendorCode)
+
+    suspend fun getDeliveryCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int) =
+        apiHelper.getDeliveryCount(mainURL, companyName, sessionID, BPLID)
+
+    suspend fun getInventoryCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int) =
+        apiHelper.getInventoryCount(mainURL, companyName, sessionID, BPLID)
 
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------
 

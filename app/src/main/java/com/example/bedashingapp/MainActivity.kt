@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowManager
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
 import android.widget.TextView
@@ -135,11 +136,11 @@ class MainActivity : BaseActivity() {
 //        navView.setupWithNavController(navController)
 
 
-        //so that view model can work in fragment dashboard because it is start destination  of Navigation Component
-        navigateToFragmentDashboard()
+
 
         if (sessionManager!!.isSynced()) {
-
+            //so that view model can work in fragment dashboard because it is start destination  of Navigation Component
+            navigateToFragmentDashboard()
         } else {
             //Syncing process
 
@@ -148,6 +149,9 @@ class MainActivity : BaseActivity() {
             if (sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID()
                     .isNotEmpty()
             ) {
+                //so that view model can work in fragment dashboard because it is start destination  of Navigation Component
+                navigateToFragmentDashboard()
+
                 syncingProcess()
             } else {
                 navigateToFragmentUpdateBranch()
@@ -160,6 +164,8 @@ class MainActivity : BaseActivity() {
     private fun syncingProcess() {
 
         if(isConnectedToNetwork()) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+
             mainActivityViewModel.checkConnection(
                 sessionManager!!.getBaseURL(),
                 sessionManager!!.getCompany(),
@@ -347,6 +353,7 @@ class MainActivity : BaseActivity() {
                                 }
                             })
                         }else{
+                            window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                             sessionManager!!.putIsSynced(true)
                             hideProgressBar()
                             showSnackBar("Database synchronized successfully", drawer_layout)

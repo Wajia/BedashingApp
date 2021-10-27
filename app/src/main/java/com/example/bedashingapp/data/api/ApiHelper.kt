@@ -81,6 +81,38 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.getBarcodes(url, headers)
     }
 
+    suspend fun getPOCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int, VendorCode: String): Int{
+        val url = "$mainURL/b1s/v1/PurchaseOrders/\$count?\$filter=DocumentStatus eq 'bost_Open' and BPL_IDAssignedToInvoice eq $BPLID and CardCode eq '$VendorCode'"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getPOCount(url, headers)
+    }
+
+    suspend fun getGRPOCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int, VendorCode: String): Int{
+        val url = "$mainURL/b1s/v1/PurchaseDeliveryNotes/\$count?\$filter=DocumentStatus eq 'bost_Open' and BPL_IDAssignedToInvoice eq $BPLID and CardCode eq '$VendorCode'"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getGRPOCount(url, headers)
+    }
+
+    suspend fun getDeliveryCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int): Int{
+        val url = "$mainURL/b1s/v1/DeliveryNotes/\$count?\$filter=DocumentStatus eq 'bost_Open' and BPL_IDAssignedToInvoice eq $BPLID"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getDeliveryCount(url, headers)
+    }
+
+    suspend fun getInventoryCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int): Int{
+        val url = "$mainURL/b1s/v1/InventoryCountings/\$count?\$filter=DocumentStatus eq 'cdsOpen' and BranchID  eq $BPLID"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getInventoryCount(url, headers)
+    }
+
+
+
+
+
 
 
 }

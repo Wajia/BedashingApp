@@ -1,5 +1,6 @@
 package com.example.bedashingapp.views.dashboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -14,6 +15,7 @@ import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
+import com.example.bedashingapp.views.login.LoginActivity
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
 
@@ -46,15 +48,11 @@ class DashboardFragment : BaseFragment() {
 
         arguments?.let{
 //            setupObserver()
-            btn_goods_receiving.setOnClickListener{
 
-            }
-
-            btn_transfer_order.setOnClickListener{
-
-            }
 
             tv_welcome.text = "WELCOME, ${sessionManager!!.getUserName()}"
+
+            checkSessionConnection()
 
         }
 
@@ -62,6 +60,141 @@ class DashboardFragment : BaseFragment() {
 
     private fun setupObserver(){
         
+    }
+
+    private fun checkSessionConnection(){
+        if(isConnectedToNetwork()) {
+            mainActivityViewModel.checkConnection(
+                sessionManager!!.getBaseURL(),
+                sessionManager!!.getCompany(),
+                sessionManager!!.getSessionId(),
+                sessionManager!!.getUserId()
+            ).observe(viewLifecycleOwner, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            hideProgressBar()
+                            getPOCount()
+                            getGPROCount()
+                            getDeliveryCount()
+                            getInventoryCount()
+                        }
+                        Status.LOADING-> {
+                            showProgressBar("", "")
+                        }
+                        Status.ERROR->{
+                            hideProgressBar()
+                            sessionManager!!.putIsLoggedIn(false)
+                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
+                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
+
+                            startActivity(Intent(requireContext(), LoginActivity::class.java))
+                            requireActivity().finishAffinity()
+                        }
+                    }
+                }
+            })
+        }else{
+            showToastLong(resources.getString(R.string.network_not_connected_msg))
+        }
+    }
+
+    private fun getPOCount(){
+        mainActivityViewModel.getPOCount(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            sessionManager!!.getUserBplid(),
+            sessionManager!!.getUserHeadOfficeCardCode()
+        ).observe(viewLifecycleOwner, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        tv_po_count.text = resource.data.toString()
+                    }
+                    Status.LOADING->{
+
+                    }
+                    Status.ERROR->{
+                        showToastLong(resource.message!!)
+                        tv_po_count.text = "error"
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getGPROCount(){
+        mainActivityViewModel.getGRPOCount(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            sessionManager!!.getUserBplid(),
+            sessionManager!!.getUserHeadOfficeCardCode()
+        ).observe(viewLifecycleOwner, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        tv_goods_receipt_note_count.text = resource.data.toString()
+                    }
+                    Status.LOADING->{
+
+                    }
+                    Status.ERROR->{
+                        showToastLong(resource.message!!)
+                        tv_goods_receipt_note_count.text = "error"
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getDeliveryCount(){
+        mainActivityViewModel.getDeliveryCount(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            sessionManager!!.getUserBplid()
+        ).observe(viewLifecycleOwner, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        tv_delivery_count.text = resource.data.toString()
+                    }
+                    Status.LOADING->{
+
+                    }
+                    Status.ERROR->{
+                        showToastLong(resource.message!!)
+                        tv_delivery_count.text = "error"
+                    }
+                }
+            }
+        })
+    }
+
+    private fun getInventoryCount(){
+        mainActivityViewModel.getInventoryCount(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            sessionManager!!.getUserBplid()
+        ).observe(viewLifecycleOwner, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        tv_stock_count.text = resource.data.toString()
+                    }
+                    Status.LOADING->{
+
+                    }
+                    Status.ERROR->{
+                        showToastLong(resource.message!!)
+                        tv_stock_count.text = "error"
+                    }
+                }
+            }
+        })
     }
 
     private fun setUpViewModel() {

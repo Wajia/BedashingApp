@@ -69,4 +69,28 @@ interface ApiService {
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
     ): GetBarcodesResponse
+
+    @GET
+    suspend fun getPOCount(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): Int
+
+    @GET
+    suspend fun getGRPOCount(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): Int
+
+    @GET
+    suspend fun getDeliveryCount(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): Int
+
+    @GET
+    suspend fun getInventoryCount(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): Int
 }

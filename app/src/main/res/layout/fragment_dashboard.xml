@@ -54,13 +54,37 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-
                             android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_goodsreceiving"/>
+                                android:layout_weight="1"
+                                android:weightSum="2"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_goodsreceiving"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="12"
+                                    android:layout_marginLeft="@dimen/dp25"
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:background="@drawable/roundshape"
+                                    android:paddingVertical="@dimen/dp2"
+                                    android:paddingHorizontal="@dimen/dp5"
+                                    android:textColor="#E25725"
+                                    android:textSize="@dimen/sp16"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </LinearLayout>
+
+
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -93,11 +117,33 @@
                             android:orientation="vertical"
                             >
 
-                            <ImageView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:weightSum="2"
+                                android:orientation="horizontal">
 
-                                android:src="@drawable/ic_transferorder"/>
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_transferorder"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="12"
+                                    android:layout_marginLeft="@dimen/dp25"
+                                    android:layout_gravity="end"
+                                    android:gravity="end"
+                                    android:background="@drawable/roundshape"
+                                    android:paddingVertical="@dimen/dp2"
+                                    android:paddingHorizontal="@dimen/dp5"
+                                    android:textColor="#E25725"
+                                    android:textSize="@dimen/sp16"
+                                    android:fontFamily="@font/open_sans_semibold"/>
+                            </LinearLayout>
 
                             <TextView
                                 android:layout_width="wrap_content"

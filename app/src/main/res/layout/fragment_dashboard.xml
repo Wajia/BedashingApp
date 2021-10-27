@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/root"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".views.dashboard.DashboardFragment"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".views.dashboard.DashboardFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
@@ -16,18 +16,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginHorizontal="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp20">
+            android:layout_marginTop="@dimen/dp20"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_welcome"
+                style="@style/myHeadingStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tv_welcome"
-                android:text="@string/welcome_user"
-                style="@style/myHeadingStyle"
                 android:layout_marginBottom="@dimen/dp10"
-                />
+                android:text="@string/welcome_user" />
 
             <GridLayout
                 android:layout_width="match_parent"
@@ -43,120 +42,145 @@
                     >
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
                         style="@style/dashboardCard"
-                        android:id="@+id/btn_goods_receiving"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        app:cardUseCompatPadding="true"
-                       >
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:alpha="0.3"
                             android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:weightSum="2"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:weightSum="2">
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_goodsreceiving"/>
+                                    android:src="@drawable/ic_goodsreceiving" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="12"
-                                    android:layout_marginLeft="@dimen/dp25"
-                                    android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:background="@drawable/roundshape"
-                                    android:paddingVertical="@dimen/dp2"
-                                    android:paddingHorizontal="@dimen/dp5"
-                                    android:textColor="#E25725"
-                                    android:textSize="@dimen/sp16"
-                                    android:fontFamily="@font/open_sans_semibold"/>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/tv_po_count"
+                                        android:autoSizeMaxTextSize="@dimen/sp16"
+                                        android:autoSizeMinTextSize="@dimen/sp10"
+                                        android:autoSizeStepGranularity="@dimen/dp1"
+                                        android:autoSizeTextType="uniform"
+                                        android:background="@drawable/roundshape"
+                                        android:fontFamily="@font/open_sans_semibold"
+                                        android:gravity="end"
+                                        android:maxLines="1"
+                                        android:paddingHorizontal="@dimen/dp5"
+                                        android:paddingVertical="@dimen/dp2"
+                                        android:text="loading"
+                                        android:textColor="#E25725"
+                                        android:textSize="@dimen/sp16" />
+                                </LinearLayout>
                             </LinearLayout>
-
 
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Goods Receiving"
                                 android:layout_marginTop="@dimen/dp8"
+                                android:autoSizeMaxTextSize="@dimen/sp15"
+                                android:autoSizeMinTextSize="@dimen/sp10"
+                                android:autoSizeStepGranularity="@dimen/dp1"
+                                android:autoSizeTextType="uniform"
+                                android:fontFamily="@font/open_sans"
+                                android:maxLines="1"
+                                android:text="Purchase Orders"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp15"
-                                android:fontFamily="@font/open_sans"/>
+                                android:textSize="@dimen/sp15" />
 
                         </LinearLayout>
-
-
 
 
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
                         style="@style/dashboardCard"
-                        android:id="@+id/btn_transfer_order"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        app:cardUseCompatPadding="true"
-                        >
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            >
+                            android:alpha="0.3"
+                            android:orientation="vertical">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:weightSum="2"
-                                android:orientation="horizontal">
+                                android:orientation="horizontal"
+                                android:weightSum="2">
 
                                 <ImageView
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/ic_transferorder"/>
+                                    android:src="@drawable/ic_goodsreceiving" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="12"
-                                    android:layout_marginLeft="@dimen/dp25"
-                                    android:layout_gravity="end"
-                                    android:gravity="end"
-                                    android:background="@drawable/roundshape"
-                                    android:paddingVertical="@dimen/dp2"
-                                    android:paddingHorizontal="@dimen/dp5"
-                                    android:textColor="#E25725"
-                                    android:textSize="@dimen/sp16"
-                                    android:fontFamily="@font/open_sans_semibold"/>
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/tv_goods_receipt_note_count"
+                                        android:autoSizeMaxTextSize="@dimen/sp16"
+                                        android:autoSizeMinTextSize="@dimen/sp10"
+                                        android:autoSizeStepGranularity="@dimen/dp1"
+                                        android:autoSizeTextType="uniform"
+                                        android:background="@drawable/roundshape"
+                                        android:fontFamily="@font/open_sans_semibold"
+                                        android:gravity="end"
+                                        android:maxLines="1"
+                                        android:paddingHorizontal="@dimen/dp5"
+                                        android:paddingVertical="@dimen/dp2"
+                                        android:text="loading"
+                                        android:textColor="#E25725"
+                                        android:textSize="@dimen/sp16" />
+                                </LinearLayout>
                             </LinearLayout>
+
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Transfer Orders"
                                 android:layout_marginTop="@dimen/dp8"
+                                android:autoSizeMaxTextSize="@dimen/sp15"
+                                android:autoSizeMinTextSize="@dimen/sp10"
+                                android:autoSizeStepGranularity="@dimen/dp1"
+                                android:autoSizeTextType="uniform"
+                                android:fontFamily="@font/open_sans"
+                                android:maxLines="1"
+                                android:text="Goods Receipt Note"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp15"
-                                android:fontFamily="@font/open_sans"/>
+                                android:textSize="@dimen/sp15" />
 
                         </LinearLayout>
-
-
 
 
                     </com.google.android.material.card.MaterialCardView>
@@ -171,80 +195,150 @@
                     >
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
                         style="@style/dashboardCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_weight="50"
-                        app:cardUseCompatPadding="true"
-                        >
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:alpha="0.3">
+                            android:alpha="0.3"
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_inventory"/>
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/ic_goodsreceiving" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/tv_delivery_count"
+                                        android:autoSizeMaxTextSize="@dimen/sp16"
+                                        android:autoSizeMinTextSize="@dimen/sp10"
+                                        android:autoSizeStepGranularity="@dimen/dp1"
+                                        android:autoSizeTextType="uniform"
+                                        android:background="@drawable/roundshape"
+                                        android:fontFamily="@font/open_sans_semibold"
+                                        android:gravity="end"
+                                        android:maxLines="1"
+                                        android:paddingHorizontal="@dimen/dp5"
+                                        android:paddingVertical="@dimen/dp2"
+                                        android:text="loading"
+                                        android:textColor="#E25725"
+                                        android:textSize="@dimen/sp16" />
+                                </LinearLayout>
+                            </LinearLayout>
+
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Inventory Counting"
                                 android:layout_marginTop="@dimen/dp8"
+                                android:autoSizeMaxTextSize="@dimen/sp15"
+                                android:autoSizeMinTextSize="@dimen/sp10"
+                                android:autoSizeStepGranularity="@dimen/dp1"
+                                android:autoSizeTextType="uniform"
+                                android:fontFamily="@font/open_sans"
+                                android:maxLines="1"
+                                android:text="Professional Checkout"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp15"
-                                android:fontFamily="@font/open_sans"/>
+                                android:textSize="@dimen/sp15" />
 
                         </LinearLayout>
-
-
 
 
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent"
                         style="@style/dashboardCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btn_stock_counting"
                         android:layout_weight="50"
-                        app:cardUseCompatPadding="true"
-                        >
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:alpha="0.3"
-                            >
+                            android:orientation="vertical">
 
-                            <ImageView
-                                android:layout_width="wrap_content"
+                            <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:src="@drawable/ic_itemslisting"/>
+                                android:layout_weight="1"
+                                android:orientation="horizontal"
+                                android:weightSum="2">
+
+                                <ImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:src="@drawable/ic_itemslisting" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:layout_height="wrap_content">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:id="@+id/tv_stock_count"
+                                        android:autoSizeMaxTextSize="@dimen/sp16"
+                                        android:autoSizeMinTextSize="@dimen/sp10"
+                                        android:autoSizeStepGranularity="@dimen/dp1"
+                                        android:autoSizeTextType="uniform"
+                                        android:background="@drawable/roundshape"
+                                        android:fontFamily="@font/open_sans_semibold"
+                                        android:gravity="end"
+                                        android:maxLines="1"
+                                        android:paddingHorizontal="@dimen/dp5"
+                                        android:paddingVertical="@dimen/dp2"
+                                        android:text="loading"
+                                        android:textColor="#E25725"
+                                        android:textSize="@dimen/sp16" />
+                                </LinearLayout>
+                            </LinearLayout>
+
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Item Listing"
                                 android:layout_marginTop="@dimen/dp8"
+                                android:autoSizeMaxTextSize="@dimen/sp15"
+                                android:autoSizeMinTextSize="@dimen/sp10"
+                                android:autoSizeStepGranularity="@dimen/dp1"
+                                android:autoSizeTextType="uniform"
+                                android:fontFamily="@font/open_sans"
+                                android:maxLines="1"
+                                android:text="Stock Counting"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp15"
-                                android:fontFamily="@font/open_sans"/>
+                                android:textSize="@dimen/sp15" />
 
                         </LinearLayout>
-
-
 
 
                     </com.google.android.material.card.MaterialCardView>
 
                 </LinearLayout>
-
-
-
 
 
             </GridLayout>
@@ -255,24 +349,23 @@
                 android:orientation="vertical">
 
                 <TextView
+                    style="@style/myHeadingStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Stock Overview"
-                    style="@style/myHeadingStyle"
-                    android:layout_marginBottom="@dimen/dp10"
                     android:layout_marginTop="24dp"
-                    />
+                    android:layout_marginBottom="@dimen/dp10"
+                    android:text="Stock Overview" />
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginHorizontal="@dimen/dp3"
+                    android:layout_marginBottom="@dimen/dp3"
                     app:cardBackgroundColor="@color/white"
                     app:cardElevation="@dimen/dp3"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true"
                     app:contentPadding="@dimen/dp15"
-                    android:layout_marginBottom="@dimen/dp3"
 
                     >
 
@@ -284,144 +377,56 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/carton_bg"/>
+                            android:src="@drawable/carton_bg" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:layout_gravity="center_vertical"
+                            android:orientation="vertical"
                             android:paddingStart="@dimen/dp10">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans"
                                 android:text="Goods Receiving"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp15"
-                                android:fontFamily="@font/open_sans"/>
+                                android:textSize="@dimen/sp15" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginTop="@dimen/dp4">
+                                android:layout_marginTop="@dimen/dp4"
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
                                     android:layout_marginRight="@dimen/dp10"
+                                    android:fontFamily="@font/open_sans"
                                     android:text="23 In-Stock"
                                     android:textColor="#E25725"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans"
-                                    android:layout_gravity="center_vertical"/>
+                                    android:textSize="@dimen/sp13" />
 
                                 <View
                                     android:layout_width="4dp"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/round_bullet"
-                                    android:layout_gravity="center_vertical" />
-
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/round_bullet" />
 
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/dp10"
+                                    android:fontFamily="@font/open_sans_light_italic"
                                     android:text="W-005"
                                     android:textColor="#555555"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans_light_italic"
-                                    android:layout_gravity="center_vertical"/>
-
-                            </LinearLayout>
-
-
-                                                   </LinearLayout>
-
-
-
-                    </LinearLayout>
-
-
-
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    android:layout_marginHorizontal="@dimen/dp3"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardElevation="@dimen/dp3"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="@dimen/dp15"
-                    android:layout_marginBottom="@dimen/dp3"
-
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/carton_bg"/>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:layout_gravity="center_vertical"
-                            android:paddingStart="@dimen/dp10">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Goods Receiving"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp15"
-                                android:fontFamily="@font/open_sans"/>
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginTop="@dimen/dp4">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/dp10"
-                                    android:text="23 In-Stock"
-                                    android:textColor="#E25725"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans"
-                                    android:layout_gravity="center_vertical"/>
-
-                                <View
-                                    android:layout_width="4dp"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/round_bullet"
-                                    android:layout_gravity="center_vertical" />
-
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp10"
-                                    android:text="W-005"
-                                    android:textColor="#555555"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans_light_italic"
-                                    android:layout_gravity="center_vertical"/>
+                                    android:textSize="@dimen/sp13" />
 
                             </LinearLayout>
 
@@ -429,24 +434,21 @@
                         </LinearLayout>
 
 
-
                     </LinearLayout>
-
-
 
 
                 </com.google.android.material.card.MaterialCardView>
 
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_height="match_parent"
                     android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginHorizontal="@dimen/dp3"
+                    android:layout_marginBottom="@dimen/dp3"
                     app:cardBackgroundColor="@color/white"
                     app:cardElevation="@dimen/dp3"
                     app:cardPreventCornerOverlap="true"
                     app:cardUseCompatPadding="true"
                     app:contentPadding="@dimen/dp15"
-                    android:layout_marginBottom="@dimen/dp3"
 
                     >
 
@@ -458,57 +460,56 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/carton_bg"/>
+                            android:src="@drawable/carton_bg" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
                             android:layout_gravity="center_vertical"
+                            android:orientation="vertical"
                             android:paddingStart="@dimen/dp10">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans"
                                 android:text="Goods Receiving"
                                 android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp15"
-                                android:fontFamily="@font/open_sans"/>
+                                android:textSize="@dimen/sp15" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
                                 android:layout_gravity="center_vertical"
-                                android:layout_marginTop="@dimen/dp4">
+                                android:layout_marginTop="@dimen/dp4"
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
                                     android:layout_marginRight="@dimen/dp10"
+                                    android:fontFamily="@font/open_sans"
                                     android:text="23 In-Stock"
                                     android:textColor="#E25725"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans"
-                                    android:layout_gravity="center_vertical"/>
+                                    android:textSize="@dimen/sp13" />
 
                                 <View
                                     android:layout_width="4dp"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/round_bullet"
-                                    android:layout_gravity="center_vertical" />
-
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/round_bullet" />
 
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
                                     android:layout_marginLeft="@dimen/dp10"
+                                    android:fontFamily="@font/open_sans_light_italic"
                                     android:text="W-005"
                                     android:textColor="#555555"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans_light_italic"
-                                    android:layout_gravity="center_vertical"/>
+                                    android:textSize="@dimen/sp13" />
 
                             </LinearLayout>
 
@@ -516,10 +517,90 @@
                         </LinearLayout>
 
 
-
                     </LinearLayout>
 
 
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/dp3"
+                    android:layout_marginBottom="@dimen/dp3"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardElevation="@dimen/dp3"
+                    app:cardPreventCornerOverlap="true"
+                    app:cardUseCompatPadding="true"
+                    app:contentPadding="@dimen/dp15"
+
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/carton_bg" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:orientation="vertical"
+                            android:paddingStart="@dimen/dp10">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/open_sans"
+                                android:text="Goods Receiving"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp15" />
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:layout_marginTop="@dimen/dp4"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginRight="@dimen/dp10"
+                                    android:fontFamily="@font/open_sans"
+                                    android:text="23 In-Stock"
+                                    android:textColor="#E25725"
+                                    android:textSize="@dimen/sp13" />
+
+                                <View
+                                    android:layout_width="4dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:background="@drawable/round_bullet" />
+
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/dp10"
+                                    android:fontFamily="@font/open_sans_light_italic"
+                                    android:text="W-005"
+                                    android:textColor="#555555"
+                                    android:textSize="@dimen/sp13" />
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
 
 
                 </com.google.android.material.card.MaterialCardView>
@@ -527,10 +608,6 @@
             </LinearLayout>
 
         </LinearLayout>
-
-
-
-
 
 
     </androidx.core.widget.NestedScrollView>
@@ -544,10 +621,10 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:indeterminateTint="@color/teal_700"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:indeterminateTint="@color/teal_700" />
     </RelativeLayout>
 
-    <include layout="@layout/progress_layout"/>
+    <include layout="@layout/progress_layout" />
 
 </FrameLayout>

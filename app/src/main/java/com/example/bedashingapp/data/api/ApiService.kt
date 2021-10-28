@@ -93,4 +93,10 @@ interface ApiService {
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
     ): Int
+
+    @GET
+    suspend fun getInventoryCountings(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetInventoryCountingsResponse
 }

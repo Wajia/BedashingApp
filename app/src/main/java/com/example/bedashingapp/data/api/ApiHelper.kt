@@ -110,6 +110,15 @@ class ApiHelper(private val apiService: ApiService) {
     }
 
 
+    suspend fun getInventoryCountings(mainURL: String, companyName: String, sessionID: String, BPLID: Int): GetInventoryCountingsResponse{
+        val url = "$mainURL/b1s/v1/InventoryCountings?\$select=DocumentEntry,CountDate,DocumentNumber,BranchID&\$filter=DocumentStatus eq 'cdsOpen' and BranchID eq $BPLID"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=2000"
+        return apiService.getInventoryCountings(url, headers)
+    }
+
+
 
 
 

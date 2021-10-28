@@ -1034,6 +1034,24 @@
 
 
     </androidx.core.widget.NestedScrollView>
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_btn_add_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        android:background="@color/colorBlack"
+        android:backgroundTint="#495057"
+        android:elevation="6dp"
+        app:borderWidth="0dp"
+        app:fabCustomSize="60dp"
+        app:fabSize="auto"
+        app:hoveredFocusedTranslationZ="2dp"
+        app:maxImageSize="40dp"
+        app:pressedTranslationZ="6dp"
+        app:rippleColor="@color/colorDark"
+        app:srcCompat="@drawable/ic_add_plus"
+        app:tint="@color/colorWhite"
+        tools:ignore="VectorDrawableCompat" />
 </FrameLayout>
 

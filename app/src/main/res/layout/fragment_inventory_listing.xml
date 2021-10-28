@@ -1,0 +1,1057 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".InventoryListing"
+    android:background="@color/white">
+
+    <!-- TODO: Update blank fragment layout -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="@dimen/dp16"
+            android:layout_marginTop="@dimen/dp20">
+
+
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+            <com.google.android.material.card.MaterialCardView
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_marginHorizontal="@dimen/dp3"
+                app:cardBackgroundColor="@color/white"
+                app:cardElevation="@dimen/dp3"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="true"
+                app:contentPadding="@dimen/dp15"
+                android:layout_marginBottom="@dimen/dp3"
+
+                >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:src="@drawable/doc_bg"
+                        android:layout_gravity="center_vertical"/>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:paddingStart="@dimen/dp10">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="01-XXTYUOP"
+                                android:textColor="@color/colorPrimary"
+                                android:textSize="@dimen/sp14"
+                                android:fontFamily="@font/open_sans"/>
+
+
+                        </LinearLayout>
+
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:layout_gravity="center_vertical"
+                            >
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="@dimen/dp10"
+                                android:text="23 In-Stock"
+                                android:textColor="#E25725"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans"
+                                android:layout_gravity="center_vertical"/>
+
+                            <View
+                                android:layout_width="4dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/round_bullet"
+                                android:layout_gravity="center_vertical" />
+
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/dp10"
+                                android:text="01/1/2021"
+                                android:textColor="#555555"
+                                android:textSize="@dimen/sp13"
+                                android:fontFamily="@font/open_sans_light_italic"
+                                android:layout_gravity="center_vertical"/>
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp3"
+                            android:text="Stock Counting"
+                            android:paddingVertical="0.5dp"
+                            android:paddingHorizontal="@dimen/dp4"
+                            android:textSize="12sp"
+                            android:fontFamily="@font/open_sans_light_italic"
+                            android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_btn_add_inventory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="20dp"
+        android:background="@color/colorBlack"
+        android:backgroundTint="#495057"
+        android:elevation="6dp"
+        app:borderWidth="0dp"
+        app:fabCustomSize="60dp"
+        app:fabSize="auto"
+        app:hoveredFocusedTranslationZ="2dp"
+        app:maxImageSize="40dp"
+        app:pressedTranslationZ="6dp"
+        app:rippleColor="@color/colorDark"
+        app:srcCompat="@drawable/ic_add_plus"
+        app:tint="@color/colorWhite"
+        tools:ignore="VectorDrawableCompat" />
+</FrameLayout>
+

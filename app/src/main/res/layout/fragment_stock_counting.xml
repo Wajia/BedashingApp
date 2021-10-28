@@ -270,7 +270,7 @@
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true"
                 app:contentPadding="@dimen/dp15"
-                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp3"
 
                 >
 
@@ -410,7 +410,7 @@
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true"
                 app:contentPadding="@dimen/dp15"
-                android:layout_marginBottom="@dimen/dp8"
+                android:layout_marginBottom="@dimen/dp3"
 
                 >
 
@@ -541,6 +541,36 @@
 
 
             </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:gravity="end">
+
+                <Button
+                    android:id ="@+id/cancel"
+                    style="@style/Widget.App.Button.Light"
+                    android:layout_width="110dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="@dimen/dp3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="Cancel" />
+
+
+                <Button
+                    android:id ="@+id/post"
+                    style="@style/Widget.App.Button"
+                    android:layout_width="110dp"
+                    android:layout_gravity="end"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="Post" />
+
             </LinearLayout>
 
         </LinearLayout>

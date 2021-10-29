@@ -54,6 +54,12 @@ class DashboardFragment : BaseFragment() {
 
             checkSessionConnection()
 
+            btn_stock_counting.setOnClickListener{
+                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
+                    R.id.nav_inventory_countings, Bundle()
+                )
+            }
+
         }
 
     }

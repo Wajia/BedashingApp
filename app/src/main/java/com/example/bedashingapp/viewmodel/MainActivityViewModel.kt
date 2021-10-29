@@ -282,6 +282,48 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
 
 
+    fun getInventoryCountings(mainURL: String, companyName: String, sessionID: String, bplID: String) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.getInventoryCountings(
+                            mainURL,
+                            companyName,
+                            sessionID,
+                            bplID.toInt()
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
+
+    fun getInventoryStatus(mainURL: String, companyName: String, sessionID: String, itemCode: String) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.getInventoryStatus(
+                            mainURL,
+                            companyName,
+                            sessionID,
+                            itemCode
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
+
     //-------------------------------------------------- Room Calls--------------------------------------------------------------
 
 
@@ -375,6 +417,27 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             emit(
                 Resource.success(data = mainActivityRepository.addBarcodes(barcodesList))
             )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
+
+
+    fun getItemsWithOffsetDB(limit: Int, offset: Int) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = mainActivityRepository.getItemsWithOffset(limit, offset)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun getItemsByName(name: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = mainActivityRepository.getItemsByName(name)))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }

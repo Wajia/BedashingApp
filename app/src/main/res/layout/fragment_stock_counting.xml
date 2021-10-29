@@ -29,11 +29,11 @@
                 android:hint="Doc Date">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_qty_remaining"
+                    android:id="@+id/et_doc_date"
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
+                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
                     android:layout_height="wrap_content"
-                    android:enabled="false"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -52,6 +52,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:id="@+id/et_notes"
                     android:layout_gravity="start"
                     android:gravity="start"
                     android:inputType="textMultiLine"
@@ -66,6 +67,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_height="match_parent"
                 android:layout_width="match_parent"
+                android:id="@+id/layout_item"
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="@dimen/dp3"
                 app:cardPreventCornerOverlap="true"
@@ -78,18 +80,20 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:weightSum="1"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="52dp"
                         android:layout_height="52dp"
                         android:src="@drawable/carton_bg"
-                        android:layout_gravity="center_vertical"/>
+                        />
 
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="@dimen/dp0"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
+                        android:layout_weight="0.8"
                         android:layout_gravity="center_vertical"
                         android:paddingStart="@dimen/dp10">
 
@@ -99,9 +103,10 @@
                             android:orientation="horizontal">
 
                             <TextView
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Add an Item"
+                                android:text="Select an Item"
+                                android:id="@+id/tv_selected_item_name"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/sp14"
                                 android:fontFamily="@font/open_sans"/>
@@ -126,12 +131,14 @@
                                 android:layout_marginRight="@dimen/dp10"
                                 android:text="XX In-Stock"
                                 android:textColor="#E25725"
+                                android:visibility="gone"
                                 android:textSize="@dimen/sp13"
                                 android:fontFamily="@font/open_sans"
                                 android:layout_gravity="center_vertical"/>
 
                             <View
                                 android:layout_width="4dp"
+                                android:visibility="gone"
                                 android:layout_height="wrap_content"
                                 android:background="@drawable/round_bullet"
                                 android:layout_gravity="center_vertical" />
@@ -144,6 +151,7 @@
                                 android:layout_marginLeft="@dimen/dp10"
                                 android:text="DD/MM/YY"
                                 android:textColor="#555555"
+                                android:visibility="gone"
                                 android:textSize="@dimen/sp13"
                                 android:fontFamily="@font/open_sans_light_italic"
                                 android:layout_gravity="center_vertical"/>
@@ -154,12 +162,35 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp3"
+                            android:visibility="gone"
                             android:text="ML / PCS"
                             android:paddingVertical="0.5dp"
                             android:paddingHorizontal="@dimen/dp4"
                             android:textSize="12sp"
                             android:fontFamily="@font/open_sans_light_italic"
                             android:background="@drawable/catg"/>
+
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="@dimen/dp0"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.2"
+                        android:orientation="vertical"
+                        android:layout_gravity="right"
+                        android:gravity="end">
+
+                        <ImageButton
+                            android:layout_width="52dp"
+                            android:layout_height="52dp"
+                            android:id="@+id/iv_barcode"
+                            android:padding="@dimen/dp10"
+                            android:src="@drawable/ic_barcode_icon"
+                            android:layout_marginBottom="@dimen/dp1"
+                            android:background="@drawable/barcode_bg"
+                            />
 
 
 
@@ -187,6 +218,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/et_counted_quantity"
+                    android:inputType="numberDecimal"
                     style="@style/TextInputLayoutStyle"
                     />
 
@@ -203,12 +236,14 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:id="@+id/et_variance"
+                    android:inputType="numberDecimal"
                     style="@style/TextInputLayoutStyle"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+            <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner_branch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -226,7 +261,7 @@
             android:gravity="end">
 
             <Button
-                android:id ="@+id/status"
+                android:id ="@+id/btn_check_status"
                 style="@style/Widget.App.Button.Light"
                 android:layout_width="150dp"
                 android:layout_gravity="end"
@@ -238,7 +273,7 @@
 
 
             <Button
-                android:id ="@+id/btn_click_me"
+                android:id ="@+id/btn_add_item"
                 style="@style/Widget.App.Button"
                 android:layout_width="110dp"
                 android:layout_gravity="end"
@@ -579,5 +614,6 @@
 
     </androidx.core.widget.NestedScrollView>
 
+    <include layout="@layout/progress_layout" />
 
 </FrameLayout>

@@ -19,6 +19,18 @@
         android:label="Update Branch"
         tools:layout="@layout/fragment_update_branch" />
 
+    <fragment
+        android:id="@+id/nav_inventory_countings"
+        android:name="com.example.bedashingapp.views.stock_counting.InventoryCountingListFragment"
+        android:label="Inventory Counting"
+        tools:layout="@layout/fragment_inventory_listing" />
+
+    <fragment
+        android:id="@+id/nav_inventory_counting"
+        android:name="com.example.bedashingapp.views.stock_counting.StockCountingFragment"
+        android:label="Inventory Counting"
+        tools:layout="@layout/fragment_stock_counting" />
+
 
 
     <fragment

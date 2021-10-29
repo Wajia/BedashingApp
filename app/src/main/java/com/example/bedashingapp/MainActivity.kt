@@ -29,6 +29,8 @@ import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.dashboard.DashboardFragment
 import com.example.bedashingapp.views.login.LoginActivity
+import com.example.bedashingapp.views.stock_counting.InventoryCountingListFragment
+import com.example.bedashingapp.views.stock_counting.StockCountingFragment
 import com.example.bedashingapp.views.update_branch.UpdateBranchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -136,8 +138,6 @@ class MainActivity : BaseActivity() {
 //        navView.setupWithNavController(navController)
 
 
-
-
         if (sessionManager!!.isSynced()) {
             //so that view model can work in fragment dashboard because it is start destination  of Navigation Component
             navigateToFragmentDashboard()
@@ -163,7 +163,7 @@ class MainActivity : BaseActivity() {
 
     private fun syncingProcess() {
 
-        if(isConnectedToNetwork()) {
+        if (isConnectedToNetwork()) {
             window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
             mainActivityViewModel.checkConnection(
@@ -180,10 +180,10 @@ class MainActivity : BaseActivity() {
                             showProgressBar("Syncing...")
                             getItemsMaster()
                         }
-                        Status.LOADING-> {
+                        Status.LOADING -> {
                             showProgressBar("")
                         }
-                        Status.ERROR->{
+                        Status.ERROR -> {
                             hideProgressBar()
                             sessionManager!!.putIsLoggedIn(false)
                             sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
@@ -195,13 +195,13 @@ class MainActivity : BaseActivity() {
                     }
                 }
             })
-        }else{
+        } else {
             showToastLong(resources.getString(R.string.network_not_connected_msg))
         }
 
     }
 
-    private fun getItemsMaster(){
+    private fun getItemsMaster() {
         mainActivityViewModel.getItemsMasterData(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
@@ -209,36 +209,37 @@ class MainActivity : BaseActivity() {
             sessionManager!!.getWareHouseID(),
             dataCount
         ).observe(this, Observer {
-            it?.let{resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
-                        if(resource.data!!.value.isNotEmpty()){
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        if (resource.data!!.value.isNotEmpty()) {
                             dataCount += resource.data.value.size
-                            mainActivityViewModel.saveItemsMaster(resource.data.value).observe(this, Observer { it1->
-                                it1?.let{resource1 ->
-                                    when(resource1.status){
-                                        Status.SUCCESS->{
-                                            getItemsMaster()
-                                        }
-                                        Status.LOADING->{
+                            mainActivityViewModel.saveItemsMaster(resource.data.value)
+                                .observe(this, Observer { it1 ->
+                                    it1?.let { resource1 ->
+                                        when (resource1.status) {
+                                            Status.SUCCESS -> {
+                                                getItemsMaster()
+                                            }
+                                            Status.LOADING -> {
 
-                                        }
-                                        Status.ERROR->{
-                                            showToastLong(resource.message!!)
-                                            hideProgressBar()
+                                            }
+                                            Status.ERROR -> {
+                                                showToastLong(resource.message!!)
+                                                hideProgressBar()
+                                            }
                                         }
                                     }
-                                }
-                            })
-                        }else{
+                                })
+                        } else {
                             dataCount = 0
                             getUoms()
                         }
                     }
-                    Status.LOADING->{
+                    Status.LOADING -> {
                         showProgressBar("Syncing Items...")
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
                     }
@@ -248,36 +249,37 @@ class MainActivity : BaseActivity() {
     }
 
 
-    private fun getUoms(){
+    private fun getUoms() {
         mainActivityViewModel.getUoms(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
             sessionManager!!.getSessionId()
         ).observe(this, Observer {
-            it?.let{resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
-                        mainActivityViewModel.saveUoms(resource.data!!.value).observe(this, Observer { it1->
-                            it1?.let { resource1 ->
-                                when(resource1.status){
-                                    Status.SUCCESS->{
-                                        getUomGroups()
-                                    }
-                                    Status.LOADING->{
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        mainActivityViewModel.saveUoms(resource.data!!.value)
+                            .observe(this, Observer { it1 ->
+                                it1?.let { resource1 ->
+                                    when (resource1.status) {
+                                        Status.SUCCESS -> {
+                                            getUomGroups()
+                                        }
+                                        Status.LOADING -> {
 
-                                    }
-                                    Status.ERROR->{
-                                        hideProgressBar()
-                                        showToastLong(resource.message!!)
+                                        }
+                                        Status.ERROR -> {
+                                            hideProgressBar()
+                                            showToastLong(resource.message!!)
+                                        }
                                     }
                                 }
-                            }
-                        })
+                            })
                     }
-                    Status.LOADING->{
+                    Status.LOADING -> {
                         showProgressBar("Syncing UOMs...")
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
                     }
@@ -286,36 +288,37 @@ class MainActivity : BaseActivity() {
         })
     }
 
-    private fun  getUomGroups(){
+    private fun getUomGroups() {
         mainActivityViewModel.getUomGroups(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
             sessionManager!!.getSessionId()
         ).observe(this, Observer {
-            it?.let{resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
-                        mainActivityViewModel.saveUomGroups(resource.data!!.value).observe(this, Observer { it1->
-                            it1?.let { resource1 ->
-                                when(resource1.status){
-                                    Status.SUCCESS->{
-                                        getBarcodes()
-                                    }
-                                    Status.LOADING->{
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        mainActivityViewModel.saveUomGroups(resource.data!!.value)
+                            .observe(this, Observer { it1 ->
+                                it1?.let { resource1 ->
+                                    when (resource1.status) {
+                                        Status.SUCCESS -> {
+                                            getBarcodes()
+                                        }
+                                        Status.LOADING -> {
 
-                                    }
-                                    Status.ERROR->{
-                                        hideProgressBar()
-                                        showToastLong(resource.message!!)
+                                        }
+                                        Status.ERROR -> {
+                                            hideProgressBar()
+                                            showToastLong(resource.message!!)
+                                        }
                                     }
                                 }
-                            }
-                        })
+                            })
                     }
-                    Status.LOADING->{
+                    Status.LOADING -> {
                         showProgressBar("Syncing UOM Groups...")
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
                     }
@@ -324,45 +327,46 @@ class MainActivity : BaseActivity() {
         })
     }
 
-    private fun getBarcodes(){
+    private fun getBarcodes() {
         mainActivityViewModel.getBarcodes(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
             sessionManager!!.getSessionId(),
             dataCount
         ).observe(this, Observer {
-            it?.let{resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
-                        if(resource.data!!.value.isNotEmpty()){
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        if (resource.data!!.value.isNotEmpty()) {
                             dataCount += resource.data.value.size
-                            mainActivityViewModel.saveBarcodes(resource.data.value).observe(this, Observer { it1->
-                                it1?.let{resource1 ->
-                                    when(resource1.status){
-                                        Status.SUCCESS->{
-                                            getBarcodes()
-                                        }
-                                        Status.LOADING->{
+                            mainActivityViewModel.saveBarcodes(resource.data.value)
+                                .observe(this, Observer { it1 ->
+                                    it1?.let { resource1 ->
+                                        when (resource1.status) {
+                                            Status.SUCCESS -> {
+                                                getBarcodes()
+                                            }
+                                            Status.LOADING -> {
 
-                                        }
-                                        Status.ERROR->{
-                                            showToastLong(resource.message!!)
-                                            hideProgressBar()
+                                            }
+                                            Status.ERROR -> {
+                                                showToastLong(resource.message!!)
+                                                hideProgressBar()
+                                            }
                                         }
                                     }
-                                }
-                            })
-                        }else{
+                                })
+                        } else {
                             window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
                             sessionManager!!.putIsSynced(true)
                             hideProgressBar()
                             showSnackBar("Database synchronized successfully", drawer_layout)
                         }
                     }
-                    Status.LOADING->{
+                    Status.LOADING -> {
                         showProgressBar("Syncing barcodes...")
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
                     }
@@ -409,7 +413,7 @@ class MainActivity : BaseActivity() {
         )
     }
 
-    fun reloadActivity(){
+    fun reloadActivity() {
         finishAffinity()
         startActivity(Intent(applicationContext, MainActivity::class.java))
     }
@@ -448,13 +452,12 @@ class MainActivity : BaseActivity() {
         builder.setMessage(text)
 
         builder.setPositiveButton("YES") { _, _ ->
-//            if (fragment is POItemScanFragment) {
-//                Navigation.findNavController(this, R.id.nav_host_fragment)
-//                    .navigate(R.id.nav_po_list, Bundle())
-//            }
-//            else {
-//                super.onBackPressed()
-//            }
+            if (fragment is InventoryCountingListFragment) {
+
+            }
+            else {
+                super.onBackPressed()
+            }
         }
         builder.setNegativeButton("NO") { _, _ ->
 
@@ -478,11 +481,17 @@ class MainActivity : BaseActivity() {
             }
 
             is UpdateBranchFragment -> {
-                if(sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()){
+                if (sessionManager!!.getUserBplid()
+                        .isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()
+                ) {
                     navigateToFragmentDashboard()
-                }else {
+                } else {
                     showToastShort("Please update required details")
                 }
+            }
+
+            is StockCountingFragment->{
+                showOnExitPrompt(fragment)
             }
 
 
@@ -494,7 +503,8 @@ class MainActivity : BaseActivity() {
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
             is DashboardFragment,
-            is UpdateBranchFragment
+            is UpdateBranchFragment,
+            is StockCountingFragment
             -> {
                 true
             }
@@ -508,7 +518,8 @@ class MainActivity : BaseActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
-            is UpdateBranchFragment
+            is UpdateBranchFragment,
+            is StockCountingFragment
             -> {
                 true
             }
@@ -523,11 +534,17 @@ class MainActivity : BaseActivity() {
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         when (fragment) {
             is UpdateBranchFragment -> {
-                if(sessionManager!!.getUserBplid().isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()){
+                if (sessionManager!!.getUserBplid()
+                        .isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()
+                ) {
                     navigateToFragmentDashboard()
-                }else {
+                } else {
                     showToastShort("Please update required details")
                 }
+            }
+
+            is StockCountingFragment->{
+                showOnExitPrompt(fragment)
             }
 
         }

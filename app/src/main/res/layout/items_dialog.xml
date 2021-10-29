@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:orientation="vertical"
-        android:background="@color/colorWhite">
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
 
 
         <TextView
@@ -25,6 +24,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
+            android:layout_marginHorizontal="@dimen/dp4"
             android:layout_below="@id/tv_heading"
             android:layout_gravity="center_horizontal"
             android:id="@+id/view_line"
@@ -39,7 +39,7 @@
             android:layout_below="@id/view_line"
             android:hint="Search here.."
             android:id="@+id/et_search"
-            android:layout_marginHorizontal="10dp"
+            android:layout_marginHorizontal="@dimen/dp4"
             android:paddingHorizontal="18dp"
             android:drawableRight="@drawable/ic_fi_rr_search"
             android:paddingVertical="15dp"
@@ -49,493 +49,35 @@
             android:textSize="15sp"
             android:background="@drawable/barcode_field_bg"/>
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@id/et_search"
-            android:layout_marginHorizontal="@dimen/dp10">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/dp18">
 
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="@dimen/dp3"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="@dimen/dp15"
-                android:layout_marginBottom="@dimen/dp5"
 
-                >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/carton_bg"
-                        android:layout_gravity="center_vertical"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:paddingStart="@dimen/dp10">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Opi gel HK Apples Tall"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp14"
-                                android:fontFamily="@font/open_sans"/>
-
-
-
-
-                        </LinearLayout>
-
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/dp10"
-                                android:text="XX In-Stock"
-                                android:textColor="#E25725"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans"
-                                android:layout_gravity="center_vertical"/>
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/round_bullet"
-                                android:layout_gravity="center_vertical" />
-
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp10"
-                                android:text="DD/MM/YY"
-                                android:textColor="#555555"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans_light_italic"
-                                android:layout_gravity="center_vertical"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp3"
-                            android:text="15 ML"
-                            android:paddingVertical="0.5dp"
-                            android:paddingHorizontal="@dimen/dp4"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans_light_italic"
-                            android:background="@drawable/catg"/>
-
-
-
-                    </LinearLayout>
-
-
-
-                </LinearLayout>
-
-
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="@dimen/dp3"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="@dimen/dp15"
-                android:layout_marginBottom="@dimen/dp5"
-
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/carton_bg"
-                        android:layout_gravity="center_vertical"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:paddingStart="@dimen/dp10">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Opi gel HK Apples Tall"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp14"
-                                android:fontFamily="@font/open_sans"/>
-
-
-
-
-                        </LinearLayout>
-
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/dp10"
-                                android:text="XX In-Stock"
-                                android:textColor="#E25725"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans"
-                                android:layout_gravity="center_vertical"/>
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/round_bullet"
-                                android:layout_gravity="center_vertical" />
-
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp10"
-                                android:text="DD/MM/YY"
-                                android:textColor="#555555"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans_light_italic"
-                                android:layout_gravity="center_vertical"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp3"
-                            android:text="15 ML"
-                            android:paddingVertical="0.5dp"
-                            android:paddingHorizontal="@dimen/dp4"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans_light_italic"
-                            android:background="@drawable/catg"/>
-
-
-
-                    </LinearLayout>
-
-
-
-                </LinearLayout>
-
-
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="@dimen/dp3"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="@dimen/dp15"
-                android:layout_marginBottom="@dimen/dp5"
-
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/carton_bg"
-                        android:layout_gravity="center_vertical"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:paddingStart="@dimen/dp10">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Opi gel HK Apples Tall"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp14"
-                                android:fontFamily="@font/open_sans"/>
-
-
-
-
-                        </LinearLayout>
-
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/dp10"
-                                android:text="XX In-Stock"
-                                android:textColor="#E25725"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans"
-                                android:layout_gravity="center_vertical"/>
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/round_bullet"
-                                android:layout_gravity="center_vertical" />
-
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp10"
-                                android:text="DD/MM/YY"
-                                android:textColor="#555555"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans_light_italic"
-                                android:layout_gravity="center_vertical"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp3"
-                            android:text="15 ML"
-                            android:paddingVertical="0.5dp"
-                            android:paddingHorizontal="@dimen/dp4"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans_light_italic"
-                            android:background="@drawable/catg"/>
-
-
-
-                    </LinearLayout>
-
-
-
-                </LinearLayout>
-
-
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                app:cardBackgroundColor="@color/white"
-                app:cardElevation="@dimen/dp3"
-                app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="@dimen/dp15"
-                android:layout_marginBottom="@dimen/dp5"
-
-                >
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/carton_bg"
-                        android:layout_gravity="center_vertical"/>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_gravity="center_vertical"
-                        android:paddingStart="@dimen/dp10">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Opi gel HK Apples Tall"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp14"
-                                android:fontFamily="@font/open_sans"/>
-
-
-
-
-                        </LinearLayout>
-
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/dp10"
-                                android:text="XX In-Stock"
-                                android:textColor="#E25725"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans"
-                                android:layout_gravity="center_vertical"/>
-
-                            <View
-                                android:layout_width="4dp"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/round_bullet"
-                                android:layout_gravity="center_vertical" />
-
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp10"
-                                android:text="DD/MM/YY"
-                                android:textColor="#555555"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans_light_italic"
-                                android:layout_gravity="center_vertical"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp3"
-                            android:text="15 ML"
-                            android:paddingVertical="0.5dp"
-                            android:paddingHorizontal="@dimen/dp4"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans_light_italic"
-                            android:background="@drawable/catg"/>
-
-
-
-                    </LinearLayout>
-
-
-
-                </LinearLayout>
-
-
-
-
-            </com.google.android.material.card.MaterialCardView>
-
-
-
-
-
-
-
-
-        </LinearLayout>
-
-        </androidx.core.widget.NestedScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_above="@id/btn_close"
+            tools:itemCount="3"
+
+            tools:listitem="@layout/list_items_single_item"
+            android:layout_height="match_parent"
             android:layout_below="@id/et_search"
             android:layout_marginTop="15dp" />
 
 
         <Button
-            android:id ="@+id/btn_click_me"
+            android:id ="@+id/btn_close"
             style="@style/Widget.App.Button"
             android:layout_width="110dp"
             android:layout_gravity="end"
-            android:layout_below="@id/rv_items"
+            android:layout_alignParentEnd="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp18"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/dp12"
+            android:layout_marginRight="@dimen/dp4"
             android:layout_alignParentBottom="true"
             android:text="Close" />
 
@@ -556,4 +98,3 @@
 
     </RelativeLayout>
 
-</androidx.core.widget.NestedScrollView>

@@ -237,4 +237,18 @@
     </style>
 
 
+    <!--    For Date Picker-->
+    <style name="datepicker" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/primvar</item>
+        <item name="colorPrimaryDark">@color/black_second</item>
+        <item name="colorAccent">@color/teal_700</item>
+        <item name="android:buttonBarPositiveButtonStyle" tools:targetApi="lollipop">@style/DatePickerButtonStyle</item>
+        <item name="android:buttonBarNegativeButtonStyle" tools:targetApi="lollipop">@style/DatePickerButtonStyle</item>
+    </style>
+
+    <style name="DatePickerButtonStyle" parent="Base.Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/teal_700</item>
+    </style>
+
+
 </resources>

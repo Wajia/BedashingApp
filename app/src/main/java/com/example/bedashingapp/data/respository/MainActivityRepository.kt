@@ -92,6 +92,12 @@ class MainActivityRepository(
     suspend fun getInventoryCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int) =
         apiHelper.getInventoryCount(mainURL, companyName, sessionID, BPLID)
 
+    suspend fun getInventoryCountings(mainURL: String, companyName: String, sessionID: String, BPLID: Int) =
+        apiHelper.getInventoryCountings(mainURL, companyName, sessionID, BPLID)
+
+    suspend fun getInventoryStatus(mainURL: String, companyName: String, sessionID: String, itemCode: String) =
+        apiHelper.getInventoryStatus(mainURL, companyName, sessionID, itemCode)
+
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------
 
 
@@ -106,6 +112,11 @@ class MainActivityRepository(
 
     suspend fun addBarcodes(data: List<BarcodeEntity>) =
         barcodeDao.insertBarcodes(data)
+
+    fun getItemsWithOffset(limit: Int, offset: Int) =
+        itemDao.getItemsWithOffset(limit, offset)
+
+    fun getItemsByName(name: String) = itemDao.getItemsByName(name)
 
     suspend fun insertDocument(document: PostedDocumentEntity): Long {
         return postedDocumentDao.insertDocument(document)

@@ -15,8 +15,14 @@ interface ItemDao {
     @Query("SELECT * FROM table_item")
     fun getAllItems() : List<ItemEntity>
 
+    @Query("SELECT * FROM table_item LIMIT :limit OFFSET :offset")
+    fun getItemsWithOffset(limit: Int,offset: Int): List<ItemEntity>?
+
     @Query("SELECT * FROM table_item WHERE ItemCode = :itemCode")
     suspend fun getItemByItemCode(itemCode: String): ItemEntity
+
+    @Query("SELECT * FROM table_item WHERE (ItemName LIKE '%' || :itemName || '%') OR (ItemCode LIKE '%' || :itemName || '%')")
+    fun getItemsByName(itemName: String): List<ItemEntity>
 
     @Query("DELETE FROM table_item")
     fun removeAllItems(): Int

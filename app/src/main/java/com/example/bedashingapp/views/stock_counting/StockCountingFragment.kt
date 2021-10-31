@@ -6,6 +6,8 @@ import android.os.Build
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +16,7 @@ import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
 import com.example.bedashingapp.data.model.db.ItemEntity
+import com.example.bedashingapp.data.model.db.UOMEntity
 import com.example.bedashingapp.data.model.remote.CustomObject
 import com.example.bedashingapp.helper.DateUtilsApp
 import com.example.bedashingapp.helper.SessionManager
@@ -21,9 +24,12 @@ import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.login.LoginActivity
+import com.google.zxing.integration.android.IntentIntegrator
+import com.journeyapps.barcodescanner.CaptureActivity
 import kotlinx.android.synthetic.main.fragment_stock_counting.*
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class StockCountingFragment: BaseFragment() {
 
@@ -31,6 +37,7 @@ class StockCountingFragment: BaseFragment() {
     private var sessionManager: SessionManager? = null
 
     private var selectedItem: ItemEntity? = null
+    private var uomsList: ArrayList<UOMEntity> = ArrayList()
 
 
     override fun getLayout(): Int {
@@ -80,6 +87,13 @@ class StockCountingFragment: BaseFragment() {
             if(it.alpha == 1.0f){
                 checkSessionConnection("checkInventoryStatus")
             }
+        }
+
+        iv_barcode.setOnClickListener {
+            val integrator = IntentIntegrator(requireActivity())
+            integrator.setOrientationLocked(true)
+            integrator.captureActivity = PortraitCaptureActivity::class.java
+            integrator.initiateScan()
         }
     }
 
@@ -180,6 +194,33 @@ class StockCountingFragment: BaseFragment() {
         et_variance.setText("")
 
         //set Uoms in spinner
+        fetchUomsByUomGroupEntry(item.UoMGroupEntry)
+    }
+
+    private fun fetchUomsByUomGroupEntry(uomGroupEntry: String){
+        mainActivityViewModel.getUomsByUomGroupEntry(uomGroupEntry).observe(viewLifecycleOwner, Observer {
+            it?.let{resource ->
+                when(resource.status){
+                    Status.SUCCESS->{
+                        uomsList.clear()
+                        uomsList.addAll(resource.data as ArrayList)
+                        setupUomSpinner()
+                    }
+                    Status.LOADING->{
+
+                    }
+                    Status.ERROR->{
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun setupUomSpinner(){
+        val adapter = ArrayAdapter(requireContext(), R.layout.spinner_row, uomsList)
+        adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
+        spinner_uom.adapter = adapter
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -195,6 +236,22 @@ class StockCountingFragment: BaseFragment() {
         }, year, month, day)
 
         pickerDialog.show()
+    }
+
+
+    class PortraitCaptureActivity : CaptureActivity()
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+                Toast.makeText(requireContext(), "Cancelled", Toast.LENGTH_LONG).show()
+            } else {
+//                searchByBarcode(result.contents)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
     }
 
 

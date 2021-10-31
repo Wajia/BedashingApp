@@ -113,10 +113,21 @@ class MainActivityRepository(
     suspend fun addBarcodes(data: List<BarcodeEntity>) =
         barcodeDao.insertBarcodes(data)
 
-    fun getItemsWithOffset(limit: Int, offset: Int) =
+    suspend fun getItemsWithOffset(limit: Int, offset: Int) =
         itemDao.getItemsWithOffset(limit, offset)
 
-    fun getItemsByName(name: String) = itemDao.getItemsByName(name)
+    suspend fun getItemsByName(name: String) = itemDao.getItemsByName(name)
+
+    suspend fun getUomsByUomGroupEntry(uomGroupEntry: String): List<UOMEntity>{
+        val uomGroups = uomGroupDao.getAlternateUomsByUomGroupEntry(uomGroupEntry)
+        val listAlternateUoms = mutableListOf<Int>()
+        for(entity in uomGroups){
+            for(uomGroup in entity.UoMGroupDefinitionCollection){
+                listAlternateUoms.add(uomGroup.AlternateUoM)
+            }
+        }
+        return uomDao.getUomsByAlternateUoms(listAlternateUoms)
+    }
 
     suspend fun insertDocument(document: PostedDocumentEntity): Long {
         return postedDocumentDao.insertDocument(document)

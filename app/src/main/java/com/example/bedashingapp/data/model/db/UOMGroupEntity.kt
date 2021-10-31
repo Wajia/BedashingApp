@@ -7,6 +7,6 @@ import com.example.bedashingapp.data.model.remote.UoMGroupDefinitionCollection
 @Entity(tableName = "table_uom_group")
 data class UOMGroupEntity(
     @PrimaryKey
-    val AbsEntry: Int,
+    val AbsEntry: String,
     val UoMGroupDefinitionCollection: List<UoMGroupDefinitionCollection>
 )

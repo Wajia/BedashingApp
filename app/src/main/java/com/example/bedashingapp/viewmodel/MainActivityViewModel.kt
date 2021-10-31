@@ -383,7 +383,7 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         data.forEach {
             uomGroupsList.add(
                 UOMGroupEntity(
-                    AbsEntry = it.AbsEntry,
+                    AbsEntry = it.AbsEntry.toString(),
                     UoMGroupDefinitionCollection = it.UoMGroupDefinitionCollection
                 )
             )
@@ -438,6 +438,16 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         emit(Resource.loading(data = null))
         try {
             emit(Resource.success(data = mainActivityRepository.getItemsByName(name)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+
+    fun getUomsByUomGroupEntry(uomGroupEntry: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = mainActivityRepository.getUomsByUomGroupEntry(uomGroupEntry)))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }

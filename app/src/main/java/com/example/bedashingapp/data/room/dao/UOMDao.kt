@@ -18,6 +18,9 @@ interface UOMDao {
     @Query("SELECT * FROM table_uom WHERE AbsEntry = :absEntry")
     suspend fun getUomByID(absEntry: Int): UOMEntity
 
+    @Query("SELECT * FROM table_uom WHERE AbsEntry IN (:alternateUoms)")
+    suspend fun getUomsByAlternateUoms(alternateUoms: List<Int>): List<UOMEntity>
+
     @Query("DELETE FROM table_uom")
     fun removeAllUoms(): Int
 }

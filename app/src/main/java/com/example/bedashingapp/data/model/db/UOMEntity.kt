@@ -10,4 +10,10 @@ data class UOMEntity(
     val Code: String,
     val Name: String
 
-)
+
+
+) {
+    override fun toString(): String {
+        return Name
+    }
+}

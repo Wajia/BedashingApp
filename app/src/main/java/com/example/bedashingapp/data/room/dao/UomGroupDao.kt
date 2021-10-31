@@ -17,7 +17,10 @@ interface UomGroupDao {
     fun getAllUomGroups() : List<UOMGroupEntity>
 
     @Query("SELECT * FROM table_uom_group WHERE AbsEntry = :absEntry")
-    suspend fun getUomGroupByID(absEntry: Int): UOMGroupEntity
+    suspend fun getUomGroupByID(absEntry: String): UOMGroupEntity
+
+    @Query("SELECT * FROM table_uom_group WHERE AbsEntry LIKE :uomGroupEntry")
+    suspend fun getAlternateUomsByUomGroupEntry(uomGroupEntry: String): List<UOMGroupEntity>
 
     @Query("DELETE FROM table_uom_group")
     fun removeAllUomGroups(): Int

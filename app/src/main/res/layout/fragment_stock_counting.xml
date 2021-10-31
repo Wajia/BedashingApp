@@ -244,7 +244,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatSpinner
-                android:id="@+id/spinner_branch"
+                android:id="@+id/spinner_uom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/dp14"

@@ -41,6 +41,7 @@ class ApiHelper(private val apiService: ApiService) {
         val url = "$mainURL/b1s/v1/BusinessPlaces?\$select=BPLID,BPLName,BPLNameForeign,DefaultCustomerID,DefaultVendorID,DefaultWarehouseID&\$filter=Disabled eq 'tNO'"
         val headers = HashMap<String, String>()
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=500"
         return apiService.getBranches(url, headers)
     }
 
@@ -48,6 +49,7 @@ class ApiHelper(private val apiService: ApiService) {
         val url = "$mainURL/b1s/v1/Warehouses?\$select=BusinessPlaceID,WarehouseCode,WarehouseName&\$filter=Inactive eq 'tNO'"
         val headers = HashMap<String, String>()
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=500"
         return apiService.getWarehouses(url, headers)
     }
 
@@ -63,6 +65,7 @@ class ApiHelper(private val apiService: ApiService) {
         val url = "$mainURL/b1s/v1/UnitOfMeasurements"
         val headers = HashMap<String, String>()
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=500"
         return apiService.getUoms(url, headers)
     }
 
@@ -70,6 +73,7 @@ class ApiHelper(private val apiService: ApiService) {
         val url = "$mainURL/b1s/v1/UnitOfMeasurementGroups?\$select=AbsEntry,UoMGroupDefinitionCollection"
         val headers = HashMap<String, String>()
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=500"
         return apiService.getUomGroups(url, headers)
     }
 

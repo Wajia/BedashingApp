@@ -424,8 +424,8 @@ class MainActivity : BaseActivity() {
         val navHostFragment = fm.findFragmentById(R.id.nav_host_fragment)
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         if (fragment != null) {
-//            if (fragment is POItemScanFragment)
-//                fragment.onActivityResult(requestCode, resultCode, data)
+            if (fragment is StockCountingFragment)
+                fragment.onActivityResult(requestCode, resultCode, data)
 
         }
         super.onActivityResult(requestCode, resultCode, data)

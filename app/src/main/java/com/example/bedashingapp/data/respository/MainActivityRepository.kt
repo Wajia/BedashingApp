@@ -179,6 +179,9 @@ class MainActivityRepository(
         }
     }
 
+    suspend fun getItemByItemCode(itemCode: String) =
+        itemDao.getItemByItemCode(itemCode)
+
     suspend fun insertDocument(document: PostedDocumentEntity): Long {
         return postedDocumentDao.insertDocument(document)
     }

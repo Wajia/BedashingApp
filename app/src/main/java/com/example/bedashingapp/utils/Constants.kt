@@ -13,5 +13,8 @@ class Constants {
 
         const val EDIT = "EDIT"
         const val DELETE = "DELETE"
+
+        const val TEXT_ADD_ITEM = "Add Item"
+        const val TEXT_UPDATE_ITEM = "Update Item"
     }
 }

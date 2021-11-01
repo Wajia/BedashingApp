@@ -6,12 +6,14 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.ContextThemeWrapper
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,6 +55,8 @@ class StockCountingFragment : BaseFragment() {
     private var costingCode3: String = ""
     private var availableInStock: Double = 0.0
     private var uomCode: String = ""
+
+    private var selectedPositionForUpdate: Int = 0
 
     override fun getLayout(): Int {
         return R.layout.fragment_stock_counting
@@ -116,19 +120,24 @@ class StockCountingFragment : BaseFragment() {
         }
 
 
-        et_counted_quantity.addTextChangedListener(object : TextWatcher{
+        et_counted_quantity.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s.toString() == "."){
+                if (s.toString() == ".") {
                     et_counted_quantity.setText("")
                     et_variance.setText("")
-                }else if(s.toString().isEmpty()){
+                } else if (s.toString().isEmpty()) {
                     et_variance.setText("")
-                }else{
-                    if(selectedItem != null){
-                        et_variance.setText(String.format("%.1f", s.toString().toDouble() - availableInStock))
+                } else {
+                    if (selectedItem != null) {
+                        et_variance.setText(
+                            String.format(
+                                "%.1f",
+                                s.toString().toDouble() - availableInStock
+                            )
+                        )
                     }
                 }
             }
@@ -138,7 +147,7 @@ class StockCountingFragment : BaseFragment() {
 
         })
 
-        spinner_uom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner_uom.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -158,30 +167,59 @@ class StockCountingFragment : BaseFragment() {
         }
 
         btn_add_item.setOnClickListener {
-            if(validateAddItem()){
-                mainActivityViewModel.addInventoryCountingLine(
-                    selectedItem!!,
-                    sessionManager!!.getWareHouseID(),
-                    et_counted_quantity.text.toString().toDouble(),
-                    et_variance.text.toString().toDouble(),
-                    sessionManager!!.getUserDfltRegion(),
-                    sessionManager!!.getUserDfltStore(),
-                    costingCode3,
-                    uomCode,
-                    availableInStock
-                )
+            if (validateAddItem()) {
+                if (btn_add_item.text == Constants.TEXT_ADD_ITEM) {
+                    mainActivityViewModel.addInventoryCountingLine(
+                        selectedItem!!,
+                        sessionManager!!.getWareHouseID(),
+                        et_counted_quantity.text.toString().toDouble(),
+                        et_variance.text.toString().toDouble(),
+                        sessionManager!!.getUserDfltRegion(),
+                        sessionManager!!.getUserDfltStore(),
+                        costingCode3,
+                        uomCode,
+                        availableInStock
+                    )
 
-                //reset details
-                resetSelectedItemDetails()
+                    //reset details
+                    resetSelectedItemDetails()
+                    adapter!!.notifyDataSetChanged()
 
-                adapter!!.notifyDataSetChanged()
+                } else {
+                    if (mainActivityViewModel.updateInventoryCountingLine(
+                            selectedItem!!,
+                            et_counted_quantity.text.toString().toDouble(),
+                            et_variance.text.toString().toDouble(),
+                            costingCode3,
+                            uomCode,
+                            availableInStock,
+                            selectedPositionForUpdate
+                        )
+                    ) {
+                        //reset details
+                        resetSelectedItemDetails()
+                        adapter!!.notifyDataSetChanged()
+                    } else {
+                        showToastShort("Another item already exists with selected item and uom.")
+                    }
+                }
+
+            }
+        }
+
+        btn_post.setOnClickListener {
+            if(validate()){
+                showConfirmationAlert()
             }
         }
     }
 
     private var adapter: InventoryCountingLineAdapter? = null
     private fun setRecyclerView() {
-        adapter = InventoryCountingLineAdapter(mainActivityViewModel.getSelectedItems(), mOnItemClickListener)
+        adapter = InventoryCountingLineAdapter(
+            mainActivityViewModel.getSelectedItems(),
+            mOnItemClickListener
+        )
         rv_inventory_counting_lines.adapter = adapter
         rv_inventory_counting_lines.setHasFixedSize(true)
 
@@ -189,17 +227,42 @@ class StockCountingFragment : BaseFragment() {
         rv_inventory_counting_lines.layoutManager = layoutManager
     }
 
-    private var mOnItemClickListener: OnItemClickListener<Line> = object : OnItemClickListener<Line>(){
-        override fun onClicked(view: View?, position: Int, type: String?, data: Line?) {
-            if(type == Constants.DELETE){
-                mainActivityViewModel.removeSelectedItem(data!!)
-                adapter!!.notifyDataSetChanged()
+    private var mOnItemClickListener: OnItemClickListener<Line> =
+        object : OnItemClickListener<Line>() {
+            override fun onClicked(view: View?, position: Int, type: String?, data: Line?) {
+                if (type == Constants.DELETE) {
+                    mainActivityViewModel.removeSelectedItem(data!!)
+                    if(btn_add_item.text == Constants.TEXT_UPDATE_ITEM){
+                        resetSelectedItemDetails()
+                    }
+                    adapter!!.notifyItemRemoved(position)
+                } else {
+                    selectedPositionForUpdate = position
+                    getItemByItemCode(data!!.ItemCode, data)
+                }
             }
+
         }
 
+    private fun getItemByItemCode(itemCode: String, addedItem: Line) {
+        mainActivityViewModel.getItemByItemCode(itemCode).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        retainItemData(resource.data!!, addedItem)
+                    }
+                    Status.LOADING -> {
+
+                    }
+                    Status.ERROR -> {
+                        showToastLong(resource.message!!)
+                    }
+                }
+            }
+        })
     }
 
-    private fun resetSelectedItemDetails(){
+    private fun resetSelectedItemDetails() {
         selectedItem = null
         tv_selected_item_name.text = resources.getString(R.string.lbl_select_item)
         et_counted_quantity.setText("")
@@ -222,7 +285,7 @@ class StockCountingFragment : BaseFragment() {
                         Status.SUCCESS -> {
                             if (purpose == "checkInventoryStatus") {
                                 getInventoryStatus()
-                            }else{
+                            } else {
                                 getItemQuantityAndDetails()
                             }
                         }
@@ -246,7 +309,7 @@ class StockCountingFragment : BaseFragment() {
         }
     }
 
-    private fun getItemQuantityAndDetails(){
+    private fun getItemQuantityAndDetails() {
         mainActivityViewModel.getItem(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
@@ -254,27 +317,27 @@ class StockCountingFragment : BaseFragment() {
             sessionManager!!.getWareHouseID(),
             selectedItem!!.ItemCode
         ).observe(viewLifecycleOwner, Observer {
-            it?.let{resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
                         hideProgressBar()
 
-                        if(resource.data!!.value.isNotEmpty()){
+                        if (resource.data!!.value.isNotEmpty()) {
                             val item = resource.data.value.first()
                             availableInStock = item.ItemWarehouseInfoCollection.InStock
 
-                            if(item.Items.ItemsGroupCode == 106){
+                            if (item.Items.ItemsGroupCode == 106) {
                                 costingCode3 = item.Items.U_Deprtmnt
-                            }else{
+                            } else {
                                 costingCode3 = ""
                             }
                         }
 
                     }
-                    Status.LOADING->{
-                        showProgressBar("","")
+                    Status.LOADING -> {
+                        showProgressBar("", "")
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
                     }
@@ -341,6 +404,8 @@ class StockCountingFragment : BaseFragment() {
     }
 
     private fun setItemData(item: ItemEntity) {
+        btn_add_item.text = Constants.TEXT_ADD_ITEM
+
         selectedItem = item
         tv_selected_item_name.text = item.ItemName
 
@@ -350,14 +415,38 @@ class StockCountingFragment : BaseFragment() {
 
         availableInStock = item.InStock!!
 
-        costingCode3 = if(item.ItemsGroupCode == 106){
+        costingCode3 = if (item.ItemsGroupCode == 106) {
             item.U_Deprtmnt!!
-        }else{
+        } else {
             ""
         }
 
         //set Uoms in spinner
         uomCode = ""
+        fetchUomsByUomGroupEntry(item.UoMGroupEntry)
+
+        //get Latest details of item
+        checkSessionConnection("fetchQuantity")
+    }
+
+    private fun retainItemData(item: ItemEntity, addedItem: Line) {
+        btn_add_item.text = Constants.TEXT_UPDATE_ITEM
+
+        selectedItem = item
+        tv_selected_item_name.text = item.ItemName
+
+        btn_check_status.alpha = 1.0f
+        et_counted_quantity.setText(String.format("%.1f", addedItem.CountedQuantity))
+        et_variance.setText(String.format("%.1f", addedItem.Variance))
+
+        costingCode3 = if (item.ItemsGroupCode == 106) {
+            item.U_Deprtmnt!!
+        } else {
+            ""
+        }
+
+        //set Uoms in spinner
+        uomCode = addedItem.UoMCode
         fetchUomsByUomGroupEntry(item.UoMGroupEntry)
 
         //get Latest details of item
@@ -389,6 +478,11 @@ class StockCountingFragment : BaseFragment() {
         val adapter = ArrayAdapter(requireContext(), R.layout.spinner_row, uomsList)
         adapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item)
         spinner_uom.adapter = adapter
+
+        if (uomCode.isNotEmpty()) {
+            //retain selected uom
+            spinner_uom.setSelection(uomsList.indexOfFirst { it.Code == uomCode })
+        }
     }
 
     @RequiresApi(Build.VERSION_CODES.N)
@@ -420,25 +514,45 @@ class StockCountingFragment : BaseFragment() {
         pickerDialog.show()
     }
 
+    private fun showConfirmationAlert(){
+        val builder = AlertDialog.Builder(ContextThemeWrapper(requireActivity(), R.style.MypopUp))
+        builder.setTitle("Post Document")
 
-    private fun validateAddItem(): Boolean{
-        if(selectedItem == null){
+        builder.setMessage(resources.getString(R.string.post_doc))
+
+        builder.setPositiveButton("YES") { _, _ ->
+
+        }
+        builder.setNegativeButton("NO") { _, _ ->
+
+        }
+
+        // Create the AlertDialog
+        val alertDialog: AlertDialog = builder.create()
+        // Set other dialog properties
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+    }
+
+
+    private fun validateAddItem(): Boolean {
+        if (selectedItem == null) {
             showToastShort("Please select an item first!")
             return false
         }
-        if(et_counted_quantity.text.toString().isEmpty()){
+        if (et_counted_quantity.text.toString().isEmpty()) {
             showToastShort("Please enter counted quantity")
             return false
         }
-        if(uomCode.isEmpty()){
+        if (uomCode.isEmpty()) {
             showToastShort("Please select uom")
-            return  false
+            return false
         }
-        if(sessionManager!!.getUserDfltRegion().isEmpty()){
+        if (sessionManager!!.getUserDfltRegion().isEmpty()) {
             showToastLong(resources.getString(R.string.no_default_region_msg))
             return false
         }
-        if(sessionManager!!.getUserDfltStore().isEmpty()){
+        if (sessionManager!!.getUserDfltStore().isEmpty()) {
             showToastLong(resources.getString(R.string.no_default_store_msg))
             return false
         }
@@ -446,21 +560,33 @@ class StockCountingFragment : BaseFragment() {
         return true
     }
 
+    private fun validate(): Boolean{
+        if(et_doc_date.text.toString().isEmpty()){
+            showToastShort("Please set Document Date!")
+            return false
+        }
+        if(mainActivityViewModel.getSelectedItems().isEmpty()){
+            showToastShort("Please add at least one item to post!")
+            return false
+        }
+        return true
+    }
+
     private fun searchByBarcode(barcode: String) {
         mainActivityViewModel.getItemByBarcode(barcode).observe(viewLifecycleOwner, Observer {
             it?.let { resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
-                        if(resource.data != null){
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        if (resource.data != null) {
                             setItemData(resource.data)
-                        }else{
+                        } else {
                             showToastLong("No item found!")
                         }
                     }
-                    Status.LOADING->{
+                    Status.LOADING -> {
 
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         showToastLong(resource.message!!)
                     }
                 }

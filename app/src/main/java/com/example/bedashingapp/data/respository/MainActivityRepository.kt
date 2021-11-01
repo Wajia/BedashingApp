@@ -80,23 +80,64 @@ class MainActivityRepository(
         return apiHelper.getBarcodes(mainURL, companyName, sessionID, from)
     }
 
-    suspend fun getPOCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int, VendorCode: String) =
+    suspend fun getPOCount(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        BPLID: Int,
+        VendorCode: String
+    ) =
         apiHelper.getPOCount(mainURL, companyName, sessionID, BPLID, VendorCode)
 
-    suspend fun getGRPOCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int, VendorCode: String) =
+    suspend fun getGRPOCount(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        BPLID: Int,
+        VendorCode: String
+    ) =
         apiHelper.getGRPOCount(mainURL, companyName, sessionID, BPLID, VendorCode)
 
-    suspend fun getDeliveryCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int) =
+    suspend fun getDeliveryCount(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        BPLID: Int
+    ) =
         apiHelper.getDeliveryCount(mainURL, companyName, sessionID, BPLID)
 
-    suspend fun getInventoryCount(mainURL: String, companyName: String, sessionID: String, BPLID: Int) =
+    suspend fun getInventoryCount(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        BPLID: Int
+    ) =
         apiHelper.getInventoryCount(mainURL, companyName, sessionID, BPLID)
 
-    suspend fun getInventoryCountings(mainURL: String, companyName: String, sessionID: String, BPLID: Int) =
+    suspend fun getInventoryCountings(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        BPLID: Int
+    ) =
         apiHelper.getInventoryCountings(mainURL, companyName, sessionID, BPLID)
 
-    suspend fun getInventoryStatus(mainURL: String, companyName: String, sessionID: String, itemCode: String) =
+    suspend fun getInventoryStatus(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        itemCode: String
+    ) =
         apiHelper.getInventoryStatus(mainURL, companyName, sessionID, itemCode)
+
+    suspend fun getItem(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        warehouseCode: String,
+        itemCode: String
+    ) =
+        apiHelper.getItem(mainURL, companyName, sessionID, warehouseCode, itemCode)
 
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------
 
@@ -118,15 +159,24 @@ class MainActivityRepository(
 
     suspend fun getItemsByName(name: String) = itemDao.getItemsByName(name)
 
-    suspend fun getUomsByUomGroupEntry(uomGroupEntry: String): List<UOMEntity>{
+    suspend fun getUomsByUomGroupEntry(uomGroupEntry: String): List<UOMEntity> {
         val uomGroups = uomGroupDao.getAlternateUomsByUomGroupEntry(uomGroupEntry)
         val listAlternateUoms = mutableListOf<Int>()
-        for(entity in uomGroups){
-            for(uomGroup in entity.UoMGroupDefinitionCollection){
+        for (entity in uomGroups) {
+            for (uomGroup in entity.UoMGroupDefinitionCollection) {
                 listAlternateUoms.add(uomGroup.AlternateUoM)
             }
         }
         return uomDao.getUomsByAlternateUoms(listAlternateUoms)
+    }
+
+    suspend fun getItemByBarcode(barcode: String): ItemEntity? {
+        var barcodesList = barcodeDao.getBarcodeEntityByBarcode(barcode)
+        return if(barcodesList.isEmpty()){
+            null
+        }else{
+            itemDao.getItemByItemCode(barcodesList.first().ItemNo)
+        }
     }
 
     suspend fun insertDocument(document: PostedDocumentEntity): Long {

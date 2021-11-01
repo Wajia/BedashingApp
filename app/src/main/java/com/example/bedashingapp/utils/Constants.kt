@@ -9,5 +9,9 @@ class Constants {
         const val PENDING = "PENDING"
         const val SYNCED = "SYNCED"
         const val FAILED = "FAILED"
+
+
+        const val EDIT = "EDIT"
+        const val DELETE = "DELETE"
     }
 }

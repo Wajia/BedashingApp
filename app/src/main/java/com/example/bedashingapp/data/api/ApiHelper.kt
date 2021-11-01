@@ -129,6 +129,13 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.getInventoryStatus(url, headers)
     }
 
+    suspend fun getItem(mainURL: String, companyName: String, sessionID: String, warehouseCode: String, itemCode: String): GetItemsMasterResponse{
+        val url = "$mainURL/b1s/v1/\$crossjoin(Items,Items/ItemWarehouseInfoCollection)?\$expand=Items/ItemWarehouseInfoCollection(\$select=InStock),Items(\$select=ItemsGroupCode,U_Deprtmnt,U_PrdctCat)&\$filter= Items/ItemCode eq Items/ItemWarehouseInfoCollection/ItemCode and Items/ItemCode eq '$itemCode' and Items/ItemWarehouseInfoCollection/WarehouseCode eq '$warehouseCode'"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getItem(url, headers)
+    }
+
 
 
 

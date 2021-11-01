@@ -105,4 +105,10 @@ interface ApiService {
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
     ): GetInventoryStatusResponse
+
+    @GET
+    suspend fun getItem(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetItemsMasterResponse
 }

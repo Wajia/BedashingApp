@@ -186,8 +186,8 @@
                             android:layout_width="52dp"
                             android:layout_height="52dp"
                             android:id="@+id/iv_barcode"
-                            android:padding="@dimen/dp10"
-                            android:src="@drawable/ic_barcode_icon"
+                            android:padding="@dimen/dp0"
+
                             android:layout_marginBottom="@dimen/dp1"
                             android:background="@drawable/barcode_bg"
                             />

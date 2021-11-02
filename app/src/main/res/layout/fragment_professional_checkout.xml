@@ -58,6 +58,15 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_customer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp14"
+                android:background="@drawable/spinnerbg"
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
@@ -124,7 +133,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Select an Item"
+                                android:text="@string/lbl_select_item"
                                 android:id="@+id/tv_selected_item_name"
                                 android:textColor="@color/colorPrimary"
                                 android:textSize="@dimen/sp14"
@@ -205,8 +214,8 @@
                             android:layout_width="52dp"
                             android:layout_height="52dp"
                             android:id="@+id/iv_barcode"
-                            android:padding="@dimen/dp10"
-                            android:src="@drawable/ic_barcode_icon"
+                            android:padding="@dimen/dp0"
+
                             android:layout_marginBottom="@dimen/dp1"
                             android:background="@drawable/barcode_bg"
                             />
@@ -244,6 +253,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
@@ -255,7 +265,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_variance"
+                    android:id="@+id/et_qty"
                     android:inputType="numberDecimal"
                     style="@style/TextInputLayoutStyle"
                     />
@@ -294,7 +304,7 @@
                 <Button
                     android:id ="@+id/btn_add_item"
                     style="@style/Widget.App.Button"
-                    android:layout_width="110dp"
+                    android:layout_width="wrap_content"
                     android:layout_gravity="end"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp15"
@@ -311,291 +321,15 @@
                 android:layout_marginBottom="@dimen/dp10"
                 android:text="List of Items" />
 
-            <LinearLayout
+            <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardElevation="@dimen/dp3"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="@dimen/dp15"
-                    android:layout_marginBottom="@dimen/dp3"
-
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <ImageView
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
-
-                            android:src="@drawable/carton_bg"
-                            />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_gravity="center_vertical"
-                            android:paddingStart="@dimen/dp10">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Item Name"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="@dimen/sp14"
-                                    android:fontFamily="@font/open_sans"/>
-
-
-
-
-                            </LinearLayout>
-
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                >
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/dp10"
-                                    android:text="23 In-Stock"
-                                    android:textColor="#E25725"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans"
-                                    android:layout_gravity="center_vertical"/>
-
-                                <View
-                                    android:layout_width="4dp"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/round_bullet"
-                                    android:layout_gravity="center_vertical" />
-
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp10"
-                                    android:text="01/1/2021"
-                                    android:textColor="#555555"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans_light_italic"
-                                    android:layout_gravity="center_vertical"/>
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp3"
-                                android:text="Categ - 1"
-                                android:paddingVertical="0.5dp"
-                                android:paddingHorizontal="@dimen/dp4"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/open_sans_light_italic"
-                                android:background="@drawable/catg"/>
-
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_gravity="end"
-                            android:gravity="end">
-
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_edit"
-                                android:layout_marginBottom="@dimen/dp1"
-                                android:background="@drawable/edit_bin_ellipse"
-                                />
-
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp1"
-                                android:src="@drawable/ic_bin"
-                                android:background="@drawable/edit_bin_ellipse"
-                                />
-
-                        </LinearLayout>
-
-
-
-                    </LinearLayout>
-
-
-
-
-                </com.google.android.material.card.MaterialCardView>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardElevation="@dimen/dp3"
-                    app:cardPreventCornerOverlap="true"
-                    app:cardUseCompatPadding="true"
-                    app:contentPadding="@dimen/dp15"
-                    android:layout_marginBottom="@dimen/dp3"
-
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        >
-
-                        <ImageView
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
-
-                            android:src="@drawable/carton_bg"
-                            />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_gravity="center_vertical"
-                            android:paddingStart="@dimen/dp10">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Item Name"
-                                    android:textColor="@color/colorPrimary"
-                                    android:textSize="@dimen/sp14"
-                                    android:fontFamily="@font/open_sans"/>
-
-
-
-
-                            </LinearLayout>
-
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:layout_gravity="center_vertical"
-                                >
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="@dimen/dp10"
-                                    android:text="23 In-Stock"
-                                    android:textColor="#E25725"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans"
-                                    android:layout_gravity="center_vertical"/>
-
-                                <View
-                                    android:layout_width="4dp"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/round_bullet"
-                                    android:layout_gravity="center_vertical" />
-
-
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="@dimen/dp10"
-                                    android:text="01/1/2021"
-                                    android:textColor="#555555"
-                                    android:textSize="@dimen/sp13"
-                                    android:fontFamily="@font/open_sans_light_italic"
-                                    android:layout_gravity="center_vertical"/>
-
-                            </LinearLayout>
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp3"
-                                android:text="Categ - 1"
-                                android:paddingVertical="0.5dp"
-                                android:paddingHorizontal="@dimen/dp4"
-                                android:textSize="12sp"
-                                android:fontFamily="@font/open_sans_light_italic"
-                                android:background="@drawable/catg"/>
-
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_gravity="end"
-                            android:gravity="end">
-
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:src="@drawable/ic_edit"
-                                android:layout_marginBottom="@dimen/dp1"
-                                android:background="@drawable/edit_bin_ellipse"
-                                />
-
-                            <ImageButton
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/dp1"
-                                android:src="@drawable/ic_bin"
-                                android:background="@drawable/edit_bin_ellipse"
-                                />
-
-                        </LinearLayout>
-
-
-
-                    </LinearLayout>
-
-
-
-
-                </com.google.android.material.card.MaterialCardView>
-            </LinearLayout>
+                android:layout_height="325dp"
+                tools:itemCount="4"
+                android:scrollbars="vertical"
+                android:scrollbarThumbVertical="@color/colorDark"
+                android:scrollbarSize="@dimen/dp1"
+                android:id="@+id/rv_inventory_counting_lines"
+                tools:listitem="@layout/list_inventory_lines_single_item"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -606,7 +340,7 @@
                 android:gravity="end">
 
                 <Button
-                    android:id ="@+id/cancel"
+                    android:id ="@+id/btn_cancel"
                     style="@style/Widget.App.Button.Light"
                     android:layout_width="110dp"
                     android:layout_gravity="end"
@@ -617,7 +351,7 @@
 
 
                 <Button
-                    android:id ="@+id/post"
+                    android:id ="@+id/btn_post"
                     style="@style/Widget.App.Button"
                     android:layout_width="110dp"
                     android:layout_gravity="end"

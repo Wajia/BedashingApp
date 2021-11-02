@@ -30,33 +30,23 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.8"
             android:orientation="vertical"
+            android:layout_gravity="center_vertical"
             android:paddingStart="@dimen/dp10">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Item Name"
-                    android:id="@+id/tv_item_name"
-                    android:maxLines="1"
-                    android:autoSizeTextType="uniform"
-                    android:autoSizeMaxTextSize="@dimen/sp14"
-                    android:autoSizeMinTextSize="@dimen/sp10"
-                    android:autoSizeStepGranularity="@dimen/dp1"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/sp14"
-                    android:fontFamily="@font/open_sans"/>
-
-
-
-
-            </LinearLayout>
-
-
+                android:text="Item Name"
+                android:id="@+id/tv_item_name"
+                android:maxLines="1"
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="@dimen/sp14"
+                android:autoSizeMinTextSize="@dimen/sp10"
+                android:autoSizeStepGranularity="@dimen/dp1"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp14"
+                android:fontFamily="@font/open_sans"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -95,7 +85,7 @@
                 android:id="@+id/tv_uom"
                 android:paddingVertical="0.5dp"
                 android:paddingHorizontal="@dimen/dp5"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:fontFamily="@font/open_sans_light_italic"
                 android:background="@drawable/catg"/>
 

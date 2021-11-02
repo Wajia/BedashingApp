@@ -49,6 +49,7 @@ class InventoryCountingListFragment : BaseFragment() {
 
 
         float_btn_add_inventory.setOnClickListener {
+            mainActivityViewModel.clearSelectedItems()
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
                 R.id.nav_inventory_counting, Bundle()
             )
@@ -88,6 +89,7 @@ class InventoryCountingListFragment : BaseFragment() {
             showToastLong(resources.getString(R.string.network_not_connected_msg))
         }
     }
+
 
     private fun getInventoryCountings() {
         mainActivityViewModel.getInventoryCountings(

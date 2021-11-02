@@ -113,9 +113,9 @@ interface ApiService {
     ): GetItemsMasterResponse
 
     @POST
-    suspend fun inventoryCountings(
+    fun inventoryCountings(
         @Url url:String,
         @HeaderMap headers: HashMap<String, String>,
         @Body payload: InventoryCountingRequest
-    ): AddInventoryCountingResponse
+    ): Call<AddInventoryCountingResponse>
 }

@@ -5,7 +5,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "table_posted_document")
 data class PostedDocumentEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    var num: Int = 0,
     var ID: String,
     var docType: String,
     var dateTime: String,

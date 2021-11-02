@@ -56,7 +56,7 @@ class CompletedDocumentAdapter(
                 }
                 Constants.SYNCED->{
                     progressBar.visibility = View.GONE
-                    statusImageView.setImageResource(R.drawable.ic_baseline_done_outline_24)
+                    statusImageView.setImageResource(R.drawable.ic_baseline_done_24)
                     statusImageView.visibility = View.VISIBLE
                 }
                 Constants.FAILED->{

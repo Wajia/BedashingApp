@@ -23,8 +23,11 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.*
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
+import com.example.bedashingapp.data.model.remote.AddInventoryCountingResponse
+import com.example.bedashingapp.data.model.remote.InventoryCountingRequest
 import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
+import com.example.bedashingapp.utils.Constants
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.dashboard.DashboardFragment
@@ -33,6 +36,10 @@ import com.example.bedashingapp.views.stock_counting.InventoryCountingListFragme
 import com.example.bedashingapp.views.stock_counting.StockCountingFragment
 import com.example.bedashingapp.views.update_branch.UpdateBranchFragment
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 
@@ -364,7 +371,7 @@ class MainActivity : BaseActivity() {
                         }
                     }
                     Status.LOADING -> {
-                        showProgressBar("Syncing barcodes...")
+                        showProgressBar("Syncing Barcodes...")
                     }
                     Status.ERROR -> {
                         hideProgressBar()
@@ -379,8 +386,10 @@ class MainActivity : BaseActivity() {
     //for posting documents
 
 
-    private fun updateStatusOfDocument(id: String, status: String, response: String) {
-        mainActivityViewModel.updateStatusOfDocument(id, status, response).observe(this, Observer {
+
+
+    fun updateStatusOfDocument(id: String, status: String, response: String, newID: String) {
+        mainActivityViewModel.updateStatusOfDocument(id, status, response, newID).observe(this, Observer {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
@@ -454,8 +463,7 @@ class MainActivity : BaseActivity() {
         builder.setPositiveButton("YES") { _, _ ->
             if (fragment is InventoryCountingListFragment) {
 
-            }
-            else {
+            } else {
                 super.onBackPressed()
             }
         }
@@ -490,7 +498,7 @@ class MainActivity : BaseActivity() {
                 }
             }
 
-            is StockCountingFragment ->{
+            is StockCountingFragment -> {
                 showOnExitPrompt(fragment)
             }
 
@@ -543,7 +551,7 @@ class MainActivity : BaseActivity() {
                 }
             }
 
-            is StockCountingFragment->{
+            is StockCountingFragment -> {
                 showOnExitPrompt(fragment)
             }
 

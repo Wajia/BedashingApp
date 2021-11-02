@@ -19,12 +19,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bedashingapp.BaseFragment
+import com.example.bedashingapp.MainActivity
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
 import com.example.bedashingapp.data.model.db.ItemEntity
 import com.example.bedashingapp.data.model.db.UOMEntity
 import com.example.bedashingapp.data.model.local.Line
+import com.example.bedashingapp.data.model.remote.AddInventoryCountingResponse
 import com.example.bedashingapp.data.model.remote.CustomObject
 import com.example.bedashingapp.data.model.remote.InventoryCountingLineRemote
 import com.example.bedashingapp.data.model.remote.InventoryCountingRequest
@@ -40,6 +42,10 @@ import com.example.bedashingapp.views.stock_counting.adapter.InventoryCountingLi
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureActivity
 import kotlinx.android.synthetic.main.fragment_stock_counting.*
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -210,7 +216,7 @@ class StockCountingFragment : BaseFragment() {
         }
 
         btn_post.setOnClickListener {
-            if(validate()){
+            if (validate()) {
                 showConfirmationAlert()
             }
         }
@@ -234,7 +240,7 @@ class StockCountingFragment : BaseFragment() {
             override fun onClicked(view: View?, position: Int, type: String?, data: Line?) {
                 if (type == Constants.DELETE) {
                     mainActivityViewModel.removeSelectedItem(data!!)
-                    if(btn_add_item.text == Constants.TEXT_UPDATE_ITEM){
+                    if (btn_add_item.text == Constants.TEXT_UPDATE_ITEM) {
                         resetSelectedItemDetails()
                     }
                     adapter!!.notifyItemRemoved(position)
@@ -516,7 +522,7 @@ class StockCountingFragment : BaseFragment() {
         pickerDialog.show()
     }
 
-    private fun showConfirmationAlert(){
+    private fun showConfirmationAlert() {
         val builder = AlertDialog.Builder(ContextThemeWrapper(requireActivity(), R.style.MypopUp))
         builder.setTitle("Post Document")
 
@@ -562,12 +568,12 @@ class StockCountingFragment : BaseFragment() {
         return true
     }
 
-    private fun validate(): Boolean{
-        if(et_doc_date.text.toString().isEmpty()){
+    private fun validate(): Boolean {
+        if (et_doc_date.text.toString().isEmpty()) {
             showToastShort("Please set Document Date!")
             return false
         }
-        if(mainActivityViewModel.getSelectedItems().isEmpty()){
+        if (mainActivityViewModel.getSelectedItems().isEmpty()) {
             showToastShort("Please add at least one item to post!")
             return false
         }
@@ -596,8 +602,8 @@ class StockCountingFragment : BaseFragment() {
         })
     }
 
-    private fun saveDocument(){
-        if(isConnectedToNetwork()) {
+    private fun saveDocument() {
+        if (isConnectedToNetwork()) {
             //first create payload
 
             val inventoryCountingLines = mutableListOf<InventoryCountingLineRemote>()
@@ -634,16 +640,17 @@ class StockCountingFragment : BaseFragment() {
                     it?.let { resource ->
                         when (resource.status) {
                             Status.SUCCESS -> {
-                                hideProgressBar()
-//                        (requireActivity() as MainActivity).postDocumentPO(receiveGoodsPORequest)
-                                showSnackBar(
-                                    "Document has been saved successfully. Syncing started.",
-                                    root,
-                                    R.id.nav_dashboard
+                                inventoryCountings(
+                                    inventoryCountingRequest
                                 )
+//                                showSnackBar(
+//                                    "Document has been saved successfully. Syncing started.",
+//                                    root,
+//                                    R.id.nav_dashboard
+//                                )
                             }
                             Status.LOADING -> {
-                                showProgressBar("", "")
+                                showProgressBar("", "Posting Document...")
                             }
                             Status.ERROR -> {
                                 hideProgressBar()
@@ -652,10 +659,84 @@ class StockCountingFragment : BaseFragment() {
                         }
                     }
                 })
-        }else{
+        } else {
             showToastLong(resources.getString(R.string.network_not_connected_msg))
         }
 
+    }
+
+    fun inventoryCountings(payload: InventoryCountingRequest) {
+        mainActivityViewModel.inventoryCountings(
+            sessionManager!!.getBaseURL(),
+            sessionManager!!.getCompany(),
+            sessionManager!!.getSessionId(),
+            payload
+        ).observe(viewLifecycleOwner, Observer {
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        resource.data?.enqueue(object : Callback<AddInventoryCountingResponse> {
+                            override fun onResponse(
+                                call: Call<AddInventoryCountingResponse>,
+                                response: Response<AddInventoryCountingResponse>
+                            ) {
+                                hideProgressBar()
+                                if (response.errorBody() == null) {
+                                    (requireActivity() as MainActivity).updateStatusOfDocument(
+                                        mainActivityViewModel.lastDocumentSavedID,
+                                        Constants.SYNCED,
+                                        "",
+                                        response.body()!!.DocumentNumber.toString()
+                                    )
+                                    showSnackBar(
+                                        "Document has been posted successfully.",
+                                        root,
+                                        R.id.nav_dashboard
+                                    )
+                                } else {
+                                    val jsonObject = JSONObject(response.errorBody()!!.string())
+
+                                    (requireActivity() as MainActivity).updateStatusOfDocument(
+                                        mainActivityViewModel.lastDocumentSavedID,
+                                        Constants.FAILED,
+                                        jsonObject.getJSONObject("error").toString(),
+                                        mainActivityViewModel.lastDocumentSavedID
+                                    )
+                                    showToastLong(jsonObject.getJSONObject("error").getJSONObject("message").getString("value"))
+                                }
+                            }
+
+                            override fun onFailure(
+                                call: Call<AddInventoryCountingResponse>,
+                                t: Throwable
+                            ) {
+                                hideProgressBar()
+                                showToastLong(t.message!!)
+                                (requireActivity() as MainActivity).updateStatusOfDocument(
+                                    mainActivityViewModel.lastDocumentSavedID,
+                                    Constants.FAILED,
+                                    t.message!!,
+                                    mainActivityViewModel.lastDocumentSavedID
+                                )
+                            }
+
+                        })
+                    }
+                    Status.LOADING -> {
+                    }
+                    Status.ERROR -> {
+                        hideProgressBar()
+                        showToastLong(resource.message!!)
+                        (requireActivity() as MainActivity).updateStatusOfDocument(
+                            mainActivityViewModel.lastDocumentSavedID,
+                            Constants.FAILED,
+                            resource.message,
+                            mainActivityViewModel.lastDocumentSavedID
+                        )
+                    }
+                }
+            }
+        })
     }
 
 

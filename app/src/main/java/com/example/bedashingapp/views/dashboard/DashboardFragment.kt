@@ -53,6 +53,7 @@ class DashboardFragment : BaseFragment() {
             tv_welcome.text = "WELCOME, ${sessionManager!!.getUserName()}"
 
             checkSessionConnection()
+            setupObserver()
 
             btn_stock_counting.setOnClickListener{
                 Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
@@ -65,7 +66,12 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun setupObserver(){
-        
+        mainActivityViewModel.reloadDocumentsFlagLiveData.observe(viewLifecycleOwner, Observer {
+            if(it){
+                checkSessionConnection()
+                mainActivityViewModel.setReloadDocumentsFlag(false)
+            }
+        })
     }
 
     private fun checkSessionConnection(){

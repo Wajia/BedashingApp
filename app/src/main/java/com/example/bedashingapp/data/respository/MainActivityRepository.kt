@@ -139,7 +139,7 @@ class MainActivityRepository(
     ) =
         apiHelper.getItem(mainURL, companyName, sessionID, warehouseCode, itemCode)
 
-    suspend fun inventoryCountings(
+    fun inventoryCountings(
         mainURL: String,
         companyName: String,
         sessionID: String,
@@ -198,8 +198,8 @@ class MainActivityRepository(
         return postedDocumentDao.getPostedDocuments()
     }
 
-    suspend fun updateStatusOfDocument(id: String, status: String, response: String) {
-        return postedDocumentDao.updateStatus(status, response, id)
+    suspend fun updateStatusOfDocument(id: String, status: String, response: String, newID: String) {
+        return postedDocumentDao.updateStatus(status, response, id, newID)
     }
 
 

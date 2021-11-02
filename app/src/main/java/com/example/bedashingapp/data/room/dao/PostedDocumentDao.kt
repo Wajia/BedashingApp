@@ -9,14 +9,14 @@ import com.example.bedashingapp.data.model.db.PostedDocumentEntity
 @Dao
 interface PostedDocumentDao {
 
-    @Insert(onConflict = OnConflictStrategy.REPLACE) 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertDocument(document: PostedDocumentEntity): Long
 
-    @Query("SELECT * FROM table_posted_document ORDER BY dateTime DESC")
+    @Query("SELECT * FROM table_posted_document ORDER BY num DESC")
     fun getPostedDocuments(): List<PostedDocumentEntity>
 
-    @Query("UPDATE table_posted_document SET status =:status, response =:response WHERE ID=:ID")
-    fun updateStatus(status: String, response: String, ID: String)
+    @Query("UPDATE table_posted_document SET status =:status, response =:response, ID =:newID WHERE ID=:ID")
+    fun updateStatus(status: String, response: String, ID: String, newID: String)
 
     @Query("SELECT * FROM table_posted_document WHERE ID=:ID")
     fun getDocument(ID: String): PostedDocumentEntity

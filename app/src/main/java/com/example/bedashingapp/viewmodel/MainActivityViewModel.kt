@@ -347,26 +347,25 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
-//    fun inventoryCountings(payload: InventoryCountingRequest) =
-//        liveData(Dispatchers.IO) {
-//
-//            emit(Resource.loading(data = null))
-//            try {
-//                emit(
-//                    Resource.success(
-//                        data = mainActivityRepository.inventoryCountings(
-//                            mainURL,
-//                            companyName,
-//                            sessionID,
-//                            warehouseCode,
-//                            itemCode
-//                        )
-//                    )
-//                )
-//            } catch (exception: Exception) {
-//                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-//            }
-//        }
+    fun inventoryCountings(mainURL: String, companyName: String, sessionID: String, payload: InventoryCountingRequest) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.inventoryCountings(
+                            mainURL,
+                            companyName,
+                            sessionID,
+                            payload
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
 
 
 
@@ -541,7 +540,7 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
     }
 
 
-    fun updateStatusOfDocument(id: String, status: String, response: String) =
+    fun updateStatusOfDocument(id: String, status: String, response: String, newID: String) =
         liveData(Dispatchers.IO) {
             emit(Resource.loading(data = null))
             try {
@@ -550,7 +549,8 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
                         data = mainActivityRepository.updateStatusOfDocument(
                             id,
                             status,
-                            response
+                            response,
+                            newID
                         )
                     )
                 )

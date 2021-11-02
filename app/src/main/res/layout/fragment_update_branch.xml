@@ -140,6 +140,15 @@
             android:layout_marginTop="@dimen/dp15"
             android:text="save" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/dp2"
+            android:text="@string/version_no"
+            android:textStyle="italic"
+            android:gravity="end|bottom"
+            android:textColor="@color/black_second"/>
+
     </LinearLayout>
 
     <include layout="@layout/progress_layout" />

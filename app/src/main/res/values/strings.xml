@@ -39,4 +39,17 @@
     <string name="no_default_region_msg">No Region linked to the item.  \n Please contact Head Office</string>
     <string name="no_default_store_msg">No Store linked to the item.  \n Please contact Head Office</string>
     <string name="post_doc">Are you sure, you want to post document to B1?</string>
+
+
+
+
+
+
+
+
+
+
+
+
+    <string name="version_no">Version: 02112021.01</string>
 </resources>

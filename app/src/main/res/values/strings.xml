@@ -33,4 +33,10 @@
     <string name="select_warehouse">Select Warehouse</string>
     <string name="select_open_po">Select Open PO</string>
     <string name="scan_enter_item">Scan / Enter Item</string>
+    <string name="lbl_select_item">Select an Item</string>
+
+
+    <string name="no_default_region_msg">No Region linked to the item.  \n Please contact Head Office</string>
+    <string name="no_default_store_msg">No Store linked to the item.  \n Please contact Head Office</string>
+    <string name="post_doc">Are you sure, you want to post document to B1?</string>
 </resources>

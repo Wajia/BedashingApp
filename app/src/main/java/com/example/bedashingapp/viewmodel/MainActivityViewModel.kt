@@ -9,6 +9,7 @@ import com.example.bedashingapp.data.model.db.BarcodeEntity
 import com.example.bedashingapp.data.model.db.ItemEntity
 import com.example.bedashingapp.data.model.db.UOMEntity
 import com.example.bedashingapp.data.model.db.UOMGroupEntity
+import com.example.bedashingapp.data.model.local.Line
 import com.example.bedashingapp.data.model.remote.*
 import com.example.bedashingapp.data.respository.MainActivityRepository
 import com.example.bedashingapp.utils.Resource
@@ -323,6 +324,27 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
+    fun getItem(mainURL: String, companyName: String, sessionID: String, warehouseCode: String,itemCode: String) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.getItem(
+                            mainURL,
+                            companyName,
+                            sessionID,
+                            warehouseCode,
+                            itemCode
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
 
     //-------------------------------------------------- Room Calls--------------------------------------------------------------
 
@@ -453,6 +475,24 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
     }
 
+    fun getItemByBarcode(barcode: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = mainActivityRepository.getItemByBarcode(barcode)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun getItemByItemCode(itemCode: String) = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = mainActivityRepository.getItemByItemCode(itemCode)))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
 
     fun getAllCompletedDocuments() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
@@ -495,5 +535,83 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
+
+
+
+
+    //--------------------------------------------------------------------------------------------------------------------------------------------
+
+
+    private var selectedItems: ArrayList<Line> = ArrayList()
+    fun getSelectedItems() = selectedItems
+    fun clearSelectedItems(){
+        selectedItems.clear()
+    }
+
+    fun addInventoryCountingLine(
+        item: ItemEntity,
+        warehouseCode: String,
+        countedQuantity: Double,
+        variance: Double,
+        costingCode: String,
+        costingCode2: String,
+        costingCode3: String,
+        uomCode: String,
+        inStock: Double
+    ){
+        //first check whether item with same itemCode & uomCode exists or not
+        val index = selectedItems.indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
+        if(index != -1){
+            selectedItems[index].CountedQuantity += countedQuantity
+            selectedItems[index].CostingCode3 = costingCode3
+            selectedItems[index].Variance = selectedItems[index].CountedQuantity - inStock
+        }else{
+            selectedItems.add(
+                Line(
+                    ItemCode = item.ItemCode,
+                    ItemDescription = item.ItemName,
+                    Freeze = "tNO",
+                    WarehouseCode = warehouseCode,
+                    Counted = "tYES",
+                    BarCode = item.BarCode,
+                    CountedQuantity = countedQuantity,
+                    Variance = variance,
+                    CostingCode = costingCode,
+                    CostingCode2 = costingCode2,
+                    CostingCode3 = costingCode3,
+                    UoMCode = uomCode
+                )
+            )
+        }
+    }
+
+    fun updateInventoryCountingLine(
+        item: ItemEntity,
+        countedQuantity: Double,
+        variance: Double,
+        costingCode3: String,
+        uomCode: String,
+        inStock: Double,
+        itemIndex: Int
+    ): Boolean{
+        //first check whether another item with same itemCode & uomCode exists or not
+        //if it exists then return false
+        val index = selectedItems.filterIndexed{ index, _ -> index != itemIndex }.indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
+        return if(index != -1){
+            false
+        }else{
+            selectedItems[itemIndex].CountedQuantity = countedQuantity
+            selectedItems[itemIndex].Variance = selectedItems[itemIndex].CountedQuantity - inStock
+            selectedItems[itemIndex].CostingCode3 = costingCode3
+            selectedItems[itemIndex].UoMCode = uomCode
+            true
+        }
+    }
+
+
+
+    fun removeSelectedItem(item: Line){
+        selectedItems.removeAt(selectedItems.indexOf(item))
+    }
 
 }

@@ -18,6 +18,9 @@ interface BarcodeDao {
     @Query("SELECT * FROM table_barcode WHERE AbsEntry = :absEntry")
     suspend fun getBarcodeByID(absEntry: Int): BarcodeEntity
 
+    @Query("SELECT * FROM table_barcode WHERE Barcode = :barcode")
+    suspend fun getBarcodeEntityByBarcode(barcode: String): List<BarcodeEntity>
+
     @Query("DELETE FROM table_barcode")
     fun removeAllBarcodes(): Int
 

@@ -37,10 +37,13 @@
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_item_listing.xml" value="0.2" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_po_bin_selection.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_po_item_qty.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_professional_checkout.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_purchase_orders.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_slideshow.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_stock_counting.xml" value="0.2" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_update_branch.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/items_dialog.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_outbound_bins_single_item.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_po_single_item_vendor.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_tasks_single_item.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/po_listitem.xml" value="0.16944444444444445" />
@@ -51,7 +54,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

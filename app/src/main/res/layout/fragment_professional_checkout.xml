@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".StockCounting"
+    tools:context=".ProfessionalCheckout"
     android:background="@color/white">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -41,6 +40,34 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/outlinedTextFieldtwo"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp14"
+                android:hint="Due Date">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_due_date"
+                    style="@style/TextInputLayoutStyle"
+                    android:layout_width="match_parent"
+                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_customer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dp14"
+                android:background="@drawable/spinnerbg"
+                android:spinnerMode="dropdown"
+                android:theme="@style/ThemeOverlay.AppCompat.Light" />
+
+            <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
@@ -53,7 +80,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/et_remarks"
+                    android:id="@+id/et_notes"
                     android:layout_gravity="start"
                     android:gravity="start"
                     android:inputType="textMultiLine"
@@ -212,7 +239,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Counted Quantity"
+                android:hint="Stock in Hand"
                 style="@style/TextInputLayoutStyle"
                 android:layout_marginBottom="14dp">
 
@@ -226,19 +253,19 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Variance"
+                android:hint="Quantity"
                 style="@style/TextInputLayoutStyle"
                 android:layout_marginBottom="14dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_variance"
-                    android:enabled="false"
+                    android:id="@+id/et_qty"
                     android:inputType="numberDecimal"
                     style="@style/TextInputLayoutStyle"
                     />
@@ -254,36 +281,36 @@
                 android:spinnerMode="dropdown"
                 android:theme="@style/ThemeOverlay.AppCompat.Light" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="end"
-            android:layout_weight="1"
-            android:gravity="end">
-
-            <Button
-                android:id ="@+id/btn_check_status"
-                style="@style/Widget.App.Button.Light"
-                android:layout_width="150dp"
-                android:layout_gravity="end"
-                android:layout_marginRight="@dimen/dp3"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp15"
-                android:text="Check Status"
-                android:alpha="0.5"/>
-
-
-            <Button
-                android:id ="@+id/btn_add_item"
-                style="@style/Widget.App.Button"
-                android:layout_width="wrap_content"
+                android:orientation="horizontal"
                 android:layout_gravity="end"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dp15"
-                android:text="Add Item" />
+                android:layout_weight="1"
+                android:gravity="end">
 
-        </LinearLayout>
+                <Button
+                    android:id ="@+id/btn_check_status"
+                    style="@style/Widget.App.Button.Light"
+                    android:layout_width="150dp"
+                    android:layout_gravity="end"
+                    android:layout_marginRight="@dimen/dp3"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="Check Status"
+                    android:alpha="0.5"/>
+
+
+                <Button
+                    android:id ="@+id/btn_add_item"
+                    style="@style/Widget.App.Button"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dp15"
+                    android:text="Add Item" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_welcome"

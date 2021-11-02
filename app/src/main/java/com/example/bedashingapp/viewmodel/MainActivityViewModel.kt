@@ -5,15 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.bedashingapp.data.model.db.BarcodeEntity
-import com.example.bedashingapp.data.model.db.ItemEntity
-import com.example.bedashingapp.data.model.db.UOMEntity
-import com.example.bedashingapp.data.model.db.UOMGroupEntity
+import com.example.bedashingapp.data.model.db.*
 import com.example.bedashingapp.data.model.local.Line
 import com.example.bedashingapp.data.model.remote.*
 import com.example.bedashingapp.data.respository.MainActivityRepository
+import com.example.bedashingapp.helper.DateUtilsApp
+import com.example.bedashingapp.utils.Constants
 import com.example.bedashingapp.utils.Resource
 import kotlinx.coroutines.Dispatchers
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivityViewModel(private val mainActivityRepository: MainActivityRepository) :
@@ -345,6 +347,28 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
+//    fun inventoryCountings(payload: InventoryCountingRequest) =
+//        liveData(Dispatchers.IO) {
+//
+//            emit(Resource.loading(data = null))
+//            try {
+//                emit(
+//                    Resource.success(
+//                        data = mainActivityRepository.inventoryCountings(
+//                            mainURL,
+//                            companyName,
+//                            sessionID,
+//                            warehouseCode,
+//                            itemCode
+//                        )
+//                    )
+//                )
+//            } catch (exception: Exception) {
+//                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+//            }
+//        }
+
+
 
     //-------------------------------------------------- Room Calls--------------------------------------------------------------
 
@@ -536,6 +560,60 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
 
 
+    fun saveInventoryCountingDocument(document: InventoryCountingRequest) = liveData(Dispatchers.IO) {
+
+        var payload = ""
+        payload += "{\n" +
+                "BranchID: ${document.BranchID}\n" +
+                "CountDate: ${document.CountDate}\n" +
+                "Remarks: ${document.Remarks}\n" +
+                "InventoryCountingLines: [\n"
+
+        for(line in document.InventoryCountingLines){
+            payload += "{\n" +
+                    "ItemCode: ${line.ItemCode}\n" +
+                    "Freeze: ${line.Freeze}\n" +
+                    "WarehouseCode: ${line.WarehouseCode}\n" +
+                    "Counted: ${line.Counted}\n" +
+                    "CountedQuantity: ${line.CountedQuantity}\n" +
+                    "Variance: ${line.Variance}\n" +
+                    "CostingCode: ${line.CostingCode}\n" +
+                    "CostingCode2: ${line.CostingCode2}\n" +
+                    "CostingCode3: ${line.CostingCode3}\n" +
+                    "UoMCode: ${line.UoMCode}\n" +
+                    "}\n"
+        }
+        payload += "]\n}\n"
+
+        var docDateDB = DateUtilsApp.getUTCFormattedDateTimeString(
+            SimpleDateFormat(
+                "dd/MM/yyyy - hh:mm a",
+                Locale.getDefault()
+            ), Calendar.getInstance().time
+        )
+
+        var document = PostedDocumentEntity(
+            ID = Calendar.getInstance().timeInMillis.toString(),
+            docType = "Stock Counting",
+            dateTime = docDateDB,
+            payload = payload,
+            status = Constants.PENDING
+        )
+        lastDocumentSavedID = document.ID
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = mainActivityRepository.insertDocument(document)
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    var lastDocumentSavedID: String = ""
 
 
 
@@ -607,7 +685,6 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             true
         }
     }
-
 
 
     fun removeSelectedItem(item: Line){

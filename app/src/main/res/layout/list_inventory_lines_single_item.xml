@@ -43,6 +43,7 @@
                     android:text="Item Name"
                     android:id="@+id/tv_item_name"
                     android:maxLines="1"
+                    android:paddingEnd="@dimen/dp5"
                     android:autoSizeTextType="uniform"
                     android:autoSizeMaxTextSize="@dimen/sp14"
                     android:autoSizeMinTextSize="@dimen/sp10"

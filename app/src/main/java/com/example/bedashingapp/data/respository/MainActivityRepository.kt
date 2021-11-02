@@ -139,6 +139,14 @@ class MainActivityRepository(
     ) =
         apiHelper.getItem(mainURL, companyName, sessionID, warehouseCode, itemCode)
 
+    suspend fun inventoryCountings(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        payload: InventoryCountingRequest
+    ) =
+        apiHelper.inventoryCountings(mainURL, companyName, sessionID, payload)
+
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------
 
 

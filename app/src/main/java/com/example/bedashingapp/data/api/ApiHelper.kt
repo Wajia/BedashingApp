@@ -136,6 +136,13 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.getItem(url, headers)
     }
 
+    suspend fun inventoryCountings(mainURL: String, companyName: String, sessionID: String, payload: InventoryCountingRequest): AddInventoryCountingResponse{
+        val url = "$mainURL/b1s/v1/InventoryCountings"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.inventoryCountings(url, headers, payload)
+    }
+
 
 
 

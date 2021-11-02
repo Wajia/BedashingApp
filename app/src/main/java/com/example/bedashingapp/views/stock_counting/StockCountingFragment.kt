@@ -26,6 +26,8 @@ import com.example.bedashingapp.data.model.db.ItemEntity
 import com.example.bedashingapp.data.model.db.UOMEntity
 import com.example.bedashingapp.data.model.local.Line
 import com.example.bedashingapp.data.model.remote.CustomObject
+import com.example.bedashingapp.data.model.remote.InventoryCountingLineRemote
+import com.example.bedashingapp.data.model.remote.InventoryCountingRequest
 import com.example.bedashingapp.helper.DateUtilsApp
 import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
@@ -521,7 +523,7 @@ class StockCountingFragment : BaseFragment() {
         builder.setMessage(resources.getString(R.string.post_doc))
 
         builder.setPositiveButton("YES") { _, _ ->
-
+            saveDocument()
         }
         builder.setNegativeButton("NO") { _, _ ->
 
@@ -592,6 +594,68 @@ class StockCountingFragment : BaseFragment() {
                 }
             }
         })
+    }
+
+    private fun saveDocument(){
+        if(isConnectedToNetwork()) {
+            //first create payload
+
+            val inventoryCountingLines = mutableListOf<InventoryCountingLineRemote>()
+            for (item in mainActivityViewModel.getSelectedItems()) {
+                inventoryCountingLines.add(
+                    InventoryCountingLineRemote(
+                        ItemCode = item.ItemCode,
+                        Freeze = item.Freeze,
+                        WarehouseCode = item.WarehouseCode,
+                        Counted = item.Counted,
+                        CountedQuantity = item.CountedQuantity,
+                        Variance = item.Variance,
+                        CostingCode = item.CostingCode,
+                        CostingCode2 = item.CostingCode2,
+                        CostingCode3 = item.CostingCode3,
+                        UoMCode = item.UoMCode
+                    )
+                )
+            }
+
+            val inventoryCountingRequest = InventoryCountingRequest(
+                BranchID = sessionManager!!.getUserBplid(),
+                CountDate = DateUtilsApp.getFormattedDateStringFromStringDate(
+                    SimpleDateFormat("yyyy-MM-dd"),
+                    SimpleDateFormat("dd-MM-yyyy"),
+                    et_doc_date.text.toString()
+                ),
+                Remarks = et_remarks.text.toString(),
+                InventoryCountingLines = inventoryCountingLines as ArrayList<InventoryCountingLineRemote>
+            )
+
+            mainActivityViewModel.saveInventoryCountingDocument(inventoryCountingRequest)
+                .observe(viewLifecycleOwner, Observer {
+                    it?.let { resource ->
+                        when (resource.status) {
+                            Status.SUCCESS -> {
+                                hideProgressBar()
+//                        (requireActivity() as MainActivity).postDocumentPO(receiveGoodsPORequest)
+                                showSnackBar(
+                                    "Document has been saved successfully. Syncing started.",
+                                    root,
+                                    R.id.nav_dashboard
+                                )
+                            }
+                            Status.LOADING -> {
+                                showProgressBar("", "")
+                            }
+                            Status.ERROR -> {
+                                hideProgressBar()
+                                showToastLong(resource.message!!)
+                            }
+                        }
+                    }
+                })
+        }else{
+            showToastLong(resources.getString(R.string.network_not_connected_msg))
+        }
+
     }
 
 

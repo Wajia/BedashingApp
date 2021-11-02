@@ -105,7 +105,7 @@ class MainActivity : BaseActivity() {
 
         globalProgressLayout = findViewById(R.id.progress_bar_for_problematic_resync)
         globalProgressBar = findViewById(R.id.progress_bar)
-        progressErrorTxt = findViewById(R.id.progress_txt)
+        progressErrorTxt = findViewById(R.id.progress_txt_1)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -490,7 +490,7 @@ class MainActivity : BaseActivity() {
                 }
             }
 
-            is StockCountingFragment->{
+            is StockCountingFragment ->{
                 showOnExitPrompt(fragment)
             }
 

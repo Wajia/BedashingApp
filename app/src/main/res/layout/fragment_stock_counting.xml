@@ -9,6 +9,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -52,7 +53,7 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/et_notes"
+                    android:id="@+id/et_remarks"
                     android:layout_gravity="start"
                     android:gravity="start"
                     android:inputType="textMultiLine"

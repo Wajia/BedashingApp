@@ -111,4 +111,11 @@ interface ApiService {
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
     ): GetItemsMasterResponse
+
+    @POST
+    suspend fun inventoryCountings(
+        @Url url:String,
+        @HeaderMap headers: HashMap<String, String>,
+        @Body payload: InventoryCountingRequest
+    ): AddInventoryCountingResponse
 }

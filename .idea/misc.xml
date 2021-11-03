@@ -20,6 +20,7 @@
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_ion_git_branch_outline.xml" value="0.17835051546391753" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_list_icon.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_po.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_tick.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_username.xml" value="0.18020833333333333" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/ic_warehouse.xml" value="0.17835051546391753" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/drawable/list_documents_bg.xml" value="0.18020833333333333" />
@@ -34,26 +35,40 @@
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/appsetting.xml" value="0.2" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/dialog_inventory_status.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_documents_completed.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_goods_receipt.xml" value="0.2" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_goods_receiving.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_inbound_item_scan.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_inbound_qty_bins.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_inventory.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_inventory_item_counting.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_inventory_listing.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_inventory_summary.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_item_listing.xml" value="0.2" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_payload_document.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_po_bin_selection.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_po_item_qty.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_po_item_scan.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_professional_checkout.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_purchase_order.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_purchase_order_listing.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_purchase_orders.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_slideshow.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_stock_counting.xml" value="0.2" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/fragment_update_branch.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/items_dialog.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/itemsreceiving.xml" value="0.2" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_completed_documents_single_item.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_inventory_countings_single_item.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_inventory_lines_single_item.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_items_single_item.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_outbound_bins_single_item.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_po_line_single_item.xml" value="0.176" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_po_single_item_vendor.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_tasks_single_item.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/list_transfer_lines_single_item.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/po_listitem.xml" value="0.16944444444444445" />
+        <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/uom_bottomsheet.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/layout/update_branch.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/menu/main.xml" value="0.16944444444444445" />
         <entry key="..\:/Users/wajeeha rehman/AndroidStudioProjects/BedashingApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.16" />

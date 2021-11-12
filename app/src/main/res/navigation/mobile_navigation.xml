@@ -44,7 +44,11 @@
         android:name="com.example.bedashingapp.views.completed_documents.DocumentPayloadFragment"
         android:label="Document Payload"
         tools:layout="@layout/fragment_payload_document"/>
-
+    <fragment
+        android:id="@+id/nav_purchase_order"
+        android:name="com.example.bedashingapp.views.PurchaseOrders.Fragments.PurchaseOrderFragment"
+        android:label="Purchase Order"
+        tools:layout="@layout/fragment_purchase_order" />
 
 
 </navigation>

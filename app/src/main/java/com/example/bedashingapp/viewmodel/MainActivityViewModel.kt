@@ -202,7 +202,28 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
-    fun getPOCount(mainURL: String, companyName: String, sessionID: String, bplID: String, VendorCode: String) =
+    fun getUomByID(id: String) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.getUomsByID(id)
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
+    fun getPOCount(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        bplID: String,
+        VendorCode: String
+    ) =
         liveData(Dispatchers.IO) {
 
             emit(Resource.loading(data = null))
@@ -223,7 +244,13 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
-    fun getGRPOCount(mainURL: String, companyName: String, sessionID: String, bplID: String, VendorCode: String) =
+    fun getGRPOCount(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        bplID: String,
+        VendorCode: String
+    ) =
         liveData(Dispatchers.IO) {
 
             emit(Resource.loading(data = null))
@@ -285,7 +312,12 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
 
 
-    fun getInventoryCountings(mainURL: String, companyName: String, sessionID: String, bplID: String) =
+    fun getInventoryCountings(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        bplID: String
+    ) =
         liveData(Dispatchers.IO) {
 
             emit(Resource.loading(data = null))
@@ -306,7 +338,12 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
 
 
-    fun getInventoryStatus(mainURL: String, companyName: String, sessionID: String, itemCode: String) =
+    fun getInventoryStatus(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        itemCode: String
+    ) =
         liveData(Dispatchers.IO) {
 
             emit(Resource.loading(data = null))
@@ -326,12 +363,19 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
-    fun getItem(mainURL: String, companyName: String, sessionID: String, warehouseCode: String,itemCode: String) =
+    fun getItem(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        warehouseCode: String,
+        itemCode: String
+    ) =
         liveData(Dispatchers.IO) {
 
             emit(Resource.loading(data = null))
             try {
                 emit(
+
                     Resource.success(
                         data = mainActivityRepository.getItem(
                             mainURL,
@@ -347,7 +391,40 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
-    fun inventoryCountings(mainURL: String, companyName: String, sessionID: String, payload: InventoryCountingRequest) =
+    fun getItemPO(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        warehouseCode: String,
+        itemCode: String
+    ) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+
+                    Resource.success(
+                        data = mainActivityRepository.getItemPO(
+                            mainURL,
+                            companyName,
+                            sessionID,
+                            warehouseCode,
+                            itemCode
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
+    fun inventoryCountings(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        payload: InventoryCountingRequest
+    ) =
         liveData(Dispatchers.IO) {
 
             emit(Resource.loading(data = null))
@@ -367,7 +444,30 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
+    fun postPO(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        payload: PostPurchaseOrderRequest
+    ) =
+        liveData(Dispatchers.IO) {
 
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.postPO(
+                            mainURL,
+                            companyName,
+                            sessionID,
+                            payload
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
 
     //-------------------------------------------------- Room Calls--------------------------------------------------------------
 
@@ -468,8 +568,6 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
     }
 
 
-
-
     fun getItemsWithOffsetDB(limit: Int, offset: Int) = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
@@ -560,27 +658,80 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
 
 
-    fun saveInventoryCountingDocument(document: InventoryCountingRequest) = liveData(Dispatchers.IO) {
+    fun saveInventoryCountingDocument(document: InventoryCountingRequest) =
+        liveData(Dispatchers.IO) {
+
+            var payload = ""
+            payload += "{\n" +
+                    "BranchID: ${document.BranchID}\n" +
+                    "CountDate: ${document.CountDate}\n" +
+                    "Remarks: ${document.Remarks}\n" +
+                    "InventoryCountingLines: [\n"
+
+            for (line in document.InventoryCountingLines) {
+                payload += "{\n" +
+                        "ItemCode: ${line.ItemCode}\n" +
+                        "Freeze: ${line.Freeze}\n" +
+                        "WarehouseCode: ${line.WarehouseCode}\n" +
+                        "Counted: ${line.Counted}\n" +
+                        "CountedQuantity: ${line.CountedQuantity}\n" +
+                        "Variance: ${line.Variance}\n" +
+                        "CostingCode: ${line.CostingCode}\n" +
+                        "CostingCode2: ${line.CostingCode2}\n" +
+                        "CostingCode3: ${line.CostingCode3}\n" +
+                        "UoMCode: ${line.UoMCode}\n" +
+                        "}\n"
+            }
+            payload += "]\n}\n"
+
+            var docDateDB = DateUtilsApp.getUTCFormattedDateTimeString(
+                SimpleDateFormat(
+                    "dd/MM/yyyy - hh:mm a",
+                    Locale.getDefault()
+                ), Calendar.getInstance().time
+            )
+
+            var document = PostedDocumentEntity(
+                ID = Calendar.getInstance().timeInMillis.toString(),
+                docType = "Stock Counting",
+                dateTime = docDateDB,
+                payload = payload,
+                status = Constants.PENDING
+            )
+            lastDocumentSavedID = document.ID
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.insertDocument(document)
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
+    fun savePurchaseOrderDocument(document: PostPurchaseOrderRequest) = liveData(Dispatchers.IO) {
 
         var payload = ""
         payload += "{\n" +
                 "BranchID: ${document.BranchID}\n" +
-                "CountDate: ${document.CountDate}\n" +
-                "Remarks: ${document.Remarks}\n" +
+                "DocDate: ${document.DocDate}\n" +
+                "DocDate: ${document.DocDate}\n" +
+                "Comments: ${document.Comments}\n" +
                 "InventoryCountingLines: [\n"
 
-        for(line in document.InventoryCountingLines){
+        for (line in document.DocumentLines) {
             payload += "{\n" +
                     "ItemCode: ${line.ItemCode}\n" +
-                    "Freeze: ${line.Freeze}\n" +
                     "WarehouseCode: ${line.WarehouseCode}\n" +
-                    "Counted: ${line.Counted}\n" +
-                    "CountedQuantity: ${line.CountedQuantity}\n" +
-                    "Variance: ${line.Variance}\n" +
+                    "Quantity: ${line.Quantity}\n" +
+                    "CountedQuantity: ${line.Quantity}\n" +
                     "CostingCode: ${line.CostingCode}\n" +
                     "CostingCode2: ${line.CostingCode2}\n" +
                     "CostingCode3: ${line.CostingCode3}\n" +
-                    "UoMCode: ${line.UoMCode}\n" +
+                    "UoMEntry: ${line.UoMEntry}\n" +
                     "}\n"
         }
         payload += "]\n}\n"
@@ -594,7 +745,7 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
 
         var document = PostedDocumentEntity(
             ID = Calendar.getInstance().timeInMillis.toString(),
-            docType = "Stock Counting",
+            docType = "Purchase Order",
             dateTime = docDateDB,
             payload = payload,
             status = Constants.PENDING
@@ -616,13 +767,12 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
     var lastDocumentSavedID: String = ""
 
 
-
     //--------------------------------------------------------------------------------------------------------------------------------------------
 
 
     private var selectedItems: ArrayList<Line> = ArrayList()
     fun getSelectedItems() = selectedItems
-    fun clearSelectedItems(){
+    fun clearSelectedItems() {
         selectedItems.clear()
     }
 
@@ -636,14 +786,15 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         costingCode3: String,
         uomCode: String,
         inStock: Double
-    ){
+    ) {
         //first check whether item with same itemCode & uomCode exists or not
-        val index = selectedItems.indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
-        if(index != -1){
+        val index =
+            selectedItems.indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
+        if (index != -1) {
             selectedItems[index].CountedQuantity += countedQuantity
             selectedItems[index].CostingCode3 = costingCode3
             selectedItems[index].Variance = selectedItems[index].CountedQuantity - inStock
-        }else{
+        } else {
             selectedItems.add(
                 Line(
                     ItemCode = item.ItemCode,
@@ -671,13 +822,14 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         uomCode: String,
         inStock: Double,
         itemIndex: Int
-    ): Boolean{
+    ): Boolean {
         //first check whether another item with same itemCode & uomCode exists or not
         //if it exists then return false
-        val index = selectedItems.filterIndexed{ index, _ -> index != itemIndex }.indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
-        return if(index != -1){
+        val index = selectedItems.filterIndexed { index, _ -> index != itemIndex }
+            .indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
+        return if (index != -1) {
             false
-        }else{
+        } else {
             selectedItems[itemIndex].CountedQuantity = countedQuantity
             selectedItems[itemIndex].Variance = selectedItems[itemIndex].CountedQuantity - inStock
             selectedItems[itemIndex].CostingCode3 = costingCode3
@@ -687,7 +839,75 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
     }
 
 
-    fun removeSelectedItem(item: Line){
+    fun addPurchaseOrderLine(
+        item: ItemEntity,
+        warehouseCode: String,
+        unitPrice: Double,
+        quantity: Double,
+        countedQuantity: Double,
+        costingCode: String,
+        costingCode2: String,
+        costingCode3: String,
+        uomCode: String,
+        inStock: Double,
+        uoMEntry: String
+    ) {
+        //first check whether item with same itemCode & uomCode exists or not
+        val index =
+            selectedItems.indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
+        if (index != -1) {
+            selectedItems[index].CountedQuantity += countedQuantity
+            selectedItems[index].CostingCode3 = costingCode3
+            selectedItems[index].Variance = selectedItems[index].CountedQuantity - inStock
+        } else {
+            selectedItems.add(
+                Line(
+
+                    ItemCode = item.ItemCode,
+                    ItemDescription = item.ItemName,
+                    Freeze = "tNO",
+                    WarehouseCode = warehouseCode,
+                    Counted = "tYES",
+                    BarCode = item.BarCode,
+                    CountedQuantity = countedQuantity,
+                    Quantity = quantity.toString(),
+                    CostingCode = costingCode,
+                    CostingCode2 = costingCode2,
+                    CostingCode3 = costingCode3,
+                    UoMCode = uomCode,
+                    UoMEntry = uoMEntry,
+                    UnitPrice = unitPrice.toString()
+                )
+            )
+        }
+    }
+
+    fun updatePurchaseOrderLine(
+        item: ItemEntity,
+        quantity: Double,
+        countedQuantity: Double,
+        costingCode3: String,
+        uomCode: String,
+        inStock: Double,
+        itemIndex: Int
+    ): Boolean {
+        //first check whether another item with same itemCode & uomCode exists or not
+        //if it exists then return false
+        val index = selectedItems.filterIndexed { index, _ -> index != itemIndex }
+            .indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
+        return if (index != -1) {
+            false
+        } else {
+            selectedItems[itemIndex].CountedQuantity = countedQuantity
+            selectedItems[itemIndex].Quantity = (quantity - inStock).toString()
+            selectedItems[itemIndex].CostingCode3 = costingCode3
+            selectedItems[itemIndex].UoMCode = uomCode
+            true
+        }
+    }
+
+
+    fun removeSelectedItem(item: Line) {
         selectedItems.removeAt(selectedItems.indexOf(item))
     }
 

@@ -37,11 +37,10 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-
-                    >
+                    android:orientation="horizontal">
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_purchase_orders"
                         style="@style/dashboardCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -51,7 +50,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:alpha="0.3"
                             android:orientation="vertical">
 
                             <LinearLayout
@@ -69,14 +67,14 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:layout_height="wrap_content">
+                                    android:gravity="center">
 
                                     <TextView
+                                        android:id="@+id/tv_po_count"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:id="@+id/tv_po_count"
                                         android:autoSizeMaxTextSize="@dimen/sp16"
                                         android:autoSizeMinTextSize="@dimen/sp10"
                                         android:autoSizeStepGranularity="@dimen/dp1"
@@ -141,14 +139,14 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:layout_height="wrap_content">
+                                    android:gravity="center">
 
                                     <TextView
+                                        android:id="@+id/tv_goods_receipt_note_count"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:id="@+id/tv_goods_receipt_note_count"
                                         android:autoSizeMaxTextSize="@dimen/sp16"
                                         android:autoSizeMinTextSize="@dimen/sp10"
                                         android:autoSizeStepGranularity="@dimen/dp1"
@@ -199,6 +197,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="50"
+
                         app:cardUseCompatPadding="true">
 
                         <LinearLayout
@@ -222,14 +221,14 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:layout_height="wrap_content">
+                                    android:gravity="center">
 
                                     <TextView
+                                        android:id="@+id/tv_delivery_count"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:id="@+id/tv_delivery_count"
                                         android:autoSizeMaxTextSize="@dimen/sp16"
                                         android:autoSizeMinTextSize="@dimen/sp10"
                                         android:autoSizeStepGranularity="@dimen/dp1"
@@ -267,10 +266,10 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_stock_counting"
                         style="@style/dashboardCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:id="@+id/btn_stock_counting"
                         android:layout_weight="50"
                         app:cardUseCompatPadding="true">
 
@@ -294,14 +293,14 @@
 
                                 <LinearLayout
                                     android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:layout_height="wrap_content">
+                                    android:gravity="center">
 
                                     <TextView
+                                        android:id="@+id/tv_stock_count"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
-                                        android:id="@+id/tv_stock_count"
                                         android:autoSizeMaxTextSize="@dimen/sp16"
                                         android:autoSizeMinTextSize="@dimen/sp10"
                                         android:autoSizeStepGranularity="@dimen/dp1"

@@ -118,4 +118,10 @@ interface ApiService {
         @HeaderMap headers: HashMap<String, String>,
         @Body payload: InventoryCountingRequest
     ): Call<AddInventoryCountingResponse>
+    @POST
+    fun postPO(
+        @Url url:String,
+        @HeaderMap headers: HashMap<String, String>,
+        @Body payload: PostPurchaseOrderRequest
+    ): Call<AddInventoryCountingResponse>
 }

@@ -29,13 +29,18 @@ import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Constants
 import com.example.bedashingapp.utils.Status
+import com.example.bedashingapp.utils.showConfirmationAlert
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
+import com.example.bedashingapp.views.PurchaseOrders.Fragments.PurchaseOrderFragment
 import com.example.bedashingapp.views.dashboard.DashboardFragment
+import com.example.bedashingapp.views.interfaces.SingleButtonListener
 import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.InventoryCountingListFragment
 import com.example.bedashingapp.views.stock_counting.StockCountingFragment
 import com.example.bedashingapp.views.update_branch.UpdateBranchFragment
+import com.sixlogics.flexspace.wrappers.NavigationWrapper
 import kotlinx.android.synthetic.main.activity_main.*
+
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -47,8 +52,8 @@ class MainActivity : BaseActivity() {
     var navController: NavController? = null
 
 
-    private lateinit var mainActivityViewModel: MainActivityViewModel
-    private var sessionManager: SessionManager? = null
+    lateinit var mainActivityViewModel: MainActivityViewModel
+    var sessionManager: SessionManager? = null
 
     private var globalProgressLayout: RelativeLayout? = null
     private var globalProgressBar: ProgressBar? = null
@@ -97,8 +102,9 @@ class MainActivity : BaseActivity() {
                 }
             }
             R.id.action_settings -> {
-                navigateToFragmentUpdateBranch()
+                NavigationWrapper.navigateToFragmentUpdateBranch()
             }
+
         }
         return super.onOptionsItemSelected(item)
 
@@ -107,9 +113,8 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         sessionManager = SessionManager(applicationContext)
-
+        init()
         globalProgressLayout = findViewById(R.id.progress_bar_for_problematic_resync)
         globalProgressBar = findViewById(R.id.progress_bar)
         progressErrorTxt = findViewById(R.id.progress_txt_1)
@@ -147,7 +152,7 @@ class MainActivity : BaseActivity() {
 
         if (sessionManager!!.isSynced()) {
             //so that view model can work in fragment dashboard because it is start destination  of Navigation Component
-            navigateToFragmentDashboard()
+            NavigationWrapper.navigateToFragmentDashboard(true)
         } else {
             //Syncing process
 
@@ -157,16 +162,55 @@ class MainActivity : BaseActivity() {
                     .isNotEmpty()
             ) {
                 //so that view model can work in fragment dashboard because it is start destination  of Navigation Component
-                navigateToFragmentDashboard()
+                NavigationWrapper.navigateToFragmentDashboard(true)
 
                 syncingProcess()
             } else {
-                navigateToFragmentUpdateBranch()
+                NavigationWrapper.navigateToFragmentUpdateBranch()
             }
         }
 
     }
 
+    fun init() {
+        NavigationWrapper.init(this)
+    }
+
+    private fun checkSessionConnection(purpose: String): Boolean {
+        var isSessionOk = true
+        if (isConnectedToNetwork()) {
+            mainActivityViewModel.checkConnection(
+                sessionManager!!.getBaseURL(),
+                sessionManager!!.getCompany(),
+                sessionManager!!.getSessionId(),
+                sessionManager!!.getUserId()
+            ).observe(this, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+
+                        }
+                        Status.LOADING -> {
+                            showProgressBar("")
+                        }
+                        Status.ERROR -> {
+                            isSessionOk = false
+                            hideProgressBar()
+                            sessionManager!!.putIsLoggedIn(false)
+                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
+                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
+
+                            startActivity(Intent(this, LoginActivity::class.java))
+                            finishAffinity()
+                        }
+                    }
+                }
+            })
+        } else {
+            showToastLong(resources.getString(R.string.network_not_connected_msg))
+        }
+        return isSessionOk
+    }
 
     private fun syncingProcess() {
 
@@ -386,18 +430,17 @@ class MainActivity : BaseActivity() {
     //for posting documents
 
 
-
-
     fun updateStatusOfDocument(id: String, status: String, response: String, newID: String) {
-        mainActivityViewModel.updateStatusOfDocument(id, status, response, newID).observe(this, Observer {
-            it?.let { resource ->
-                when (resource.status) {
-                    Status.SUCCESS -> {
-                        mainActivityViewModel.setReloadDocumentsFlag(true)
+        mainActivityViewModel.updateStatusOfDocument(id, status, response, newID)
+            .observe(this, Observer {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            mainActivityViewModel.setReloadDocumentsFlag(true)
+                        }
                     }
                 }
-            }
-        })
+            })
     }
 
 
@@ -407,20 +450,6 @@ class MainActivity : BaseActivity() {
                 || super.onSupportNavigateUp())
     }
 
-
-    private fun navigateToFragmentDashboard() {
-        var bundle = Bundle()
-        bundle.putBoolean("ready", true)
-        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(
-            R.id.nav_dashboard, bundle
-        )
-    }
-
-    private fun navigateToFragmentUpdateBranch() {
-        Navigation.findNavController(this, R.id.nav_host_fragment).navigate(
-            R.id.nav_update_branch
-        )
-    }
 
     fun reloadActivity() {
         finishAffinity()
@@ -492,13 +521,16 @@ class MainActivity : BaseActivity() {
                 if (sessionManager!!.getUserBplid()
                         .isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()
                 ) {
-                    navigateToFragmentDashboard()
+                    NavigationWrapper.navigateToFragmentDashboard(true)
                 } else {
                     showToastShort("Please update required details")
                 }
             }
 
             is StockCountingFragment -> {
+                showOnExitPrompt(fragment)
+            }
+            is PurchaseOrderFragment -> {
                 showOnExitPrompt(fragment)
             }
 
@@ -512,7 +544,7 @@ class MainActivity : BaseActivity() {
         return when (fragment) {
             is DashboardFragment,
             is UpdateBranchFragment,
-            is StockCountingFragment
+            is StockCountingFragment,is PurchaseOrderFragment
             -> {
                 true
             }
@@ -527,7 +559,7 @@ class MainActivity : BaseActivity() {
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
             is UpdateBranchFragment,
-            is StockCountingFragment
+            is StockCountingFragment, is PurchaseOrderFragment
             -> {
                 true
             }
@@ -545,13 +577,16 @@ class MainActivity : BaseActivity() {
                 if (sessionManager!!.getUserBplid()
                         .isNotEmpty() && sessionManager!!.getWareHouseID().isNotEmpty()
                 ) {
-                    navigateToFragmentDashboard()
+                    NavigationWrapper.navigateToFragmentDashboard(true)
                 } else {
                     showToastShort("Please update required details")
                 }
             }
 
             is StockCountingFragment -> {
+                showOnExitPrompt(fragment)
+            }
+            is PurchaseOrderFragment -> {
                 showOnExitPrompt(fragment)
             }
 

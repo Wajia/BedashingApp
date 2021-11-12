@@ -1,7 +1,6 @@
 package com.example.bedashingapp.data.api
 
 import com.example.bedashingapp.data.model.remote.*
-import com.example.bedashingapp.utils.Constants
 import retrofit2.Call
 
 
@@ -135,12 +134,29 @@ class ApiHelper(private val apiService: ApiService) {
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
         return apiService.getItem(url, headers)
     }
+    suspend fun getItemPO(mainURL: String, companyName: String, sessionID: String, warehouseCode: String, itemCode: String): GetItemsMasterResponse{
+
+        val url= "\$crossjoin(Items,Items/ItemWarehouseInfoCollection)" +
+                "?\$expand=Items/ItemWarehouseInfoCollection(\$select=InStock,StandardAveragePrice,WarehouseCode),Items(\$select=ItemsGroupCode,U_Deprtmnt,U_PrdctCat)" +
+                "&\$filter= Items/ItemCode eq Items/ItemWarehouseInfoCollection/ItemCode" +
+                " and Items/ItemCode eq '" + itemCode + "' and" +
+                " ((Items/ItemWarehouseInfoCollection/WarehouseCode eq '" + warehouseCode+ "')  or (Items/ItemWarehouseInfoCollection/WarehouseCode eq '01'))"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.getItem(url, headers)
+    }
 
     fun inventoryCountings(mainURL: String, companyName: String, sessionID: String, payload: InventoryCountingRequest): Call<AddInventoryCountingResponse>{
         val url = "$mainURL/b1s/v1/InventoryCountings"
         val headers = HashMap<String, String>()
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
         return apiService.inventoryCountings(url, headers, payload)
+    }
+    fun postPO(mainURL: String, companyName: String, sessionID: String, payload: PostPurchaseOrderRequest): Call<AddInventoryCountingResponse>{
+        val url = "$mainURL/b1s/v1/PurchaseOrders"
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        return apiService.postPO(url, headers, payload)
     }
 
 

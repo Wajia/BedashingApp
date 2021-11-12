@@ -59,6 +59,11 @@ class MainActivityRepository(
         return apiHelper.getUoms(mainURL, companyName, sessionID)
     }
 
+    suspend fun getUomsByID(id: String): UOMEntity {
+
+        return uomDao.getUomByID(id.toInt())
+    }
+
     suspend fun getUomGroups(
         mainURL: String,
         companyName: String,
@@ -130,6 +135,14 @@ class MainActivityRepository(
     ) =
         apiHelper.getInventoryStatus(mainURL, companyName, sessionID, itemCode)
 
+    suspend fun getPurchaseOrders(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        itemCode: String
+    ) =
+        apiHelper.getInventoryStatus(mainURL, companyName, sessionID, itemCode)
+
     suspend fun getItem(
         mainURL: String,
         companyName: String,
@@ -138,6 +151,14 @@ class MainActivityRepository(
         itemCode: String
     ) =
         apiHelper.getItem(mainURL, companyName, sessionID, warehouseCode, itemCode)
+    suspend fun getItemPO(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        warehouseCode: String,
+        itemCode: String
+    ) =
+        apiHelper.getItemPO(mainURL, companyName, sessionID, warehouseCode, itemCode)
 
     fun inventoryCountings(
         mainURL: String,
@@ -146,6 +167,14 @@ class MainActivityRepository(
         payload: InventoryCountingRequest
     ) =
         apiHelper.inventoryCountings(mainURL, companyName, sessionID, payload)
+
+    fun postPO(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        payload: PostPurchaseOrderRequest
+    ) =
+        apiHelper.postPO(mainURL, companyName, sessionID, payload)
 
     //------------------------------------------------------------Room DB calls--------------------------------------------------------------------------
 
@@ -180,9 +209,9 @@ class MainActivityRepository(
 
     suspend fun getItemByBarcode(barcode: String): ItemEntity? {
         var barcodesList = barcodeDao.getBarcodeEntityByBarcode(barcode)
-        return if(barcodesList.isEmpty()){
+        return if (barcodesList.isEmpty()) {
             null
-        }else{
+        } else {
             itemDao.getItemByItemCode(barcodesList.first().ItemNo)
         }
     }
@@ -198,7 +227,12 @@ class MainActivityRepository(
         return postedDocumentDao.getPostedDocuments()
     }
 
-    suspend fun updateStatusOfDocument(id: String, status: String, response: String, newID: String) {
+    suspend fun updateStatusOfDocument(
+        id: String,
+        status: String,
+        response: String,
+        newID: String
+    ) {
         return postedDocumentDao.updateStatus(status, response, id, newID)
     }
 

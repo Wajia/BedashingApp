@@ -12,5 +12,8 @@ data class Line(
     var CostingCode: String = "",
     var CostingCode2: String = "",
     var CostingCode3: String = "",
-    var UoMCode: String
+    var UoMCode: String,
+    var Quantity: String = "",
+    var UnitPrice: String = "",
+    var UoMEntry: String = ""
 )

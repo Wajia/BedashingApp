@@ -25,6 +25,8 @@ data class ItemDetails(
 
 data class ItemWarehouseInfoCollection(
     val WarehouseCode: String,
-    val InStock: Double
-)
+    val InStock: Double,
+    val StandardAveragePrice: String = "",
+
+    )
 

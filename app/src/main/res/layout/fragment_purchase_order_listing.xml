@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PurchaseOrderListing"
+    tools:context=".views.GoodsReciveng.Fragments.PurchaseOrderListingFragment"
     android:background="@color/white">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,7 +16,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_inventory_countings"
+            android:id="@+id/rv_purchase_oder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:itemCount="15"

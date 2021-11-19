@@ -73,6 +73,7 @@ class SessionManager(_context: Context) {
         private const val USER_DFLT_REGION = "user_default_region"
         private const val USER_DFLT_STORE = "user_default_store"
         private const val SESSION_TIMEOUT = "session_timeout"
+        private const val USER_BRANCH_NAME = "branch_name"
     }
 
     init {
@@ -310,10 +311,13 @@ class SessionManager(_context: Context) {
         editor!!.commit()
     }
 
-    fun setSessionTimeOut(timeout: Int){
+    fun setSessionTimeOut(timeout: Int) {
         editor!!.putInt(SESSION_TIMEOUT, timeout).commit()
     }
 
+    fun setUserBranchName(userBranchName: String) {
+        editor!!.putString(USER_BRANCH_NAME, userBranchName).commit()
+    }
 
     //getters
     fun getWareHouseID(): String {
@@ -404,7 +408,6 @@ class SessionManager(_context: Context) {
     }
 
 
-
     fun getUserName(): String {
         return sharedPreferences?.getString(USER_NAME, "")!!
     }
@@ -466,6 +469,10 @@ class SessionManager(_context: Context) {
 
     fun getSessionTimeout(): Int {
         return sharedPreferences?.getInt(SESSION_TIMEOUT, 0)!!
+    }
+
+    fun getUserBranchName(): String {
+        return sharedPreferences?.getString(USER_BRANCH_NAME, "")!!
     }
 
 

@@ -94,6 +94,33 @@ class MainActivityRepository(
     ) =
         apiHelper.getPOCount(mainURL, companyName, sessionID, BPLID, VendorCode)
 
+    suspend fun getPO(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        branchName: String,
+        userHeadOfficeCardCode: String
+    ) =
+        apiHelper.getPO(mainURL, sessionID, companyName, branchName, userHeadOfficeCardCode)
+    suspend fun PurchaseDeliveryNotes(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        branchName: String,
+        userHeadOfficeCardCode:String,
+        payload: PurchaseDeliveryNotesRequest
+    ) =
+        apiHelper.PurchaseDeliveryNotes(mainURL, sessionID, companyName,  payload)
+
+
+    suspend fun getOpenPO(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        docNumber: String
+    ) =
+        apiHelper.getOPenPO(mainURL, companyName, sessionID, docNumber)
+
     suspend fun getGRPOCount(
         mainURL: String,
         companyName: String,
@@ -151,6 +178,7 @@ class MainActivityRepository(
         itemCode: String
     ) =
         apiHelper.getItem(mainURL, companyName, sessionID, warehouseCode, itemCode)
+
     suspend fun getItemPO(
         mainURL: String,
         companyName: String,
@@ -167,6 +195,13 @@ class MainActivityRepository(
         payload: InventoryCountingRequest
     ) =
         apiHelper.inventoryCountings(mainURL, companyName, sessionID, payload)
+    fun GoodsReciept(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        payload: InventoryCountingRequest
+    ) =
+        apiHelper.goodsReciept(mainURL, companyName, sessionID, payload)
 
     fun postPO(
         mainURL: String,

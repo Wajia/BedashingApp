@@ -29,7 +29,7 @@ class PurchaseOrderItemsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = itemsList[position]
         holder.itemNameTextView.text = item.ItemDescription
-        holder.countedQuantityTextView.text =item.Quantity
+        holder.countedQuantityTextView.text = item.Quantity
         holder.uomTextView.text = item.UoMCode
         holder.editImageView.setOnClickListener {
             onItemClickListener.onItemEditClick(position, item)

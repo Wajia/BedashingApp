@@ -223,7 +223,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                 when (resource.status) {
                     Status.SUCCESS -> {
                         hideProgressBar()
-                        openInventoryStatusDialog(resource.data!!.value)
+                        openInventoryStatusDialog(resource.data!!.value, requireContext())
                     }
                     Status.LOADING -> {
                         showProgressBar("", "Getting Details...")
@@ -237,11 +237,6 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         })
     }
 
-    private fun openInventoryStatusDialog(data: List<CustomObject>) {
-        val dialog = InventoryStatusDialogFragment(data)
-        dialog.isCancelable = true
-        dialog.show(requireActivity().supportFragmentManager, dialog.tag)
-    }
 
     private fun validateItemData(): Boolean {
         when {
@@ -540,7 +535,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         }
 
         //set Uoms in spinner
-        uomCode = addedItem.UoMCode
+        uomCode = addedItem.UoMCode!!
         fetchUomsByUomGroupEntry(item.UoMGroupEntry)
 
         //get Latest details of item
@@ -691,7 +686,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
 
     override fun onItemEditClick(position: Int, item: Line) {
         selectedPositionForUpdate = position
-        getItemByItemCode(item.ItemCode, item)
+        getItemByItemCode(item.ItemCode!!, item)
     }
 
     override fun onItemDeleteClick(item: Line) {

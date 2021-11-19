@@ -77,6 +77,18 @@ interface ApiService {
     ): Int
 
     @GET
+    suspend fun getPO(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetPoResponse
+
+    @GET
+    suspend fun getOpenPO(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetOpenPOResponse
+
+    @GET
     suspend fun getGRPOCount(
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
@@ -114,14 +126,27 @@ interface ApiService {
 
     @POST
     fun inventoryCountings(
-        @Url url:String,
+        @Url url: String,
         @HeaderMap headers: HashMap<String, String>,
         @Body payload: InventoryCountingRequest
     ): Call<AddInventoryCountingResponse>
     @POST
+    fun GoodsReciept(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>,
+        @Body payload: InventoryCountingRequest
+    ): Call<AddInventoryCountingResponse>
+
+    @POST
     fun postPO(
-        @Url url:String,
+        @Url url: String,
         @HeaderMap headers: HashMap<String, String>,
         @Body payload: PostPurchaseOrderRequest
+    ): Call<AddInventoryCountingResponse>
+    @POST
+    fun postPurchaseDeliveryNotes(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>,
+        @Body payload: PurchaseDeliveryNotesRequest
     ): Call<AddInventoryCountingResponse>
 }

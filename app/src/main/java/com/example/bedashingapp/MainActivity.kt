@@ -59,6 +59,7 @@ class MainActivity : BaseActivity() {
     private var globalProgressBar: ProgressBar? = null
     private var progressErrorTxt: TextView? = null
 
+
     private var dataCount: Int = 0
 
     override fun onBackPressed() {
@@ -172,11 +173,11 @@ class MainActivity : BaseActivity() {
 
     }
 
-    fun init() {
+    private fun init() {
         NavigationWrapper.init(this)
     }
 
-    private fun checkSessionConnection(purpose: String): Boolean {
+    fun checkSessionConnection(purpose: String): Boolean {
         var isSessionOk = true
         if (isConnectedToNetwork()) {
             mainActivityViewModel.checkConnection(
@@ -191,7 +192,7 @@ class MainActivity : BaseActivity() {
 
                         }
                         Status.LOADING -> {
-                            showProgressBar("")
+                            // showProgressBar("")
                         }
                         Status.ERROR -> {
                             isSessionOk = false
@@ -526,15 +527,18 @@ class MainActivity : BaseActivity() {
                     showToastShort("Please update required details")
                 }
             }
-
             is StockCountingFragment -> {
                 showOnExitPrompt(fragment)
             }
             is PurchaseOrderFragment -> {
                 showOnExitPrompt(fragment)
             }
-
-
+            is GoodsReceiptFragment -> {
+                showOnExitPrompt(fragment)
+            }
+            is ProfessionalCheckout -> {
+                showOnExitPrompt(fragment)
+            }
         }
     }
 
@@ -544,7 +548,7 @@ class MainActivity : BaseActivity() {
         return when (fragment) {
             is DashboardFragment,
             is UpdateBranchFragment,
-            is StockCountingFragment,is PurchaseOrderFragment
+            is StockCountingFragment, is PurchaseOrderFragment, is ProfessionalCheckout, is GoodsReceiptFragment
             -> {
                 true
             }
@@ -559,7 +563,7 @@ class MainActivity : BaseActivity() {
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
             is UpdateBranchFragment,
-            is StockCountingFragment, is PurchaseOrderFragment
+            is StockCountingFragment, is PurchaseOrderFragment, is ProfessionalCheckout, is GoodsReceiptFragment
             -> {
                 true
             }
@@ -589,6 +593,13 @@ class MainActivity : BaseActivity() {
             is PurchaseOrderFragment -> {
                 showOnExitPrompt(fragment)
             }
+            is GoodsReceiptFragment -> {
+                showOnExitPrompt(fragment)
+            }
+            is ProfessionalCheckout -> {
+                showOnExitPrompt(fragment)
+            }
+
 
         }
     }

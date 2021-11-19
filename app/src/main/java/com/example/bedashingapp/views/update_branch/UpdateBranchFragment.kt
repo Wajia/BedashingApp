@@ -83,11 +83,13 @@ class UpdateBranchFragment : BaseFragment() {
             if(validate()){
 
                 val branchCode = branchesList[spinner_branch.selectedItemPosition].BPLID.toString()
+                val branchName = branchesList[spinner_branch.selectedItemPosition].BPLName
                 val warehouseCode = spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseCode.toString()
                 val warehouseName = spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseName
 
                 sessionManager!!.setUserBPLID(branchCode)
                 sessionManager!!.setUserBranch(branchCode)
+                sessionManager!!.setUserBranchName(branchName)
                 sessionManager!!.putWareHouseID(warehouseCode)
                 sessionManager!!.setUserDefaultWhs(warehouseName)
                 sessionManager!!.putWareHouseName(warehouseName)

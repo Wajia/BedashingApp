@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ProfessionalCheckout"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".ProfessionalCheckout">
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
@@ -15,9 +15,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
             android:layout_marginHorizontal="@dimen/dp16"
-            android:layout_marginTop="@dimen/dp20">
+            android:layout_marginTop="@dimen/dp20"
+            android:orientation="vertical">
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -32,8 +32,9 @@
                     android:id="@+id/et_doc_date"
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
-                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+                    android:focusable="false"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -51,8 +52,9 @@
                     android:id="@+id/et_due_date"
                     style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
-                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
                     android:layout_height="wrap_content"
+                    android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+                    android:focusable="false"
                     android:maxLines="1"
                     android:singleLine="true" />
 
@@ -69,206 +71,108 @@
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="110dp"
                 android:layout_gravity="start"
-                android:hint="Write you notes here"
-                style="@style/TextInputLayoutStyle"
                 android:layout_marginBottom="14dp"
-                >
+                android:hint="Write you notes here">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_notes"
+                    style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:id="@+id/et_notes"
                     android:layout_gravity="start"
                     android:gravity="start"
                     android:inputType="textMultiLine"
                     android:overScrollMode="always"
                     android:scrollbarStyle="insideInset"
-                    android:scrollbars="vertical"
-                    style="@style/TextInputLayoutStyle"
-                    />
+                    android:scrollbars="vertical" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
                 android:id="@+id/layout_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp14"
                 app:cardBackgroundColor="@color/white"
                 app:cardElevation="@dimen/dp3"
                 app:cardPreventCornerOverlap="true"
-                app:cardUseCompatPadding="true"
-                app:contentPadding="@dimen/dp15"
-                android:layout_marginBottom="@dimen/dp14"
+                app:cardUseCompatPadding="true">
 
-                >
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="1"
+                    android:background="@drawable/barcode_field_bg"
                     android:orientation="horizontal">
 
+                    <EditText
+                        android:id="@+id/ed_select_item"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:background="@null"
+                        android:focusable="false"
+                        android:fontFamily="@font/open_sans"
+                        android:imeOptions="actionDone"
+                        android:padding="15dp"
+                        android:paddingStart="@dimen/dp10"
+                        android:paddingEnd="@dimen/dp10"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="#333333"
+                        android:textColorHint="#6E7272"
+                        android:textSize="14sp" />
+
                     <ImageView
-                        android:layout_width="52dp"
-                        android:layout_height="52dp"
-                        android:src="@drawable/carton_bg"
-                        />
-
-                    <LinearLayout
-                        android:layout_width="@dimen/dp0"
+                        android:id="@+id/iv_item_barcode"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:layout_weight="0.8"
-                        android:layout_gravity="center_vertical"
-                        android:paddingStart="@dimen/dp10">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="@string/lbl_select_item"
-                                android:id="@+id/tv_selected_item_name"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="@dimen/sp14"
-                                android:fontFamily="@font/open_sans"/>
-
-
-
-
-                        </LinearLayout>
-
-
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_gravity="center_vertical"
-                            >
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="@dimen/dp10"
-                                android:text="XX In-Stock"
-                                android:textColor="#E25725"
-                                android:visibility="gone"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans"
-                                android:layout_gravity="center_vertical"/>
-
-                            <View
-                                android:layout_width="4dp"
-                                android:visibility="gone"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/round_bullet"
-                                android:layout_gravity="center_vertical" />
-
-
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/dp10"
-                                android:text="DD/MM/YY"
-                                android:textColor="#555555"
-                                android:visibility="gone"
-                                android:textSize="@dimen/sp13"
-                                android:fontFamily="@font/open_sans_light_italic"
-                                android:layout_gravity="center_vertical"/>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp3"
-                            android:visibility="gone"
-                            android:text="ML / PCS"
-                            android:paddingVertical="0.5dp"
-                            android:paddingHorizontal="@dimen/dp4"
-                            android:textSize="12sp"
-                            android:fontFamily="@font/open_sans_light_italic"
-                            android:background="@drawable/catg"/>
-
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="@dimen/dp0"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.2"
-                        android:orientation="vertical"
-                        android:layout_gravity="right"
-                        android:gravity="end">
-
-                        <ImageButton
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
-                            android:id="@+id/iv_barcode"
-                            android:padding="@dimen/dp0"
-
-                            android:layout_marginBottom="@dimen/dp1"
-                            android:background="@drawable/barcode_bg"
-                            />
-
-
-
-                    </LinearLayout>
-
-
-
+                        android:layout_gravity="center"
+                        android:layout_marginEnd="@dimen/dp20"
+                        android:layout_weight=".1"
+                        android:background="@drawable/ic_barcode_icon"
+                        android:padding="@dimen/dp5" />
                 </LinearLayout>
-
-
-
 
             </com.google.android.material.card.MaterialCardView>
 
 
-
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Stock in Hand"
-                style="@style/TextInputLayoutStyle"
-                android:layout_marginBottom="14dp">
+                android:layout_marginBottom="14dp"
+                android:hint="Stock in Hand">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_counted_quantity"
+                    style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_counted_quantity"
-                    android:inputType="numberDecimal"
-                    style="@style/TextInputLayoutStyle"
-                    />
+                    android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
 
+                style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Quantity"
-                style="@style/TextInputLayoutStyle"
-                android:layout_marginBottom="14dp">
+                android:layout_marginBottom="14dp"
+                android:hint="Quantity">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/et_qty"
+                    style="@style/TextInputLayoutStyle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/et_qty"
-                    android:inputType="numberDecimal"
-                    style="@style/TextInputLayoutStyle"
-                    />
+                    android:inputType="numberDecimal" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -284,29 +188,29 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="end"
                 android:layout_weight="1"
-                android:gravity="end">
+                android:gravity="end"
+                android:orientation="horizontal">
 
                 <Button
-                    android:id ="@+id/btn_check_status"
+                    android:id="@+id/btn_check_status"
                     style="@style/Widget.App.Button.Light"
                     android:layout_width="150dp"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="@dimen/dp3"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:layout_marginTop="@dimen/dp15"
-                    android:text="Check Status"
-                    android:alpha="0.5"/>
+                    android:layout_marginRight="@dimen/dp3"
+                    android:alpha="0.5"
+                    android:text="Check Status" />
 
 
                 <Button
-                    android:id ="@+id/btn_add_item"
+                    android:id="@+id/btn_add_item"
                     style="@style/Widget.App.Button"
                     android:layout_width="wrap_content"
-                    android:layout_gravity="end"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:layout_marginTop="@dimen/dp15"
                     android:text="Add Item" />
 
@@ -322,47 +226,46 @@
                 android:text="List of Items" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_inventory_counting_lines"
                 android:layout_width="match_parent"
                 android:layout_height="325dp"
-                tools:itemCount="4"
-                android:scrollbars="vertical"
-                android:scrollbarThumbVertical="@color/colorDark"
                 android:scrollbarSize="@dimen/dp1"
-                android:id="@+id/rv_inventory_counting_lines"
-                tools:listitem="@layout/list_inventory_lines_single_item"/>
+                android:scrollbarThumbVertical="@color/colorDark"
+                android:scrollbars="vertical"
+                tools:itemCount="4"
+                tools:listitem="@layout/list_inventory_lines_single_item" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="end"
                 android:layout_weight="1"
-                android:gravity="end">
+                android:gravity="end"
+                android:orientation="horizontal">
 
                 <Button
-                    android:id ="@+id/btn_cancel"
+                    android:id="@+id/btn_cancel"
                     style="@style/Widget.App.Button.Light"
                     android:layout_width="110dp"
-                    android:layout_gravity="end"
-                    android:layout_marginRight="@dimen/dp3"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:layout_marginTop="@dimen/dp15"
+                    android:layout_marginRight="@dimen/dp3"
                     android:text="Cancel" />
 
 
                 <Button
-                    android:id ="@+id/btn_post"
+                    android:id="@+id/btn_post"
                     style="@style/Widget.App.Button"
                     android:layout_width="110dp"
-                    android:layout_gravity="end"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
                     android:layout_marginTop="@dimen/dp15"
                     android:text="Post" />
 
             </LinearLayout>
 
         </LinearLayout>
-
 
 
     </androidx.core.widget.NestedScrollView>

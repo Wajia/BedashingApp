@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
+import com.example.bedashingapp.GoodsReceiptFragment
 import com.example.bedashingapp.data.model.db.*
 import com.example.bedashingapp.data.model.local.Line
 import com.example.bedashingapp.data.model.remote.*
@@ -20,7 +21,7 @@ import kotlin.collections.ArrayList
 
 class MainActivityViewModel(private val mainActivityRepository: MainActivityRepository) :
     ViewModel() {
-
+    var poNumber: Int = -1
 //    ------------------------------------------------------ API calls -------------------------------------------------------------------------------
 
     fun login(mainURL: String, companyDB: String, password: String, username: String) =
@@ -117,6 +118,7 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
+
 
     fun getItemsMasterData(
         mainURL: String,
@@ -243,6 +245,52 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
+
+    fun getPO(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        branchName: String,
+        userHeadOfficeCardCode: String
+    ) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.getPO(
+                            mainURL, sessionID, companyName, branchName, userHeadOfficeCardCode
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
+    fun getOpenPO(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        docNumber: String
+    ) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.getOpenPO(
+                            mainURL, sessionID, companyName, docNumber
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
 
     fun getGRPOCount(
         mainURL: String,
@@ -444,6 +492,55 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
+    fun PurchaseDeliveryNotes(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        branchName: String,
+        userHeadOfficeCardCode: String,
+        payload: PurchaseDeliveryNotesRequest
+    ) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.PurchaseDeliveryNotes(
+                            mainURL,
+                            sessionID, companyName, branchName, userHeadOfficeCardCode, payload
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+    fun GoodsReciept(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        branchName: String,
+        userHeadOfficeCardCode: String,
+        payload: PurchaseDeliveryNotesRequest
+    ) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.PurchaseDeliveryNotes(
+                            mainURL,
+                            sessionID, companyName, branchName, userHeadOfficeCardCode, payload
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
+
     fun postPO(
         mainURL: String,
         companyName: String,
@@ -468,6 +565,10 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
+
+    fun getPO() {
+
+    }
 
     //-------------------------------------------------- Room Calls--------------------------------------------------------------
 
@@ -764,6 +865,108 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
     }
 
+    fun saveGoodRecieptDocument(document: PurchaseDeliveryNotesRequest) = liveData(Dispatchers.IO) {
+
+        var payload = ""
+        payload += "{\n" +
+
+                "DocDate: ${document.DocDate}\n" +
+                "DocDueDate: ${document.DocDueDate}\n" +
+                "GoodsLines: [\n"
+
+        for (line in document.DocumentLines) {
+            payload += "{\n" +
+                    "ItemCode: ${line.ItemCode}\n" +
+                    "WarehouseCode: ${line.WarehouseCode}\n" +
+                    "Quantity: ${line.Quantity}\n" +
+                    "CountedQuantity: ${line.Quantity}\n" +
+                    "CostingCode: ${line.CostingCode}\n" +
+                    "CostingCode2: ${line.CostingCode2}\n" +
+                    "CostingCode3: ${line.CostingCode3}\n" +
+                    "UoMEntry: ${line.UoMEntry}\n" +
+                    "}\n"
+        }
+        payload += "]\n}\n"
+
+        var docDateDB = DateUtilsApp.getUTCFormattedDateTimeString(
+            SimpleDateFormat(
+                "dd/MM/yyyy - hh:mm a",
+                Locale.getDefault()
+            ), Calendar.getInstance().time
+        )
+
+        var document = PostedDocumentEntity(
+            ID = Calendar.getInstance().timeInMillis.toString(),
+            docType = "Goods Receipt",
+            dateTime = docDateDB,
+            payload = payload,
+            status = Constants.PENDING
+        )
+        lastDocumentSavedID = document.ID
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = mainActivityRepository.insertDocument(document)
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
+    fun savePCDocument(document: PurchaseDeliveryNotesRequest) = liveData(Dispatchers.IO) {
+
+        var payload = ""
+        payload += "{\n" +
+
+                "DocDate: ${document.DocDate}\n" +
+                "DocDueDate: ${document.DocDueDate}\n" +
+                "InventoryCountingLines: [\n"
+
+        for (line in document.DocumentLines) {
+            payload += "{\n" +
+                    "ItemCode: ${line.ItemCode}\n" +
+                    "WarehouseCode: ${line.WarehouseCode}\n" +
+                    "Quantity: ${line.Quantity}\n" +
+                    "CountedQuantity: ${line.Quantity}\n" +
+                    "CostingCode: ${line.CostingCode}\n" +
+                    "CostingCode2: ${line.CostingCode2}\n" +
+                    "CostingCode3: ${line.CostingCode3}\n" +
+                    "UoMEntry: ${line.UoMEntry}\n" +
+                    "}\n"
+        }
+        payload += "]\n}\n"
+
+        var docDateDB = DateUtilsApp.getUTCFormattedDateTimeString(
+            SimpleDateFormat(
+                "dd/MM/yyyy - hh:mm a",
+                Locale.getDefault()
+            ), Calendar.getInstance().time
+        )
+
+        var document = PostedDocumentEntity(
+            ID = Calendar.getInstance().timeInMillis.toString(),
+            docType = "Personal Checkout",
+            dateTime = docDateDB,
+            payload = payload,
+            status = Constants.PENDING
+        )
+        lastDocumentSavedID = document.ID
+
+        emit(Resource.loading(data = null))
+        try {
+            emit(
+                Resource.success(
+                    data = mainActivityRepository.insertDocument(document)
+                )
+            )
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
     var lastDocumentSavedID: String = ""
 
 
@@ -771,6 +974,14 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
 
 
     private var selectedItems: ArrayList<Line> = ArrayList()
+    fun setSelectedItems(mSelectedItems: ArrayList<Line>) {
+        selectedItems.clear()
+        selectedItems.addAll(mSelectedItems)
+        for (item in selectedItems) {
+            item.originalRemainingQuantity = item.RemainingOpenQuantity
+        }
+    }
+
     fun getSelectedItems() = selectedItems
     fun clearSelectedItems() {
         selectedItems.clear()
@@ -809,6 +1020,7 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
                     CostingCode2 = costingCode2,
                     CostingCode3 = costingCode3,
                     UoMCode = uomCode
+
                 )
             )
         }
@@ -856,9 +1068,9 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         val index =
             selectedItems.indexOfFirst { it.ItemCode == item.ItemCode && it.UoMCode == uomCode }
         if (index != -1) {
-            selectedItems[index].CountedQuantity += countedQuantity
+            selectedItems[index].Quantity =
+                (selectedItems[index].Quantity.toDouble() + quantity).toString()
             selectedItems[index].CostingCode3 = costingCode3
-            selectedItems[index].Variance = selectedItems[index].CountedQuantity - inStock
         } else {
             selectedItems.add(
                 Line(

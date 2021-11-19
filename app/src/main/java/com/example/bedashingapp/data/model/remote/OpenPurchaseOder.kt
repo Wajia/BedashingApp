@@ -1,6 +1,8 @@
 package com.example.bedashingapp.data.model.remote
 
-data class DocumentLine(
+import com.example.bedashingapp.data.model.local.Line
+
+data class OpenPurchaseOder(
     var LineNum: String? = "",
     var ItemCode: String? = "",
     var ItemDescription: String = "",
@@ -18,9 +20,12 @@ data class DocumentLine(
     var UoMEntry: String? = "",
     var UnitPrice: Double = 0.0,
     var LineStatus: String = "",
-    val DocumentTaxID: String = "",
-    val CardCode: String = "",
-    val U_DocNo: String = ""
+    var DocDate: String = "",
+    var DocDueDate: String = "",
 
-
+    var DocumentLines: ArrayList<Line> = ArrayList(),
+    val error: Error?
 )
+
+
+

@@ -1,128 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
+    android:layout_centerInParent="true"
     android:layout_marginHorizontal="@dimen/dp20"
-    android:layout_marginVertical="@dimen/dp100"
+    android:layout_marginVertical="@dimen/dp50"
+    android:layout_marginTop="@dimen/dp10"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:background="@color/colorWhite">
+    android:padding="@dimen/dp10">
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp20"
+        android:layout_marginBottom="@dimen/dp8"
+        android:fontFamily="@font/open_sans"
+        android:text="Item Receiving"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp" />
 
 
-
-    <LinearLayout
+    <View
+        android:id="@+id/view_line"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/dp10"
-        android:padding="@dimen/dp10">
+        android:layout_height="0.5dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/dp4"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="20dp"
+        android:background="@color/colorBlack" />
 
-        <TextView
-            android:id="@+id/tv_welcome"
-            android:textSize="20sp"
-            android:textColor="@color/colorPrimary"
-            android:fontFamily="@font/open_sans"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp20"
-            android:layout_marginBottom="@dimen/dp8"
-            android:text="Item's Receiving" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextFieldone"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp14"
+        android:hint="Received Quantity">
 
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_marginHorizontal="@dimen/dp4"
-
-            android:layout_gravity="center_horizontal"
-            android:id="@+id/view_line"
-            android:layout_marginTop="4dp"
-            android:layout_marginBottom="20dp"
-            android:background="@color/colorBlack">
-        </View>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextFieldone"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_recieved_qty"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp14"
-            android:hint="Received Quantity">
+            android:focusable="true"
+            android:maxLines="1"
+            android:inputType="numberDecimal"
+            android:singleLine="true" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/et_due_date"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/outlinedTextFieldtwo"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp14"
+        android:hint="Original Quantity">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_original_qty"
             style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp14"
-            android:hint="Remaining Quantity">
+            android:focusable="false"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-            <com.google.android.material.textfield.TextInputEditText
+    </com.google.android.material.textfield.TextInputLayout>
 
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:singleLine="true" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/outlinedTextFieldtwo"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp14"
+        android:hint="Remaining Quantity">
 
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <androidx.appcompat.widget.AppCompatSpinner
-            android:id="@+id/spinner_uom"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_remaining_qty"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp14"
-            android:background="@drawable/spinnerbg"
-            android:spinnerMode="dropdown"
-            android:theme="@style/ThemeOverlay.AppCompat.Light" />
+            android:focusable="false"
+            android:maxLines="1"
+            android:singleLine="true" />
 
+    </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spinner_uom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp14"
+        android:background="@drawable/spinnerbg"
 
-
-    </LinearLayout>
-
+        android:spinnerMode="dropdown"
+        android:theme="@style/ThemeOverlay.AppCompat.Light" />
 
     <Button
-        android:id="@+id/btn_close"
+        android:id="@+id/btn_receive"
         style="@style/Widget.App.Button"
         android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
         android:layout_gravity="end"
         android:layout_marginTop="@dimen/dp18"
-        android:layout_marginRight="@dimen/dp4"
+        android:layout_marginEnd="@dimen/dp4"
         android:text="Receive" />
 
-
-
-
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlProgress"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/colorDark"/>
-
-
-
-
-</RelativeLayout>
+</LinearLayout>
 

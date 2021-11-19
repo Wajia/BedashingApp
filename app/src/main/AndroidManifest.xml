@@ -63,6 +63,14 @@
             android:name=".views.PurchaseOrders.Fragments.PurchaseOrderFragment$PotraitCaptureActivityPO"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".GoodsReceiptFragment$PortraitCaptureActivityGD"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ProfessionalCheckout$PortraitCaptureActivityPC"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="preloaded_fonts"

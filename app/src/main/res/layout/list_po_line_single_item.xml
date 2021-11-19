@@ -1,70 +1,187 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_card_view"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/tableCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dp8"
-    app:contentPaddingTop="@dimen/dp20"
     app:contentPaddingBottom="@dimen/dp20"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    app:contentPaddingTop="@dimen/dp20">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="3">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:id="@+id/tv_item_id"
-            android:text="Opi turn on the northern lights"
-            android:textAlignment="center"
-            android:textColor="#A6000000"
-            android:fontFamily="@font/open_sans"
-            android:textSize="@dimen/sp14"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/tv_item_qty_received"
-            android:gravity="center"
-            android:layout_weight="1"
-            android:text="0"
-            android:textColor="#A6000000"
-            android:fontFamily="@font/open_sans"
-            android:textSize="@dimen/sp14"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:id="@+id/tv_item_qty_remaining"
-                android:text="12 ML"
-                android:textColor="#A6000000"
-                android:fontFamily="@font/open_sans"
-                android:textSize="@dimen/sp14"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:src="@drawable/ic_tick"/>
-        </LinearLayout>
-
-
+        android:orientation="vertical">
 
 
     </LinearLayout>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="52dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/carton_bg" />
+
+        <LinearLayout
+            android:layout_width="@dimen/dp0"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1.8"
+            android:orientation="vertical"
+            android:paddingStart="@dimen/dp10">
+
+
+            <TextView
+                android:id="@+id/tv_item_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:autoSizeMaxTextSize="@dimen/sp14"
+                android:autoSizeMinTextSize="@dimen/sp10"
+                android:autoSizeStepGranularity="@dimen/dp1"
+                android:autoSizeTextType="uniform"
+                android:fontFamily="@font/open_sans"
+                android:maxLines="1"
+                android:text="Item Name"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/sp14" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Item to receive"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp13" />
+
+                <TextView
+                    android:id="@+id/tv_item_qty_received"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:fontFamily="@font/open_sans"
+                    android:text="23"
+                    android:textColor="#E25725"
+                    android:textSize="@dimen/sp13" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Remaining Quantity"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp13" />
+
+                <TextView
+                    android:id="@+id/tv_item_qty_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:fontFamily="@font/open_sans"
+                    android:text="23"
+                    android:textColor="#E25725"
+                    android:textSize="@dimen/sp13" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/open_sans"
+                    android:text="Original Remaining"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/sp13" />
+
+                <TextView
+                    android:id="@+id/tv_item_original_remaining"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dp5"
+                    android:fontFamily="@font/open_sans"
+                    android:text="23"
+                    android:textColor="#E25725"
+                    android:textSize="@dimen/sp13" />
+
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_uom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp3"
+                android:background="@drawable/catg"
+                android:fontFamily="@font/open_sans_light_italic"
+                android:paddingHorizontal="@dimen/dp5"
+                android:paddingVertical="0.5dp"
+                android:text="Piece"
+                android:textSize="11sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="@dimen/dp0"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:layout_weight="0.3"
+            android:gravity="end"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:id="@+id/iv_edit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginBottom="@dimen/dp1"
+                android:background="@drawable/edit_bin_ellipse"
+                android:src="@drawable/ic_edit" />
+
+            <ImageButton
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp1"
+                android:background="@drawable/edit_bin_ellipse"
+                android:src="@drawable/ic_bin" />
+
+            <ImageView
+                android:id="@+id/img_item_changed"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end"
+                android:layout_marginTop="@dimen/dp1"
+                android:src="@drawable/ic_tick"
+                android:visibility="invisible" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 
 
 </com.google.android.material.card.MaterialCardView>

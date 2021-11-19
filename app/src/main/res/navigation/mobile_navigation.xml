@@ -6,7 +6,6 @@
     app:startDestination="@+id/nav_dashboard">
 
 
-
     <fragment
         android:id="@+id/nav_dashboard"
         android:name="com.example.bedashingapp.views.dashboard.DashboardFragment"
@@ -32,23 +31,42 @@
         tools:layout="@layout/fragment_stock_counting" />
 
 
-
     <fragment
         android:id="@+id/nav_completed_docs"
         android:name="com.example.bedashingapp.views.completed_documents.CompletedDocumentsFragment"
         android:label="Completed Documents"
-        tools:layout="@layout/fragment_documents_completed"/>
+        tools:layout="@layout/fragment_documents_completed" />
 
     <fragment
         android:id="@+id/nav_doc_payload"
         android:name="com.example.bedashingapp.views.completed_documents.DocumentPayloadFragment"
         android:label="Document Payload"
-        tools:layout="@layout/fragment_payload_document"/>
+        tools:layout="@layout/fragment_payload_document" />
     <fragment
         android:id="@+id/nav_purchase_order"
         android:name="com.example.bedashingapp.views.PurchaseOrders.Fragments.PurchaseOrderFragment"
         android:label="Purchase Order"
         tools:layout="@layout/fragment_purchase_order" />
+    <fragment
+        android:id="@+id/nav_purchase_oder_listing"
+        android:name="com.example.bedashingapp.views.GoodsReciveng.Fragments.PurchaseOrderListingFragment"
+        android:label="Goods Receipt Notes"
+        tools:layout="@layout/fragment_purchase_order_listing" />
+    <fragment
+        android:id="@+id/nav_good_receipt"
+        android:name="com.example.bedashingapp.GoodsReceiptFragment"
+        android:label="Goods Receipt Note">
+        <argument
+            android:name="vatCommissionModel"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/nav_professional_checkout"
+        android:name="com.example.bedashingapp.ProfessionalCheckout"
+        android:label="Delivery"
+        tools:layout="@layout/fragment_professional_checkout" />
 
 
 </navigation>

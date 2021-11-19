@@ -54,6 +54,29 @@ class NavigationWrapper {
             }
         }
 
+        fun navigateToFragmentPurchaseOrdersList() {
+            if (navController != null) {
+                navController!!.navigate(R.id.nav_purchase_oder_listing)
+            }
+        }
+
+        fun navigateToFragmentInventoryCounting() {
+            if (navController != null) {
+                navController!!.navigate(R.id.nav_inventory_countings)
+            }
+        }
+
+        fun navigateToFragmentGoodsReceipt(bundle: Bundle = Bundle()) {
+            if (navController != null) {
+                navController!!.navigate(R.id.nav_good_receipt)
+            }
+        }
+        fun navigateToFragmentProfessionalCheckOut(bundle: Bundle = Bundle()) {
+            if (navController != null) {
+                navController!!.navigate(R.id.nav_professional_checkout)
+            }
+        }
+
 
     }
 }

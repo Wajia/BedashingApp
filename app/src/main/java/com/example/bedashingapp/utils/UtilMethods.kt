@@ -6,15 +6,23 @@ import android.content.Context
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.bedashingapp.MainActivity
 import com.example.bedashingapp.R
+import com.example.bedashingapp.data.model.db.UOMEntity
+import com.example.bedashingapp.data.model.remote.CustomObject
 import com.example.bedashingapp.views.interfaces.SingleButtonListener
-import kotlinx.android.synthetic.main.fragment_stock_counting.*
+import com.example.bedashingapp.views.stock_counting.InventoryStatusDialogFragment
+import com.google.zxing.integration.android.IntentIntegrator
+import kotlinx.android.synthetic.main.fragment_professional_checkout.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -61,6 +69,14 @@ fun Context.hideKeyboard(view: View) {
     inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
 }
 
+fun Fragment.initiateScanFragment(portraitCaptureActivity: Class<*>?) {
+    val integrator = IntentIntegrator.forSupportFragment(this)
+    integrator.setOrientationLocked(true)
+    integrator.captureActivity = portraitCaptureActivity
+    integrator.initiateScan()
+}
+
+
 fun showConfirmationAlert(
     context: Context,
     singleButtonListener: SingleButtonListener,
@@ -96,6 +112,13 @@ fun String.changeDateFormat(inputFormatString: String, outputFormatString: Strin
     )
 } catch (e: Exception) {
     this
+}
+
+
+ fun openInventoryStatusDialog(data: List<CustomObject>, context: Context) {
+    val dialog = InventoryStatusDialogFragment(data)
+    dialog.isCancelable = true
+    dialog.show((context as MainActivity).supportFragmentManager, dialog.tag)
 }
 
 fun openDatePickerDialog(context: Context, textView: TextView) {

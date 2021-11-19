@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import com.example.bedashingapp.BaseFragment
+import com.example.bedashingapp.MainActivity
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
@@ -56,12 +57,11 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
             checkSessionConnection()
             setupObserver()
 
-            btn_stock_counting.setOnClickListener {
-                Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
-                    R.id.nav_inventory_countings, Bundle()
-                )
-            }
+
             btn_purchase_orders.setOnClickListener(this)
+            card_good_reciept_note.setOnClickListener(this)
+            btn_stock_counting.setOnClickListener(this)
+            btn_professional_checkout.setOnClickListener(this)
 
         }
 
@@ -222,9 +222,21 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        if (view == btn_purchase_orders) {
-            NavigationWrapper.navigateToFragmentUpdatePurchaseOrders()
+        when (view) {
+            btn_purchase_orders -> {
+                (context as MainActivity).mainActivityViewModel.poNumber = -1
+                NavigationWrapper.navigateToFragmentUpdatePurchaseOrders()
+            }
         }
+        if (view == card_good_reciept_note) {
+            NavigationWrapper.navigateToFragmentPurchaseOrdersList()
+        } else
+            if (view == btn_stock_counting) {
+                NavigationWrapper.navigateToFragmentInventoryCounting()
+            } else if (view == btn_professional_checkout) {
+                NavigationWrapper.navigateToFragmentProfessionalCheckOut()
+            }
     }
+
 
 }

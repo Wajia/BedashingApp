@@ -112,6 +112,7 @@
                     </com.google.android.material.card.MaterialCardView>
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/card_good_reciept_note"
                         style="@style/dashboardCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -121,7 +122,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:alpha="0.3"
                             android:orientation="vertical">
 
                             <LinearLayout
@@ -193,6 +193,7 @@
                     >
 
                     <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/btn_professional_checkout"
                         style="@style/dashboardCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -203,7 +204,6 @@
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:alpha="0.3"
                             android:orientation="vertical">
 
                             <LinearLayout

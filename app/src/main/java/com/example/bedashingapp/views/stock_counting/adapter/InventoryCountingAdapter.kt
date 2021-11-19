@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.model.remote.InventoryCounting
 import com.example.bedashingapp.helper.DateUtilsApp
-import com.example.bedashingapp.utils.OnItemClickListener
 
 class InventoryCountingAdapter(
     private var inventoryCountingList: List<InventoryCounting>
@@ -30,14 +29,17 @@ class InventoryCountingAdapter(
 
     inner class ViewHolder(mView: View) : RecyclerView.ViewHolder(mView) {
         private var docNumTextView = mView.findViewById<TextView>(R.id.tv_docNum)
-        private var docDateTextView = mView.findViewById<TextView>(R.id.tv_date)
-
-
+        private var docDateTextView = mView.findViewById<TextView>(R.id.tv_doc_date)
         fun bind(result: Int) {
             val data = inventoryCountingList[result]
 
             docNumTextView.text = data.DocumentNumber.toString()
-            docDateTextView.text = DateUtilsApp.convertDateFormat(data.CountDate, outputDateFormat = "dd-MM-yyyy")
+            docDateTextView.text =
+                DateUtilsApp.convertDateFormat(data.CountDate, outputDateFormat = "dd-MM-yyyy")
+        }
+
+        init {
+            mView.findViewById<TextView>(R.id.tv_doc_type).text = "Stock Counting"
         }
     }
 

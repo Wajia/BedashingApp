@@ -36,6 +36,7 @@ import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Constants
 import com.example.bedashingapp.utils.OnItemClickListener
 import com.example.bedashingapp.utils.Status
+import com.example.bedashingapp.utils.openInventoryStatusDialog
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.adapter.InventoryCountingLineAdapter
@@ -246,7 +247,7 @@ class StockCountingFragment : BaseFragment() {
                     adapter!!.notifyItemRemoved(position)
                 } else {
                     selectedPositionForUpdate = position
-                    getItemByItemCode(data!!.ItemCode, data)
+                    getItemByItemCode(data!!.ItemCode!!, data)
                 }
             }
 
@@ -365,7 +366,7 @@ class StockCountingFragment : BaseFragment() {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         hideProgressBar()
-                        openInventoryStatusDialog(resource.data!!.value)
+                        openInventoryStatusDialog(resource.data!!.value, requireContext())
                     }
                     Status.LOADING -> {
                         showProgressBar("", "Getting Details...")
@@ -389,11 +390,6 @@ class StockCountingFragment : BaseFragment() {
         ).get(MainActivityViewModel::class.java)
     }
 
-    private fun openInventoryStatusDialog(data: List<CustomObject>) {
-        val dialog = InventoryStatusDialogFragment(data)
-        dialog.isCancelable = true
-        dialog.show(requireActivity().supportFragmentManager, dialog.tag)
-    }
 
     private fun openItemSelectDialog() {
         val itemSelectDialogFragment = ItemsDialogFragment()
@@ -454,7 +450,7 @@ class StockCountingFragment : BaseFragment() {
         }
 
         //set Uoms in spinner
-        uomCode = addedItem.UoMCode
+        uomCode = addedItem.UoMCode!!
         fetchUomsByUomGroupEntry(item.UoMGroupEntry)
 
         //get Latest details of item
@@ -610,16 +606,16 @@ class StockCountingFragment : BaseFragment() {
             for (item in mainActivityViewModel.getSelectedItems()) {
                 inventoryCountingLines.add(
                     InventoryCountingLineRemote(
-                        ItemCode = item.ItemCode,
+                        ItemCode = item.ItemCode!!,
                         Freeze = item.Freeze,
-                        WarehouseCode = item.WarehouseCode,
+                        WarehouseCode = item.WarehouseCode!!,
                         Counted = item.Counted,
                         CountedQuantity = item.CountedQuantity,
                         Variance = item.Variance,
                         CostingCode = item.CostingCode,
                         CostingCode2 = item.CostingCode2,
                         CostingCode3 = item.CostingCode3,
-                        UoMCode = item.UoMCode
+                        UoMCode = item.UoMCode!!
                     )
                 )
             }
@@ -702,7 +698,10 @@ class StockCountingFragment : BaseFragment() {
                                         jsonObject.getJSONObject("error").toString(),
                                         mainActivityViewModel.lastDocumentSavedID
                                     )
-                                    showToastLong(jsonObject.getJSONObject("error").getJSONObject("message").getString("value"))
+                                    showToastLong(
+                                        jsonObject.getJSONObject("error").getJSONObject("message")
+                                            .getString("value")
+                                    )
                                 }
                             }
 

@@ -130,11 +130,12 @@ interface ApiService {
         @HeaderMap headers: HashMap<String, String>,
         @Body payload: InventoryCountingRequest
     ): Call<AddInventoryCountingResponse>
+
     @POST
-    fun GoodsReciept(
+    fun deliveryNotes(
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>,
-        @Body payload: InventoryCountingRequest
+        @Body payload: PurchaseDeliveryNotesRequest
     ): Call<AddInventoryCountingResponse>
 
     @POST
@@ -143,6 +144,7 @@ interface ApiService {
         @HeaderMap headers: HashMap<String, String>,
         @Body payload: PostPurchaseOrderRequest
     ): Call<AddInventoryCountingResponse>
+
     @POST
     fun postPurchaseDeliveryNotes(
         @Url url: String,

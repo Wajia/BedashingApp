@@ -156,9 +156,8 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
             btn_post -> {
                 if (postingValidation())
                     if (postingValidation()) {
-                        checkSessionConnection("post_document")
+                        checkSessionConnection(getString(R.string.post_document))
                     }
-
             }
             btn_cancel -> {
                 requireActivity().onBackPressed()
@@ -579,25 +578,18 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                     )
                 )
             }
-            val tempItems = (context as MainActivity).mainActivityViewModel.getSelectedItems()
-                .filter { it.BaseType == "22" }.toCollection(
-                    ArrayList()
-                )
-            if (tempItems.isEmpty()) {
-                showToastLong("Enter at least one Item to receive!")
-                return
-            }
+
             val postPurchaseOrderRequest = PurchaseDeliveryNotesRequest(
                 DocDate = et_doc_date.text.toString().changeDateFormat("dd-MM-yyyy", "yyyy-MM-dd"),
                 DocDueDate = et_due_date.text.toString()
                     .changeDateFormat("dd-MM-yyyy", "yyyy-MM-dd"),
                 BPL_IDAssignedToInvoice = (context as MainActivity).sessionManager!!.getUserBplid(),
-                tempItems,
+                temp,
                 U_DocNo = (context as MainActivity).sessionManager!!.getUserHeadOfficeCardCode(),
-                CardCode = (context as MainActivity).sessionManager!!.getUserHeadOfficeCardCode()
+                CardCode = customerCode
             )
 
-            (context as MainActivity).mainActivityViewModel.saveGoodRecieptDocument(
+            (context as MainActivity).mainActivityViewModel.savePCDocument(
                 postPurchaseOrderRequest
             )
                 .observe(viewLifecycleOwner, {
@@ -625,12 +617,10 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
     private fun postPC(payload: PurchaseDeliveryNotesRequest) {
 
 
-        (context as MainActivity).mainActivityViewModel.GoodsReciept(
+        (context as MainActivity).mainActivityViewModel.goodsReciept(
             (context as MainActivity).sessionManager!!.getBaseURL(),
             (context as MainActivity).sessionManager!!.getCompany(),
             (context as MainActivity).sessionManager!!.getSessionId(),
-            (context as MainActivity).sessionManager!!.getUserBranchName(),
-            (context as MainActivity).sessionManager!!.getUserHeadOfficeCardCode(),
             payload
         ).observe(viewLifecycleOwner, {
             it?.let { resource ->

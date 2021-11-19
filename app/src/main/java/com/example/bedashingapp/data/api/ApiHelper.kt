@@ -292,16 +292,17 @@ class ApiHelper(private val apiService: ApiService) {
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
         return apiService.inventoryCountings(url, headers, payload)
     }
-    fun goodsReciept(
+
+    fun deliveryNotes(
         mainURL: String,
         companyName: String,
         sessionID: String,
-        payload: InventoryCountingRequest
+        payload: PurchaseDeliveryNotesRequest
     ): Call<AddInventoryCountingResponse> {
         val url = "$mainURL/b1s/v1/DeliveryNotes"
         val headers = HashMap<String, String>()
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
-        return apiService.inventoryCountings(url, headers, payload)
+        return apiService.deliveryNotes(url, headers, payload)
     }
 
     fun postPO(

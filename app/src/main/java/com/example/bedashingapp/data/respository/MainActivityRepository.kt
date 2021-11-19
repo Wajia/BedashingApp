@@ -102,15 +102,16 @@ class MainActivityRepository(
         userHeadOfficeCardCode: String
     ) =
         apiHelper.getPO(mainURL, sessionID, companyName, branchName, userHeadOfficeCardCode)
+
     suspend fun PurchaseDeliveryNotes(
         mainURL: String,
         sessionID: String,
         companyName: String,
         branchName: String,
-        userHeadOfficeCardCode:String,
+        userHeadOfficeCardCode: String,
         payload: PurchaseDeliveryNotesRequest
     ) =
-        apiHelper.PurchaseDeliveryNotes(mainURL, sessionID, companyName,  payload)
+        apiHelper.PurchaseDeliveryNotes(mainURL, sessionID, companyName, payload)
 
 
     suspend fun getOpenPO(
@@ -195,13 +196,14 @@ class MainActivityRepository(
         payload: InventoryCountingRequest
     ) =
         apiHelper.inventoryCountings(mainURL, companyName, sessionID, payload)
-    fun GoodsReciept(
+
+    fun deliveryNotes(
         mainURL: String,
         companyName: String,
         sessionID: String,
-        payload: InventoryCountingRequest
+        payload: PurchaseDeliveryNotesRequest
     ) =
-        apiHelper.goodsReciept(mainURL, companyName, sessionID, payload)
+        apiHelper.deliveryNotes(mainURL, companyName, sessionID, payload)
 
     fun postPO(
         mainURL: String,

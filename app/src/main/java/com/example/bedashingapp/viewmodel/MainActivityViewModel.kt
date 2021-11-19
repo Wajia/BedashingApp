@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
-import com.example.bedashingapp.GoodsReceiptFragment
 import com.example.bedashingapp.data.model.db.*
 import com.example.bedashingapp.data.model.local.Line
 import com.example.bedashingapp.data.model.remote.*
@@ -516,12 +515,11 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
-    fun GoodsReciept(
+
+    fun goodsReciept(
         mainURL: String,
         companyName: String,
         sessionID: String,
-        branchName: String,
-        userHeadOfficeCardCode: String,
         payload: PurchaseDeliveryNotesRequest
     ) =
         liveData(Dispatchers.IO) {
@@ -530,9 +528,9 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             try {
                 emit(
                     Resource.success(
-                        data = mainActivityRepository.PurchaseDeliveryNotes(
+                        data = mainActivityRepository.deliveryNotes(
                             mainURL,
-                            sessionID, companyName, branchName, userHeadOfficeCardCode, payload
+                            companyName, sessionID, payload
                         )
                     )
                 )

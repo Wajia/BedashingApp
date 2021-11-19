@@ -11,7 +11,7 @@ data class PurchaseDeliveryNotesRequest(
     val DocumentLines: ArrayList<Line> = ArrayList(),
     val CardCode: String,
     val U_DocNo: String,
-    val id:String ="1637156710025"
+    val id: String = ""
 )
 
 

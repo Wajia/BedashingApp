@@ -27,7 +27,6 @@ import com.example.bedashingapp.data.model.db.ItemEntity
 import com.example.bedashingapp.data.model.db.UOMEntity
 import com.example.bedashingapp.data.model.local.Line
 import com.example.bedashingapp.data.model.remote.AddInventoryCountingResponse
-import com.example.bedashingapp.data.model.remote.CustomObject
 import com.example.bedashingapp.data.model.remote.InventoryCountingLineRemote
 import com.example.bedashingapp.data.model.remote.InventoryCountingRequest
 import com.example.bedashingapp.helper.DateUtilsApp
@@ -50,7 +49,6 @@ import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-import kotlin.math.cos
 
 class StockCountingFragment : BaseFragment() {
 
@@ -206,6 +204,7 @@ class StockCountingFragment : BaseFragment() {
                         )
                     ) {
                         //reset details
+                        btn_add_item.text = Constants.TEXT_ADD_ITEM
                         resetSelectedItemDetails()
                         adapter!!.notifyDataSetChanged()
                     } else {

@@ -1,4 +1,4 @@
- package com.example.bedashingapp.views.update_branch
+package com.example.bedashingapp.views.update_branch
 
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +12,7 @@ import com.example.bedashingapp.MainActivity
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
+import com.example.bedashingapp.data.model.local.PreviousUserBranch
 import com.example.bedashingapp.data.model.remote.Branch
 import com.example.bedashingapp.data.model.remote.Warehouse
 import com.example.bedashingapp.helper.SessionManager
@@ -50,25 +51,26 @@ class UpdateBranchFragment : BaseFragment() {
         checkSessionConnection()
 
 
-        spinner_branch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+        spinner_branch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
                 position: Int,
                 id: Long
             ) {
-                if(position != 0){
+                if (position != 0) {
                     spinnerWarehousesList.clear()
                     spinnerWarehousesList.addAll(warehousesList.filter { it.WarehouseCode == null || it.BusinessPlaceID == branchesList[position].BPLID })
 
-                    val adapter = ArrayAdapter(requireContext(), R.layout.spinner_row, spinnerWarehousesList)
+                    val adapter =
+                        ArrayAdapter(requireContext(), R.layout.spinner_row, spinnerWarehousesList)
                     spinner_warehouse.adapter = adapter
                     spinner_warehouse.setTitle("Warehouses")
 
                     defaultVendorID = branchesList[position].DefaultVendorID
 
                     layout_warehouse.visibility = View.VISIBLE
-                }else{
+                } else {
                     defaultVendorID = ""
                     layout_warehouse.visibility = View.GONE
                 }
@@ -79,14 +81,21 @@ class UpdateBranchFragment : BaseFragment() {
 
         }
 
-        btn_save_branch_details.setOnClickListener{
-            if(validate()){
+        btn_save_branch_details.setOnClickListener {
+            if (validate()) {
 
                 val branchCode = branchesList[spinner_branch.selectedItemPosition].BPLID.toString()
                 val branchName = branchesList[spinner_branch.selectedItemPosition].BPLName
-                val warehouseCode = spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseCode.toString()
-                val warehouseName = spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseName
-
+                val warehouseCode =
+                    spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseCode.toString()
+                val warehouseName =
+                    spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseName
+                val previousUserBranch = PreviousUserBranch(
+                    sessionManager!!.getCurrentUserName(),
+                    branchesList[spinner_branch.selectedItemPosition],
+                    spinnerWarehousesList[spinner_warehouse.selectedItemPosition]
+                )
+                sessionManager!!.setPreviousBranch(previousUserBranch)
                 sessionManager!!.setUserBPLID(branchCode)
                 sessionManager!!.setUserBranch(branchCode)
                 sessionManager!!.setUserBranchName(branchName)
@@ -102,9 +111,8 @@ class UpdateBranchFragment : BaseFragment() {
     }
 
 
-
-    private fun checkSessionConnection(){
-        if(isConnectedToNetwork()) {
+    private fun checkSessionConnection() {
+        if (isConnectedToNetwork()) {
             mainActivityViewModel.checkConnection(
                 sessionManager!!.getBaseURL(),
                 sessionManager!!.getCompany(),
@@ -116,10 +124,10 @@ class UpdateBranchFragment : BaseFragment() {
                         Status.SUCCESS -> {
                             getData()
                         }
-                        Status.LOADING-> {
+                        Status.LOADING -> {
                             showProgressBar("", "")
                         }
-                        Status.ERROR->{
+                        Status.ERROR -> {
                             hideProgressBar()
                             sessionManager!!.putIsLoggedIn(false)
                             sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
@@ -131,13 +139,13 @@ class UpdateBranchFragment : BaseFragment() {
                     }
                 }
             })
-        }else{
+        } else {
             showToastLong(resources.getString(R.string.network_not_connected_msg))
         }
     }
 
 
-    private fun getData(){
+    private fun getData() {
         branchesList.add(Branch(null, "", "Select a Branch", "", "", ""))
         warehousesList.add(Warehouse(null, "Select a Warehouse", -985))
 
@@ -145,22 +153,22 @@ class UpdateBranchFragment : BaseFragment() {
         getBranches()
     }
 
-    private fun getBranches(){
+    private fun getBranches() {
         mainActivityViewModel.getBranches(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
             sessionManager!!.getSessionId()
         ).observe(viewLifecycleOwner, Observer {
-            it?.let{resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
                         branchesList.addAll(resource.data?.value as ArrayList)
                         getWarehouses()
                     }
-                    Status.LOADING->{
+                    Status.LOADING -> {
 
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
                     }
@@ -169,23 +177,23 @@ class UpdateBranchFragment : BaseFragment() {
         })
     }
 
-    private fun getWarehouses(){
+    private fun getWarehouses() {
         mainActivityViewModel.getWarehouses(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
             sessionManager!!.getSessionId()
         ).observe(viewLifecycleOwner, Observer {
-            it?.let{resource ->
-                when(resource.status){
-                    Status.SUCCESS->{
+            it?.let { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
                         warehousesList.addAll(resource.data?.value as ArrayList)
                         hideProgressBar()
                         setData()
                     }
-                    Status.LOADING->{
+                    Status.LOADING -> {
 
                     }
-                    Status.ERROR->{
+                    Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
                     }
@@ -195,7 +203,7 @@ class UpdateBranchFragment : BaseFragment() {
     }
 
 
-    private fun setData(){
+    private fun setData() {
         //setting data if it was saved before
         et_branch.setText(branchesList.find { it.BPLID.toString() == sessionManager!!.getUserBplid() }?.BPLName)
         et_warehouse.setText(sessionManager!!.getWareHouseName())
@@ -208,16 +216,16 @@ class UpdateBranchFragment : BaseFragment() {
     }
 
 
-    private fun validate(): Boolean{
-        if(spinner_branch.selectedItemPosition == -1 || branchesList[spinner_branch.selectedItemPosition].BPLID == null){
+    private fun validate(): Boolean {
+        if (spinner_branch.selectedItemPosition == -1 || branchesList[spinner_branch.selectedItemPosition].BPLID == null) {
             showToastShort("Please select a branch")
             return false
         }
-        if(spinner_warehouse.selectedItemPosition == -1 || spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseCode == null){
+        if (spinner_warehouse.selectedItemPosition == -1 || spinnerWarehousesList[spinner_warehouse.selectedItemPosition].WarehouseCode == null) {
             showToastShort("Please select a warehouse")
             return false
         }
-        if(defaultVendorID.isEmpty()){
+        if (defaultVendorID.isEmpty()) {
             showToastShort("Branch does not have a default vendor!")
             return false
         }
@@ -234,7 +242,6 @@ class UpdateBranchFragment : BaseFragment() {
             )
         ).get(MainActivityViewModel::class.java)
     }
-
 
 
 }

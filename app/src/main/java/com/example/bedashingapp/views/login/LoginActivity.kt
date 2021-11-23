@@ -51,9 +51,9 @@ class LoginActivity : BaseActivity() {
             if (et_userName.text.toString().isNotEmpty() && et_password.text.toString()
                     .isNotEmpty()
             ) {
-                if(sessionManager!!.getServer().isNotEmpty()) {
+                if (sessionManager!!.getServer().isNotEmpty()) {
                     login(et_userName.text.toString(), et_password.text.toString())
-                }else{
+                } else {
                     showToastLong("Please specify Server IP, Port & Company name")
                 }
             } else {
@@ -67,7 +67,7 @@ class LoginActivity : BaseActivity() {
 
 
 //       ************************** For Wajeeha *****************************
-        btn_test.setOnClickListener{
+        btn_test.setOnClickListener {
             //change layout here
             setContentView(R.layout.fragment_update_branch)
         }
@@ -75,7 +75,7 @@ class LoginActivity : BaseActivity() {
 
 
     private fun login(username: String, pw: String) {
-        if(isConnectedToNetwork()) {
+        if (isConnectedToNetwork()) {
             mainActivityViewModel.login(
                 sessionManager!!.getBaseURL(),
                 sessionManager!!.getCompany(),
@@ -85,11 +85,11 @@ class LoginActivity : BaseActivity() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            if(resource.data!!.error == null) {
+                            if (resource.data!!.error == null) {
                                 sessionManager!!.setSessionId(resource.data.SessionId)
                                 sessionManager!!.setSessionTimeOut(resource.data.SessionTimeout!!)
                                 getUserDetails(username, pw)
-                            }else{
+                            } else {
                                 hideProgressBar()
                                 showToastLong(resource.data.error!!.message.value)
                             }
@@ -99,26 +99,27 @@ class LoginActivity : BaseActivity() {
                         }
                         Status.ERROR -> {
                             hideProgressBar()
-                            if(resource.data?.error == null) {
+                            if (resource.data?.error == null) {
                                 showToastLong(resource.message!!)
-                            }else {
+                            } else {
                                 showToastLong(resource.data.error.message.value)
                             }
                         }
                     }
                 }
             })
-        }else{
+        } else {
             showToastLong(resources.getString(R.string.network_not_connected_msg))
         }
     }
 
-    private fun getUserDetails(userCode: String, password: String){
+    private fun getUserDetails(userCode: String, password: String) {
         mainActivityViewModel.getUserDetails(
             sessionManager!!.getBaseURL(),
             sessionManager!!.getCompany(),
             sessionManager!!.getSessionId(),
-            userCode).observe(
+            userCode
+        ).observe(
             this,
             Observer {
                 it?.let { resource ->
@@ -150,11 +151,17 @@ class LoginActivity : BaseActivity() {
                                 //if same then no syncing required
                                 //else syncing required
 
-                                if(sessionManager!!.isPreviousUser()){
+                                if (sessionManager!!.isPreviousUser()) {
+                                    val wareHouseInfo = sessionManager!!.getPreviousBranchName(
+                                        userCode
+                                    )
                                     sessionManager!!.putIsSynced(sessionManager!!.isSynced())
-                                    sessionManager!!.setUserBPLID(sessionManager!!.getUserBplid())
-                                    sessionManager!!.putWareHouseID(sessionManager!!.getWareHouseID())
-                                }else{
+                                    sessionManager!!.setUserBPLID(
+                                        wareHouseInfo.userBranch.BPLID.toString()
+                                    )
+                                    sessionManager!!.setUserBranch( wareHouseInfo.userBranch.BPLID.toString())
+                                    sessionManager!!.putWareHouseID(wareHouseInfo.userWarehouse.WarehouseCode!!)
+                                } else {
                                     sessionManager!!.putIsSynced(false)
                                     sessionManager!!.setUserBPLID("")
                                     sessionManager!!.putWareHouseID("")
@@ -177,6 +184,7 @@ class LoginActivity : BaseActivity() {
                 }
             })
     }
+
 
     private fun navigateToDashboard() {
         startActivity(Intent(applicationContext, MainActivity::class.java))

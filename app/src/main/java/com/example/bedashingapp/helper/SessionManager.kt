@@ -2,6 +2,10 @@ package com.example.bedashingapp.helper
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.bedashingapp.data.model.local.PreviousUserBranch
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 class SessionManager(_context: Context) {
 
@@ -74,6 +78,7 @@ class SessionManager(_context: Context) {
         private const val USER_DFLT_STORE = "user_default_store"
         private const val SESSION_TIMEOUT = "session_timeout"
         private const val USER_BRANCH_NAME = "branch_name"
+        private const val PREVIOUS_USER_BRANCH_INFO = "previous_branch_info"
     }
 
     init {
@@ -319,6 +324,27 @@ class SessionManager(_context: Context) {
         editor!!.putString(USER_BRANCH_NAME, userBranchName).commit()
     }
 
+    fun setPreviousBranch(previousUserBranch: PreviousUserBranch) {
+        val emptyList = ArrayList<PreviousUserBranch>()
+        val json = sharedPreferences?.getString(PREVIOUS_USER_BRANCH_INFO, Gson().toJson(emptyList))
+        val collectionType: Type = object : TypeToken<Collection<PreviousUserBranch?>?>() {}.type
+        val usersBranchList = Gson().fromJson(json, collectionType) as ArrayList<PreviousUserBranch>
+        var index = -1
+        if (usersBranchList.isNotEmpty()) {
+            if (usersBranchList.any { it.userName == previousUserBranch.userName }) {
+                index =
+                    usersBranchList.indexOf(usersBranchList.filter { it.userName == previousUserBranch.userName }[0])
+            }
+        }
+        if (index != -1) {
+            usersBranchList[index] = previousUserBranch
+        } else {
+            usersBranchList.add(previousUserBranch)
+        }
+        val jsonObject = Gson().toJson(usersBranchList)
+        editor!!.putString(PREVIOUS_USER_BRANCH_INFO, jsonObject).commit()
+    }
+
     //getters
     fun getWareHouseID(): String {
         return sharedPreferences?.getString(WAREHOUSE_ID, "")!!
@@ -473,6 +499,15 @@ class SessionManager(_context: Context) {
 
     fun getUserBranchName(): String {
         return sharedPreferences?.getString(USER_BRANCH_NAME, "")!!
+    }
+
+    fun getPreviousBranchName(userName: String): PreviousUserBranch {
+        val emptyList = ArrayList<PreviousUserBranch>()
+        val json = sharedPreferences?.getString(PREVIOUS_USER_BRANCH_INFO, Gson().toJson(emptyList))
+        val collectionType: Type = object : TypeToken<Collection<PreviousUserBranch?>?>() {}.type
+        val usersBranchList = Gson().fromJson(json, collectionType) as ArrayList<PreviousUserBranch>
+        usersBranchList.filter { it.userName == userName }
+        return usersBranchList[0]
     }
 
 

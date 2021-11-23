@@ -23,28 +23,19 @@ import androidx.navigation.Navigation
 import androidx.navigation.ui.*
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
-import com.example.bedashingapp.data.model.remote.AddInventoryCountingResponse
-import com.example.bedashingapp.data.model.remote.InventoryCountingRequest
 import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
-import com.example.bedashingapp.utils.Constants
 import com.example.bedashingapp.utils.Status
-import com.example.bedashingapp.utils.showConfirmationAlert
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
+import com.example.bedashingapp.views.ProfessionalCheckout.ProfessionalCheckout
 import com.example.bedashingapp.views.PurchaseOrders.Fragments.PurchaseOrderFragment
 import com.example.bedashingapp.views.dashboard.DashboardFragment
-import com.example.bedashingapp.views.interfaces.SingleButtonListener
 import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.InventoryCountingListFragment
 import com.example.bedashingapp.views.stock_counting.StockCountingFragment
 import com.example.bedashingapp.views.update_branch.UpdateBranchFragment
 import com.sixlogics.flexspace.wrappers.NavigationWrapper
 import kotlinx.android.synthetic.main.activity_main.*
-
-import org.json.JSONObject
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 class MainActivity : BaseActivity() {
 

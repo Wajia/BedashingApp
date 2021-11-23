@@ -1,4 +1,5 @@
-package com.example.bedashingapp
+package com.example.bedashingapp.views.ProfessionalCheckout
+
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,38 +8,27 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.bedashingapp.BaseFragment
+import com.example.bedashingapp.MainActivity
+import com.example.bedashingapp.R
 import com.example.bedashingapp.data.model.db.ItemEntity
 import com.example.bedashingapp.data.model.db.UOMEntity
 import com.example.bedashingapp.data.model.local.Line
 import com.example.bedashingapp.data.model.remote.AddInventoryCountingResponse
 import com.example.bedashingapp.data.model.remote.Customer
-import com.example.bedashingapp.data.model.remote.DocumentLine
-import com.example.bedashingapp.data.model.remote.PurchaseDeliveryNotesRequest
+import com.example.bedashingapp.data.model.remote.PcLine
+import com.example.bedashingapp.data.model.remote.ProfessionalCheckoutRequest
 import com.example.bedashingapp.utils.*
 import com.example.bedashingapp.views.PurchaseOrders.Adapters.PurchaseOrderItemsAdapter
 import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.ItemsDialogFragment
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureActivity
-import kotlinx.android.synthetic.main.fragment_goods_receipt.*
 import kotlinx.android.synthetic.main.fragment_professional_checkout.*
-import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_add_item
-import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_cancel
-import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_check_status
-import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_post
-import kotlinx.android.synthetic.main.fragment_professional_checkout.ed_select_item
-import kotlinx.android.synthetic.main.fragment_professional_checkout.et_counted_quantity
-import kotlinx.android.synthetic.main.fragment_professional_checkout.et_doc_date
-import kotlinx.android.synthetic.main.fragment_professional_checkout.et_due_date
-import kotlinx.android.synthetic.main.fragment_professional_checkout.et_qty
-import kotlinx.android.synthetic.main.fragment_professional_checkout.iv_item_barcode
-import kotlinx.android.synthetic.main.fragment_professional_checkout.spinner_uom
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-
-
 import java.util.*
 
 
@@ -71,7 +61,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
 
     private fun init() {
         et_doc_date.setText(getCurrentTime("dd-MM-yyyy"))
-        customerList.add(Customer("", "Please select a customer"))
+        customerList.add(Customer("", "Select customer"))
         customerList.add(Customer("C00001", "DASHING INTERNATIONAL - HO"))
         customerList.add(Customer("C00074", "PROFESSIONAL CHECKOUT-AUH"))
         customerList.add(Customer("C00075", "PROFESSIONAL CHECKOUT-DXB"))
@@ -113,7 +103,6 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                 id: Long
             ) {
                 customerCode = customerList[position].code
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -218,7 +207,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         }
     }
 
-    fun postingValidation(): Boolean {
+    private fun postingValidation(): Boolean {
         if (customerCode.isEmpty()) {
             context?.let { showToastLong(it.getString(R.string.select_customer)) }
             return false
@@ -561,11 +550,11 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         if (isConnectedToNetwork()) {
             //first create payload
 
-            val poLines: ArrayList<DocumentLine> = ArrayList()
+            val poLines: ArrayList<PcLine> = ArrayList()
             val temp = (context as MainActivity).mainActivityViewModel.getSelectedItems()
             for (item in temp) {
                 poLines.add(
-                    DocumentLine(
+                    PcLine(
                         ItemCode = item.ItemCode,
                         WarehouseCode = item.WarehouseCode,
                         Quantity = item.Quantity.toDouble(),
@@ -574,17 +563,19 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                         CostingCode3 = item.CostingCode3,
                         UoMEntry = item.UoMEntry,
                         UnitPrice = item.UnitPrice.toDouble(),
-                        LineStatus = ""
+                        LineStatus = "",
+                        comments = et_notes.toString()
                     )
                 )
             }
 
-            val postPurchaseOrderRequest = PurchaseDeliveryNotesRequest(
+            val postPurchaseOrderRequest = ProfessionalCheckoutRequest(
                 DocDate = et_doc_date.text.toString().changeDateFormat("dd-MM-yyyy", "yyyy-MM-dd"),
                 DocDueDate = et_due_date.text.toString()
                     .changeDateFormat("dd-MM-yyyy", "yyyy-MM-dd"),
-                BPL_IDAssignedToInvoice = (context as MainActivity).sessionManager!!.getUserBplid(),
-                temp,
+                BPL_IDAssignedToInvoice = (context as MainActivity).sessionManager!!.getUserBplid()
+                    .toInt(),
+                DocumentLines = poLines,
                 U_DocNo = (context as MainActivity).sessionManager!!.getUserHeadOfficeCardCode(),
                 CardCode = customerCode
             )
@@ -614,10 +605,10 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         }
     }
 
-    private fun postPC(payload: PurchaseDeliveryNotesRequest) {
+    private fun postPC(payload: ProfessionalCheckoutRequest) {
 
 
-        (context as MainActivity).mainActivityViewModel.goodsReciept(
+        (context as MainActivity).mainActivityViewModel.deliveryNotes(
             (context as MainActivity).sessionManager!!.getBaseURL(),
             (context as MainActivity).sessionManager!!.getCompany(),
             (context as MainActivity).sessionManager!!.getSessionId(),
@@ -637,7 +628,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                                         (context as MainActivity).mainActivityViewModel.lastDocumentSavedID,
                                         Constants.SYNCED,
                                         "",
-                                        ""
+                                        response.body()!!.DocEntry.toString()
                                     )
                                     showSnackBar(
                                         "Document has been posted successfully.",

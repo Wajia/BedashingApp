@@ -516,11 +516,11 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
             }
         }
 
-    fun goodsReciept(
+    fun deliveryNotes(
         mainURL: String,
         companyName: String,
         sessionID: String,
-        payload: PurchaseDeliveryNotesRequest
+        payload: ProfessionalCheckoutRequest
     ) =
         liveData(Dispatchers.IO) {
 
@@ -914,21 +914,20 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
     }
 
-    fun savePCDocument(document: PurchaseDeliveryNotesRequest) = liveData(Dispatchers.IO) {
+    fun savePCDocument(document: ProfessionalCheckoutRequest) = liveData(Dispatchers.IO) {
 
         var payload = ""
         payload += "{\n" +
 
                 "DocDate: ${document.DocDate}\n" +
                 "DocDueDate: ${document.DocDueDate}\n" +
-                "InventoryCountingLines: [\n"
+                "ProfessionalCheckoutLines: [\n"
 
         for (line in document.DocumentLines) {
             payload += "{\n" +
                     "ItemCode: ${line.ItemCode}\n" +
                     "WarehouseCode: ${line.WarehouseCode}\n" +
                     "Quantity: ${line.Quantity}\n" +
-                    "CountedQuantity: ${line.Quantity}\n" +
                     "CostingCode: ${line.CostingCode}\n" +
                     "CostingCode2: ${line.CostingCode2}\n" +
                     "CostingCode3: ${line.CostingCode3}\n" +
@@ -937,14 +936,14 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
         }
         payload += "]\n}\n"
 
-        var docDateDB = DateUtilsApp.getUTCFormattedDateTimeString(
+        val docDateDB = DateUtilsApp.getUTCFormattedDateTimeString(
             SimpleDateFormat(
                 "dd/MM/yyyy - hh:mm a",
                 Locale.getDefault()
             ), Calendar.getInstance().time
         )
 
-        var document = PostedDocumentEntity(
+        val document = PostedDocumentEntity(
             ID = Calendar.getInstance().timeInMillis.toString(),
             docType = "Personal Checkout",
             dateTime = docDateDB,

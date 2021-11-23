@@ -9,7 +9,7 @@ data class PostPurchaseOrderRequest(
     val BPLName: String,
     val BPL_IDAssignedToInvoice: String,
     val Comments: String,
-    val DocumentLines: ArrayList<DocumentLine> = ArrayList(),
+    val DocumentLines: ArrayList<PurchaseOderDocumentLine> = ArrayList(),
     val CardCode: String,
     val U_DocNo: String
 )

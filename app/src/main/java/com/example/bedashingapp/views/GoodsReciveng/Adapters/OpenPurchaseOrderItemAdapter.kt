@@ -38,7 +38,7 @@ class OpenPurchaseOrderItemAdapter
         val item = poList[position]
         holder.tvItemCode.text = item.ItemCode
         holder.tvRemOpenQty.text = item.RemainingOpenQuantity.toString()
-        holder.tvOriginalRemQty.text = item.originalRemainingQuantity.toString()
+    //    holder.tvOriginalRemQty.text = item.originalRemainingQuantity.toString()
         holder.tvQty.text = item.Quantity
         holder.tvUomCode.text = item.UoMCode
         holder.imgEdit.setOnClickListener {
@@ -68,7 +68,7 @@ class OpenPurchaseOrderItemAdapter
         var tvItemCode: TextView = itemView.findViewById(R.id.tv_item_name)
         var tvQty: TextView = itemView.findViewById(R.id.tv_item_qty_received)
         var tvRemOpenQty: TextView = itemView.findViewById(R.id.tv_item_qty_remaining)
-        var tvOriginalRemQty: TextView = itemView.findViewById(R.id.tv_item_original_remaining)
+     //   var tvOriginalRemQty: TextView = itemView.findViewById(R.id.tv_item_original_remaining)
         var tvUomCode: TextView = itemView.findViewById(R.id.tv_uom)
         var imgPurchase: ImageView = itemView.findViewById(R.id.img_item_changed)
         var imgDelete: ImageView = itemView.findViewById(R.id.iv_delete)

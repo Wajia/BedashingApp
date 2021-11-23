@@ -68,7 +68,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ProfessionalCheckout$PortraitCaptureActivityPC"
+            android:name=".views.ProfessionalCheckout.ProfessionalCheckout$PortraitCaptureActivityPC"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|uiMode"
             android:screenOrientation="portrait" />
 

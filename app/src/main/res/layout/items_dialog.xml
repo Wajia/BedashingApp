@@ -19,7 +19,7 @@
             android:id="@+id/tv_heading"
             android:fontFamily="@font/open_sans_semibold"
             android:textSize="16sp"
-            android:text="Please select an item"/>
+            android:text="Select Item"/>
 
         <View
             android:layout_width="match_parent"

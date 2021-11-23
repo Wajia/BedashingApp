@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_professional_checkout"
-        android:name="com.example.bedashingapp.ProfessionalCheckout"
+        android:name="com.example.bedashingapp.views.ProfessionalCheckout.ProfessionalCheckout"
         android:label="Delivery"
         tools:layout="@layout/fragment_professional_checkout" />
 

@@ -2,8 +2,6 @@ package com.example.bedashingapp.views.PurchaseOrders.Fragments
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -16,30 +14,20 @@ import com.example.bedashingapp.R
 import com.example.bedashingapp.data.model.db.ItemEntity
 import com.example.bedashingapp.data.model.db.UOMEntity
 import com.example.bedashingapp.data.model.local.Line
-import com.example.bedashingapp.data.model.remote.*
+import com.example.bedashingapp.data.model.remote.AddPurchaseOderResponse
+import com.example.bedashingapp.data.model.remote.CustomObject
+import com.example.bedashingapp.data.model.remote.PostPurchaseOrderRequest
+import com.example.bedashingapp.data.model.remote.PurchaseOderDocumentLine
 import com.example.bedashingapp.utils.*
 import com.example.bedashingapp.views.PurchaseOrders.Adapters.PurchaseOrderItemsAdapter
 import com.example.bedashingapp.views.interfaces.SingleButtonListener
 import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.InventoryStatusDialogFragment
 import com.example.bedashingapp.views.stock_counting.ItemsDialogFragment
-import com.example.bedashingapp.views.stock_counting.StockCountingFragment
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureActivity
 import com.sixlogics.flexspace.wrappers.NavigationWrapper
 import kotlinx.android.synthetic.main.fragment_purchase_order.*
-import kotlinx.android.synthetic.main.fragment_purchase_order.btn_add_item
-import kotlinx.android.synthetic.main.fragment_purchase_order.btn_cancel
-import kotlinx.android.synthetic.main.fragment_purchase_order.btn_check_status
-import kotlinx.android.synthetic.main.fragment_purchase_order.btn_post
-import kotlinx.android.synthetic.main.fragment_purchase_order.et_counted_quantity
-import kotlinx.android.synthetic.main.fragment_purchase_order.et_doc_date
-import kotlinx.android.synthetic.main.fragment_purchase_order.et_remarks
-import kotlinx.android.synthetic.main.fragment_purchase_order.layout_item
-import kotlinx.android.synthetic.main.fragment_purchase_order.root
-import kotlinx.android.synthetic.main.fragment_purchase_order.spinner_uom
-import kotlinx.android.synthetic.main.fragment_purchase_order.tv_selected_item_name
-import kotlinx.android.synthetic.main.fragment_stock_counting.*
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -223,7 +211,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                 when (resource.status) {
                     Status.SUCCESS -> {
                         hideProgressBar()
-                        openInventoryStatusDialog(resource.data!!.value, requireContext())
+                        openInventoryStatusDialog(resource.data!!.value)
                     }
                     Status.LOADING -> {
                         showProgressBar("", "Getting Details...")
@@ -237,6 +225,11 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         })
     }
 
+    private fun openInventoryStatusDialog(data: List<CustomObject>) {
+        val dialog = InventoryStatusDialogFragment(data)
+        dialog.isCancelable = true
+        dialog.show(requireActivity().supportFragmentManager, dialog.tag)
+    }
 
     private fun validateItemData(): Boolean {
         when {
@@ -547,13 +540,13 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         if (isConnectedToNetwork()) {
             //first create payload
 
-            val poLines: ArrayList<DocumentLine> = ArrayList()
+            val poLines: ArrayList<PurchaseOderDocumentLine> = ArrayList()
             val temp = (context as MainActivity).mainActivityViewModel.getSelectedItems()
             for (item in temp) {
                 poLines.add(
-                    DocumentLine(
-                        ItemCode = item.ItemCode,
-                        WarehouseCode = item.WarehouseCode,
+                    PurchaseOderDocumentLine(
+                        ItemCode = item.ItemCode!!,
+                        WarehouseCode = item.WarehouseCode!!,
                         Quantity = item.Quantity.toDouble(),
                         CostingCode = (context as MainActivity).sessionManager!!.getUserDfltRegion(),
                         CostingCode2 = (context as MainActivity).sessionManager!!.getUserDfltStore(),
@@ -605,22 +598,21 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
 
     }
 
-    fun postPO(payload: PostPurchaseOrderRequest) {
-
+    fun postPO(postPurchaseOrderRequest: PostPurchaseOrderRequest) {
 
         (context as MainActivity).mainActivityViewModel.postPO(
             (context as MainActivity).sessionManager!!.getBaseURL(),
             (context as MainActivity).sessionManager!!.getCompany(),
             (context as MainActivity).sessionManager!!.getSessionId(),
-            payload
-        ).observe(viewLifecycleOwner, Observer {
-            it?.let { resource ->
+            postPurchaseOrderRequest
+        ).observe(this, Observer {
+            it.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        resource.data?.enqueue(object : Callback<AddInventoryCountingResponse> {
+                        resource.data?.enqueue(object : Callback<AddPurchaseOderResponse> {
                             override fun onResponse(
-                                call: Call<AddInventoryCountingResponse>,
-                                response: Response<AddInventoryCountingResponse>
+                                call: Call<AddPurchaseOderResponse>,
+                                response: Response<AddPurchaseOderResponse>
                             ) {
                                 hideProgressBar()
                                 if (response.errorBody() == null) {
@@ -652,7 +644,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                             }
 
                             override fun onFailure(
-                                call: Call<AddInventoryCountingResponse>,
+                                call: Call<AddPurchaseOderResponse>,
                                 t: Throwable
                             ) {
                                 hideProgressBar()
@@ -667,8 +659,6 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
 
                         })
                     }
-                    Status.LOADING -> {
-                    }
                     Status.ERROR -> {
                         hideProgressBar()
                         showToastLong(resource.message!!)
@@ -679,9 +669,13 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                             (requireActivity() as MainActivity).mainActivityViewModel.lastDocumentSavedID
                         )
                     }
+                    Status.LOADING -> {
+
+                    }
                 }
             }
         })
+
     }
 
     override fun onItemEditClick(position: Int, item: Line) {

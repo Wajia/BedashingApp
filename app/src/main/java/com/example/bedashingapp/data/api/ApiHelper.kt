@@ -151,7 +151,7 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.getPO(url, headers)
     }
 
-    suspend fun PurchaseDeliveryNotes(
+     fun PurchaseDeliveryNotes(
         mainURL: String,
         sessionID: String,
         companyName: String,
@@ -297,7 +297,7 @@ class ApiHelper(private val apiService: ApiService) {
         mainURL: String,
         companyName: String,
         sessionID: String,
-        payload: PurchaseDeliveryNotesRequest
+        payload: ProfessionalCheckoutRequest
     ): Call<AddInventoryCountingResponse> {
         val url = "$mainURL/b1s/v1/DeliveryNotes"
         val headers = HashMap<String, String>()
@@ -305,18 +305,11 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.deliveryNotes(url, headers, payload)
     }
 
-    fun postPO(
-        mainURL: String,
-        companyName: String,
-        sessionID: String,
-        payload: PostPurchaseOrderRequest
-    ): Call<AddInventoryCountingResponse> {
+    fun postPO(mainURL: String, companyName: String, sessionID: String, payload: PostPurchaseOrderRequest): Call<AddPurchaseOderResponse>{
         val url = "$mainURL/b1s/v1/PurchaseOrders"
         val headers = HashMap<String, String>()
-        headers["Content-Type"] = "application/json; charset=UTF-8"
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
         return apiService.postPO(url, headers, payload)
     }
-
 
 }

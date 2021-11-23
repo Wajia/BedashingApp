@@ -201,9 +201,10 @@ class MainActivityRepository(
         mainURL: String,
         companyName: String,
         sessionID: String,
-        payload: PurchaseDeliveryNotesRequest
+        payload: ProfessionalCheckoutRequest
     ) =
         apiHelper.deliveryNotes(mainURL, companyName, sessionID, payload)
+
 
     fun postPO(
         mainURL: String,

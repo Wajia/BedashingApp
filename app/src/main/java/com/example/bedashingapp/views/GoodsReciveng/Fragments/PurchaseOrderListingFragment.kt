@@ -29,6 +29,9 @@ class PurchaseOrderListingFragment : BaseFragment() {
 
     private fun init() {
         if ((context as MainActivity).checkSessionConnection("")) {
+        var  userBranch=  (context as MainActivity).sessionManager!!.getUserBranch()
+            var headOfficeCardCode = (context as MainActivity).sessionManager!!.getUserHeadOfficeCardCode()
+            var  company=  (context as MainActivity).sessionManager!!.getCompany()
             getPurchaseOrders()
         }
     }

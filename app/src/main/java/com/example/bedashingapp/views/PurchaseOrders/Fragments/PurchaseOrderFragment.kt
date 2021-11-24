@@ -67,6 +67,10 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         init()
     }
 
+    override fun apiCaller(purpose: String) {
+        TODO("Not yet implemented")
+    }
+
     private fun init() {
         et_doc_date.setOnClickListener(this)
         et_req_date.setOnClickListener(this)
@@ -145,7 +149,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                         ) {
                             //reset details
                             resetSelectedItemDetails()
-                            pOItemsAdapter!!.notifyDataSetChanged()
+                            pOItemsAdapter.notifyDataSetChanged()
                             btn_add_item.text = Constants.TEXT_ADD_ITEM
                         } else {
                             showToastShort("Another item already exists with selected item and uom.")
@@ -167,6 +171,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                         btn_add_item.text = Constants.TEXT_ADD_ITEM
                         resetSelectedItemDetails()
                         pOItemsAdapter.notifyDataSetChanged()
+                        hideKeyboard()
                     }
 
 

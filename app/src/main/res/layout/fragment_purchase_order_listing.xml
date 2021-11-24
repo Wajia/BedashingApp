@@ -3,26 +3,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.GoodsReciveng.Fragments.PurchaseOrderListingFragment"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".views.GoodsReciveng.Fragments.PurchaseOrderListingFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginHorizontal="@dimen/dp10"
         android:layout_marginTop="@dimen/dp20"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_purchase_oder"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:visibility="gone"
             tools:itemCount="15"
             tools:listitem="@layout/list_inventory_countings_single_item" />
 
-
+        <TextView
+            android:id="@+id/tv_no_po"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="No Purchase oders against Selected Branch"
+            android:textColor="@color/black" />
     </LinearLayout>
 
     <include layout="@layout/progress_layout" />

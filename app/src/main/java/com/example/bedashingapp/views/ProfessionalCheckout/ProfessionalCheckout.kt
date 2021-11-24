@@ -59,6 +59,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         init()
     }
 
+
     private fun init() {
         et_doc_date.setText(getCurrentTime("dd-MM-yyyy"))
         customerList.add(Customer("", "Select customer"))
@@ -114,6 +115,20 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         setRecyclerView()
     }
 
+    override fun apiCaller(purpose: String) {
+        when (purpose) {
+            requireContext().resources.getString(R.string.post_document) -> {
+                saveDocument()
+            }
+            requireContext().resources.getString(R.string.check_inventory_status) -> {
+                getInventoryStatus()
+            }
+            requireContext().resources. getString(R.string.fetch_quantity) ->{
+                getItemQuantityAndDetails()
+            }
+        }
+    }
+
     private fun setRecyclerView() {
         pcItemsAdapter = PurchaseOrderItemsAdapter(
             requireContext(),
@@ -143,10 +158,13 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                 openDatePickerDialog(requireContext(), et_due_date)
             }
             btn_post -> {
-                if (postingValidation())
-                    if (postingValidation()) {
-                        checkSessionConnection(getString(R.string.post_document))
-                    }
+                if (postingValidation()) {
+                    (context as MainActivity).checkSessionConnection(
+                        this,
+                        getString(R.string.post_document)
+                    )
+
+                }
             }
             btn_cancel -> {
                 requireActivity().onBackPressed()
@@ -159,7 +177,10 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
             }
             btn_check_status -> {
                 if (btn_check_status.alpha == 1.0f) {
-                    checkSessionConnection("checkInventoryStatus")
+                    (context as MainActivity).checkSessionConnection(
+                        this,
+                        getString(R.string.check_inventory_status)
+                    )
                 }
             }
             btn_add_item -> {
@@ -199,6 +220,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                         btn_add_item.text = Constants.TEXT_ADD_ITEM
                         resetSelectedItemDetails()
                     }
+                    hideKeyboard()
                     pcItemsAdapter.notifyDataSetChanged()
 
                 }
@@ -254,53 +276,6 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         return true
     }
 
-    private fun checkSessionConnection(purpose: String) {
-        if (isConnectedToNetwork()) {
-            (context as MainActivity).mainActivityViewModel.checkConnection(
-                (context as MainActivity).sessionManager!!.getBaseURL(),
-                (context as MainActivity).sessionManager!!.getCompany(),
-                (context as MainActivity).sessionManager!!.getSessionId(),
-                (context as MainActivity).sessionManager!!.getUserId()
-            ).observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            hideProgressBar()
-                            when (purpose) {
-                                "checkInventoryStatus" -> {
-                                    getInventoryStatus()
-                                }
-                                "fetchQuantity" -> {
-                                    getItemQuantityAndDetails()
-                                }
-                                getString(R.string.post_document) -> {
-                                    saveDocument()
-                                }
-                            }
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("", "")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            (context as MainActivity).sessionManager!!.putIsLoggedIn(false)
-                            (context as MainActivity).sessionManager!!.putPreviousPassword(
-                                (context as MainActivity).sessionManager!!.getCurrentPassword()
-                            )
-                            (context as MainActivity).sessionManager!!.putPreviousUserName(
-                                (context as MainActivity).sessionManager!!.getCurrentUserName()
-                            )
-
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
-    }
 
     private fun getInventoryStatus() {
         (context as MainActivity).mainActivityViewModel.getInventoryStatus(
@@ -372,7 +347,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
             setupUomSpinner()
         }
         //get Latest details of item
-        checkSessionConnection("fetchQuantity")
+        (context as MainActivity).checkSessionConnection(this, getString(R.string.fetch_quantity))
     }
 
     private fun setupUomSpinner() {
@@ -386,7 +361,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         }
     }
 
-    fun fetchUomsByUomGroupEntry(
+    private fun fetchUomsByUomGroupEntry(
         uomGroupEntry: String,
     ) {
         uomsList.clear()

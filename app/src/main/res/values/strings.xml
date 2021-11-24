@@ -58,4 +58,8 @@
     <string name="select_due_date">Please select document due date!</string>
     <string name="select_whs">Please select WHS!</string>
     <string name="select_customer">Please Select Customer</string>
+    <string name="poDetails">poDetails</string>
+    <string name="open_po">openPo</string>
+    <string name="check_inventory_status">checkInventoryStatus</string>
+    <string name="fetch_quantity">fetchQuantity</string>
 </resources>

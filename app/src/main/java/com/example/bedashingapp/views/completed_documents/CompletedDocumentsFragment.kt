@@ -57,6 +57,10 @@ class CompletedDocumentsFragment : BaseFragment() {
         setupObserver()
     }
 
+    override fun apiCaller(purpose: String) {
+        TODO("Not yet implemented")
+    }
+
     private fun getData() {
         mainActivityViewModel.getAllCompletedDocuments().observe(viewLifecycleOwner, Observer {
             it?.let { resource ->

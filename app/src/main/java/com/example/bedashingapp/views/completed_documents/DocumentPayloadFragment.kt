@@ -20,4 +20,8 @@ class DocumentPayloadFragment: BaseFragment() {
         tv_payload.text = arguments?.getString("payload")
         tv_response.text = arguments?.getString("response")
     }
+
+    override fun apiCaller(purpose: String) {
+        TODO("Not yet implemented")
+    }
 }

@@ -110,6 +110,10 @@ class UpdateBranchFragment : BaseFragment() {
         }
     }
 
+    override fun apiCaller(purpose: String) {
+        TODO("Not yet implemented")
+    }
+
 
     private fun checkSessionConnection() {
         if (isConnectedToNetwork()) {

@@ -12,21 +12,24 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.ContextThemeWrapper
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.ui.*
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
 import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Status
+import com.example.bedashingapp.utils.gone
+import com.example.bedashingapp.utils.visible
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
+import com.example.bedashingapp.views.GoodsReciveng.Fragments.PurchaseOrderListingFragment
 import com.example.bedashingapp.views.ProfessionalCheckout.ProfessionalCheckout
 import com.example.bedashingapp.views.PurchaseOrders.Fragments.PurchaseOrderFragment
 import com.example.bedashingapp.views.dashboard.DashboardFragment
@@ -34,8 +37,11 @@ import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.InventoryCountingListFragment
 import com.example.bedashingapp.views.stock_counting.StockCountingFragment
 import com.example.bedashingapp.views.update_branch.UpdateBranchFragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.sixlogics.flexspace.wrappers.NavigationWrapper
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 class MainActivity : BaseActivity() {
 
@@ -168,7 +174,15 @@ class MainActivity : BaseActivity() {
         NavigationWrapper.init(this)
     }
 
-    fun checkSessionConnection(purpose: String): Boolean {
+    fun hideActionIcon() {
+        img_action.gone()
+    }
+
+    fun showActionIcon() {
+        img_action.visible()
+    }
+
+    fun checkSessionConnection(fragment: Fragment, purpose: String): Boolean {
         var isSessionOk = true
         if (isConnectedToNetwork()) {
             mainActivityViewModel.checkConnection(
@@ -180,20 +194,19 @@ class MainActivity : BaseActivity() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-
+                            (fragment as BaseFragment).apiCaller(purpose)
+                            fragment.hideProgressBar()
                         }
                         Status.LOADING -> {
-                            // showProgressBar("")
+                            (fragment as BaseFragment).showProgressBar("", "")
                         }
                         Status.ERROR -> {
                             isSessionOk = false
-                            hideProgressBar()
+                            (fragment as BaseFragment).hideProgressBar()
                             sessionManager!!.putIsLoggedIn(false)
-                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
-                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
-
-                            startActivity(Intent(this, LoginActivity::class.java))
-                            finishAffinity()
+                            /*                      sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
+                                                  sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())*/
+                            reLogin(fragment, purpose)
                         }
                     }
                 }
@@ -242,6 +255,46 @@ class MainActivity : BaseActivity() {
             showToastLong(resources.getString(R.string.network_not_connected_msg))
         }
 
+    }
+
+    fun reLogin(fragment: Fragment, purpose: String) {
+        if (isConnectedToNetwork()) {
+            mainActivityViewModel.login(
+                sessionManager!!.getBaseURL(),
+                sessionManager!!.getCompany(),
+                sessionManager!!.getCurrentPassword(),
+                username = sessionManager!!.getCurrentUserName()
+            ).observe(this,  {
+                it?.let { resource ->
+                    when (resource.status) {
+                        Status.SUCCESS -> {
+                            if (resource.data!!.error == null) {
+                                sessionManager!!.setSessionId(resource.data.SessionId)
+                                sessionManager!!.setSessionTimeOut(resource.data.SessionTimeout!!)
+                                (fragment as BaseFragment).apiCaller(purpose)
+                                fragment.hideProgressBar()
+                            } else {
+                                (fragment as BaseFragment).hideProgressBar()
+                                showToastLong(resource.data.error!!.message.value)
+                            }
+                        }
+                        Status.LOADING -> {
+                            (fragment as BaseFragment).showProgressBar("", "")
+                        }
+                        Status.ERROR -> {
+                            (fragment as BaseFragment).hideProgressBar()
+                            if (resource.data?.error == null) {
+                                showToastLong(resource.message!!)
+                            } else {
+                                showToastLong(resource.data.error.message.value)
+                            }
+                        }
+                    }
+                }
+            })
+        } else {
+            showToastLong(resources.getString(R.string.network_not_connected_msg))
+        }
     }
 
     private fun getItemsMaster() {
@@ -530,6 +583,10 @@ class MainActivity : BaseActivity() {
             is ProfessionalCheckout -> {
                 showOnExitPrompt(fragment)
             }
+            is PurchaseOrderListingFragment -> {
+                hideActionIcon()
+                super.onBackPressed()
+            }
         }
     }
 
@@ -539,7 +596,7 @@ class MainActivity : BaseActivity() {
         return when (fragment) {
             is DashboardFragment,
             is UpdateBranchFragment,
-            is StockCountingFragment, is PurchaseOrderFragment, is ProfessionalCheckout, is GoodsReceiptFragment
+            is StockCountingFragment, is PurchaseOrderFragment, is ProfessionalCheckout, is GoodsReceiptFragment, is PurchaseOrderListingFragment
             -> {
                 true
             }
@@ -554,7 +611,7 @@ class MainActivity : BaseActivity() {
         val fragment = navHostFragment?.childFragmentManager?.fragments?.get(0)
         return when (fragment) {
             is UpdateBranchFragment,
-            is StockCountingFragment, is PurchaseOrderFragment, is ProfessionalCheckout, is GoodsReceiptFragment
+            is StockCountingFragment, is PurchaseOrderFragment, is ProfessionalCheckout, is GoodsReceiptFragment, is PurchaseOrderListingFragment
             -> {
                 true
             }
@@ -589,6 +646,10 @@ class MainActivity : BaseActivity() {
             }
             is ProfessionalCheckout -> {
                 showOnExitPrompt(fragment)
+            }
+            is PurchaseOrderListingFragment -> {
+                hideActionIcon()
+                super.onBackPressed()
             }
 
 

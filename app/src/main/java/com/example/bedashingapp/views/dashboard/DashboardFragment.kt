@@ -53,8 +53,7 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
 
 
             tv_welcome.text = "WELCOME, ${sessionManager!!.getUserName()}"
-
-            checkSessionConnection()
+            (context as MainActivity).checkSessionConnection(this, "")
             setupObserver()
 
 
@@ -67,16 +66,23 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
 
     }
 
+    override fun apiCaller(purpose: String) {
+        getPOCount()
+        getGPROCount()
+        getDeliveryCount()
+        getInventoryCount()
+    }
+
     private fun setupObserver() {
         mainActivityViewModel.reloadDocumentsFlagLiveData.observe(viewLifecycleOwner, Observer {
             if (it) {
-                checkSessionConnection()
+                (context as MainActivity).checkSessionConnection(this, "")
                 mainActivityViewModel.setReloadDocumentsFlag(false)
             }
         })
     }
 
-    private fun checkSessionConnection() {
+     fun checkSessionConnection() {
         if (isConnectedToNetwork()) {
             mainActivityViewModel.checkConnection(
                 sessionManager!!.getBaseURL(),
@@ -88,10 +94,7 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
                     when (resource.status) {
                         Status.SUCCESS -> {
                             hideProgressBar()
-                            getPOCount()
-                            getGPROCount()
-                            getDeliveryCount()
-                            getInventoryCount()
+
                         }
                         Status.LOADING -> {
                             showProgressBar("", "")
@@ -102,8 +105,9 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
                             sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
                             sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
 
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()
+                            (context as MainActivity).reLogin(this,"")
+                          /*  startActivity(Intent(requireContext(), LoginActivity::class.java))
+                            requireActivity().finishAffinity()*/
                         }
                     }
                 }

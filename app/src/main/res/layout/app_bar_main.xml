@@ -4,36 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/white">
+    android:background="@color/white"
+    tools:context=".MainActivity">
 
     <com.google.android.material.appbar.AppBarLayout
+        style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        style="@style/Widget.MaterialComponents.AppBarLayout.PrimarySurface"
+        android:fitsSystemWindows="true"
         app:elevation="@dimen/dp4"
-        app:liftOnScroll="true"
-        android:fitsSystemWindows="true">
+        app:liftOnScroll="true">
 
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/appbar_color"
-            style="@style/Widget.MaterialComponents.Toolbar.PrimarySurface"
             android:elevation="@dimen/dp16"
-            app:title="@string/app_name"
             android:theme="@style/ToolbarColoredBackArrow"
-            app:elevation="@dimen/dp10"
-            app:titleTextColor="@color/colorPrimary"
-            app:navigationIcon="@drawable/home_icon"
-            app:titleTextAppearance="@style/Theme.TVGApp.AppBarOverlay"
             app:contentInsetStartWithNavigation="1dp"
+            app:elevation="@dimen/dp10"
             app:menu="@menu/main"
+            app:navigationIcon="@drawable/home_icon"
             app:popupTheme="@style/myMenuPopStyle"
-            />
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/Theme.TVGApp.AppBarOverlay"
+            app:titleTextColor="@color/colorPrimary">
 
+            <ImageView
+                android:id="@+id/img_action"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:src="@drawable/ic_report"
+                android:visibility="gone"/>
+        </androidx.appcompat.widget.Toolbar>
 
 
     </com.google.android.material.appbar.AppBarLayout>
@@ -56,16 +63,13 @@
     </FrameLayout>
 
 
-
-
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

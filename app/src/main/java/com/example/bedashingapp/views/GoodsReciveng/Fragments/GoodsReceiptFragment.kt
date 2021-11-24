@@ -58,6 +58,10 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
         init()
     }
 
+    override fun apiCaller(purpose: String) {
+        TODO("Not yet implemented")
+    }
+
 
     var docNum = -1
     private fun init() {
@@ -91,7 +95,7 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
         (context as MainActivity).mainActivityViewModel.getSelectedItems().clear()
 
 
-        if ((context as MainActivity).checkSessionConnection("")) {
+        if ((context as MainActivity).checkSessionConnection(this ,"")) {
             getOpenPO()
         }
     }

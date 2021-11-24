@@ -81,6 +81,11 @@ interface ApiService {
         @Url url: String,
         @HeaderMap headers: HashMap<String, String>
     ): GetPoResponse
+    @GET
+    suspend fun getPODetails(
+        @Url url: String,
+        @HeaderMap headers: HashMap<String, String>
+    ): GetPoResponse
 
     @GET
     suspend fun getOpenPO(

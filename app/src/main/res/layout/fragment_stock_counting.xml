@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".StockCounting"
     android:background="@color/white">
-
-    <!-- TODO: Update blank fragment layout -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/root"
         android:layout_width="match_parent"

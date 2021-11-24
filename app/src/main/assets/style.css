@@ -1,0 +1,649 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+body {
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+.wrapper {
+	width: 100%;
+	overflow: hidden;
+}
+.min-wrapper {
+	width: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.header{
+	width: 100%;
+	overflow: hidden;
+	border-bottom: dotted #8DC645;
+    padding-bottom: 10px;
+    border-top: dotted #8DC645;
+    padding-top: 10px;
+}
+.header-title{
+	width: 50%;
+    float: left;
+}
+.header-title > h1 {
+	color: #929292;
+	font-size: 20px;
+	text-transform: uppercase;
+	letter-spacing: 0px;
+}
+.header-info {
+	width: 50%;
+    float: right;
+    text-align: right;
+}
+.header-table {
+	width: 100%;
+    margin: 3px 0px;
+}
+.td-heading{
+	font-weight: bold;
+	font-size: 12px;
+	width: 50%;
+}
+.td-value{
+	font-style: italic;
+	font-size: 12px;
+	width: 45%;
+}
+.td-devider{
+    font-size: 12px;
+    width: 5%;
+}
+.middle {
+	width: 100%;
+	overflow: hidden;
+    margin-top: 30px;
+}
+.middle-td {
+	border-left: 10px solid orange;
+	padding: 5px;
+}
+.middle-td > h1 {
+	padding-left: 10px;
+	color: #929292;
+	font-size: 18px;
+	font-weight: normal;
+}
+.middle-td > h1 > span {
+	color: #8DC645;
+	font-weight: bold;
+}
+
+.grid{
+	width: 100%;
+    overflow: hidden;
+}
+.grid-table {
+	width: 100%;
+	margin-top: 30px;
+	border-spacing: 0px;
+	border-top: dotted #8DC645;
+    padding-top: 10px;
+}
+
+.grid-table > thead > tr > th  {
+	padding: 10px;
+	text-align: left;
+	background: #eee;
+	font-size: 14px;
+}
+
+.grid-table > thead > tr > th:last-child  {
+	text-align: right !important;
+}
+
+.grid-table > tbody > tr > td  {
+	padding: 10px;
+	font-size: 14px;
+}
+
+.grid-table > tbody > tr > td:last-child  {
+	text-align: right !important;
+}
+
+.table-column-align-right {
+    text-align: right;
+}
+.grid-table-last-tr{
+	border-top: solid;
+}
+.grid-table-total-td {
+	border-bottom: solid;
+}
+.footer {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.content{
+    margin-top: 30px;
+    width: 100%;
+}
+.content > tbody > tr > td {
+    width: 30%;
+    padding: 30px 0px 0px;
+    border-bottom: 1px solid;
+    font-size: 12px;
+}
+.content > tbody > tr > td.content-td {
+    width: 3.33%;
+    border-bottom: 0px solid #00000000;
+}
+
+.date-middle {
+    margin-top: 30px;
+    width: 100%;
+}
+
+.date-middle > tbody > tr > td.date-middle-first {
+    font-size: 14px;
+    color: #929292;
+    width: 30%;
+    padding: 5px;
+}
+
+.date-middle > tbody > tr > td {
+    color: #000000;
+    font-size: 14px;
+    width: 70%;
+    padding: 5px;
+}
+
+.calculation{
+	margin-top: 30px;
+	width: 100%;
+}
+.calculation-tax-detail {
+	width: 45%;
+	border-top: solid;
+}
+.tax-detail {
+	width: 100%;
+}
+.tax-detail > tbody> tr > th {
+	background: #eee;
+	font-size: 12px;
+	padding: 5px;
+	text-align: right;
+}
+.tax-detail > tbody> tr > td {
+	font-size: 12px;
+	padding: 5px;
+	text-align: right;
+}
+.tax-detail > tbody> tr > th.tax-detail-th {
+	text-align: left;
+}
+.tax-detail > tbody> tr > td.tax-detail-td {
+	text-align: left;
+}
+.detail-title {
+	border-left: 5px solid orange;
+    font-weight: bold;
+    font-size: 13px;
+    padding: 10px 0px 5px 5px;
+}
+.calculation-empty {
+	width: 5%;
+	border-top: solid;
+}
+.calculation-total-detail {
+	width: 50%;
+	border-top: solid;
+}
+.total-detail {
+	width: 100%;
+}
+.total-title {
+	width: 50%;
+    font-size: 12px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 1px dotted;
+}
+.total-empty {
+	width: 20%;
+    font-size: 12px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 1px dotted;
+}
+.total-amount {
+	width: 30%;
+    font-size: 12px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    border-bottom: 1px dotted;
+    text-align: right;
+}
+.total-heading {
+	border-left: 5px solid orange;
+    font-weight: bold;
+    padding-top: 5px;
+    padding-left: 5px;
+}
+
+.so-grid-th1 {
+    width: 10%;
+}
+.so-grid-th2 {
+    width: 10%;
+}
+.so-grid-th3 {
+    width: 10%;
+}
+.so-grid-th4 {
+    width: 10%;
+}
+.so-grid-th5 {
+    width: 10%;
+}
+.so-grid-th6 {
+    width: 10%;
+}
+.so-grid-th7 {
+    width: 20%;
+    text-align: right !important;
+}
+
+.so-grid-td1 {
+    width: 10%;
+}
+.so-grid-td2 {
+    width: 10%;
+}
+.so-grid-td2 > b > {
+    color: #929292;
+    font-size: 12px;
+}
+.so-grid-td3 {
+    width: 10%;
+}
+.so-grid-td4 {
+    width: 10%;
+}
+.so-grid-td5 {
+    width: 10%;
+}
+.so-grid-td6 {
+    width: 10%;
+}
+.so-grid-td7 {
+    width: 20%;
+    text-align: right;
+}
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.border-top{
+    border-top: 1px solid;
+}
+
+
+
+
+
+
+.ar_invoice {
+	width: 100%;
+	margin-top: 30px;
+}
+
+.ar_invoice > tbody > tr > td.ar_invoice-td-value {
+	width: 20%;
+	border: 1px solid #006E14;
+	text-align: right;
+	padding-right: 5px;
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+.ar_invoice > tbody > tr > td.ar_invoice-td-heading {
+	width: 12.33%;
+	border: 1px solid #006E14;
+	background: #006E14;
+	color: #fff;
+	text-align: center;
+	font-size: 12px;
+	font-family: "Noto Naskh Arabic";
+}
+.ar_invoice_td_strong {
+	font-family: Arial, Helvetica, sans-serif;
+	fon-size: 11px;
+}
+
+/*
+.ar_invoice > tbody > tr > td {
+	width: 33.33%;
+	border: 1px solid #006E14;
+	text-align: right;
+	font-size: 12px;
+	font-family: "Noto Naskh Arabic";
+}
+.td-data {
+	display: block;
+	width: 65%;
+	float: left;
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+.td-heading {
+	display: block;
+	width: 30%;
+	float: right;
+	background: #006E14;
+	color: #fff;
+	text-align: center;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+.td-heading > strong {
+
+}
+.ar_invoice_td2 > .td-data {
+	width: 82%;
+}
+.ar_invoice_td2 > .td-heading {
+	width: 15%;
+}
+.ar_invoice_td_strong {
+    font-family: Arial, Helvetica, sans-serif;
+}
+*/
+
+
+
+
+
+
+.ar_invoice_main {
+	margin-top: 15px;
+	width: 100%;
+	border-spacing: 0px;
+	border-collapse: collapse;
+}
+
+.ar_invoice_main > thead > tr > th {
+	background: #E0FF9E;
+	border: 1px solid #006E14;
+	color: #006E14;
+	font-size: 14px;
+	text-align: center;
+	padding: 3px;
+	font-family: "Noto Naskh Arabic";
+}
+.ar_invoice_main_th1 {
+	width: 8%;
+}
+.ar_invoice_main_th2 {
+	width: 14%;
+}
+.ar_invoice_main_th3 {
+	width: 25%;
+}
+.ar_invoice_main_th4 {
+	width: 15%;
+}
+.ar_invoice_main > tbody > tr > td {
+	border: 1px solid #006E14;
+	color: #006E14;
+	padding: 5px;
+	font-size: 14px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.ar_invoice_main_td-last {
+	background: #E0FF9E;
+}
+
+.ar_invoice_total {
+	margin-top: 5px;
+	width: 100%;
+}
+.ar_invoice_total-td {
+	border: 1px solid #006E14;
+	font-size: 12px;
+}
+.total-td-1 {
+	width: 70%;
+	padding-left: 10px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+.total-td-2 {
+	width: 15%;
+	background: #006E14;
+	color: #FFFFFF;
+	text-align: center;
+}
+.total-td-3 {
+	width: 15%;
+	color: #006E14;
+	background: #E0FF9E;
+	text-align: right;
+	padding-right: 5px;
+}
+.ar_invoice_td_arabic {
+	font-family: "Noto Naskh Arabic";
+}
+
+
+
+.td_incoming_payment {
+    border-top: 1px solid !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.english_font {
+    font-family: Arial, Helvetica, sans-serif;
+}
+.arabic_font {
+    font-family: Noto Naskh Arabic;
+}
+.custom_ar_invoice_body {
+	margin-top: 120px;
+	margin-bottom: 110px;
+}
+.custom_ar_invoice {
+	width: 100%;
+	border-bottom: 1px solid;
+	font-size: 14px;
+}
+.custom_ar_invoice_inner {
+	width: 100%;
+	font-size: 14px;
+}
+.custom_ar_invoice_first_td {
+	width: 45%;
+	padding-bottom: 10px;
+}
+.custom_ar_invoice_last_td {
+
+}
+.custom_ar_invoice_last_second_td {
+	padding-right: 0px;
+}
+.custom_invoice_p_details {
+	font-weight: bold;
+	margin: 5px 0px;
+	font-size: 14px;
+	text-align: right;
+}
+.custom_ar_invoice_items {
+	width: 100%;
+	font-size: 14px;
+	border-bottom: 1px solid;
+}
+.th_first {
+	text-align: left !important;
+}
+.custom_ar_invoice_items_th_one {
+	width: 6%;
+	text-align: left;
+}
+.custom_ar_invoice_items_th_tow {
+	width: 10%;
+	text-align: center;
+}
+.custom_ar_invoice_items_th_three {
+	width: 30%;
+	text-align: center;
+}
+.custom_ar_invoice_items_th_four {
+	width: 13%;
+	text-align: center;
+}
+.custom_ar_invoice_items > tbody > tr > td  {
+	text-align: center;
+}
+.td_frist {
+	text-align: left !important;
+}
+.td_frist_right {
+	text-align: right !important;
+}
+.custom_ar_invoice_total {
+	width: 100%;
+	font-size: 14px;
+	border-bottom: 1px solid
+}
+.custom_ar_invoice_total_td_one {
+	width: 30%;
+}
+.custom_ar_invoice_total_td_tow {
+	text-align: right;
+	width: 20%;
+}
+.custom_ar_invoice_total_td_tow_ar {
+	text-align: left;
+	width: 48%;
+}
+.custom_ar_invoice_total_td_three {
+	width: 2%;
+}
+.custom_ar_invoice_total_td_four {
+	width: 30%;
+}
+.custom_ar_invoice_total_td_last_one {
+	width: 5%
+}
+.custom_ar_invoice_total_td_last_two {
+	width: 25%;
+	text-align: left;
+}
+.custom_ar_invoice_total_td_last_three {
+	text-align: right;
+	width: 30%
+}
+.custom_ar_invoice_total_td_last_four {
+	width: 2%
+}
+.custom_ar_invoice_total_td_last_five {
+	width: 38%
+}
+
+
+.custom_ar_invoice_stamp {
+	width: 100%;
+	font-size: 14px;
+	text-align: center;
+}
+.spanMargin {
+    margin-right: 100px !important;
+}
+.spanMarginImg {
+    margin-right: 100px !important;
+    margin-top: 50px !important;
+}
+
+.custom_invoice_detail_div {
+    font-size: 14px;
+    width: 100%;
+}
+.custom_invoice_detail_div_td1 {
+    width: 75%;
+    text-align: right;
+}
+custom_invoice_detail_div_td2 {
+    width: 25%;
+}
+
+custom_incoming_payment_col_width {
+    width: 16.66% !important;
+}
+.ip_col_1 {
+    width: 10% !important
+}
+
+.ip_col_2 {
+    width: 30% !important
+}
+
+.ip_col_3 {
+    width: 60% !important
+}
+.width_inner_ip_one {
+    width: 15% !important;
+}
+.width_inner_ip_two {
+    width: 25% !important;
+}
+.padding-one-ip {
+    padding: 8px !important;
+}
+.border-one {
+    border: 1px solid #000000 !important;
+}
+.bottom-col-ip {
+    padding-top: 100px !important;
+}
+.ip-td-main-one {
+    width: 70% !important
+}
+.ip-td-main-two {
+    width: 30% !important;
+}
+.custom_ar_invoice_inner_inner {
+    width: 100% !important;
+}
+.ip_main_heading {
+    font-size: 24px !important;
+    text-align: center !important;
+    padding-bottom: 30px !important;
+}
+
+

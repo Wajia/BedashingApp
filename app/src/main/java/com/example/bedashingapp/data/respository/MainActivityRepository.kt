@@ -102,6 +102,14 @@ class MainActivityRepository(
         userHeadOfficeCardCode: String
     ) =
         apiHelper.getPO(mainURL, sessionID, companyName, branchName, userHeadOfficeCardCode)
+    suspend fun getPODetails(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        branchName: String,
+        userHeadOfficeCardCode: String
+    ) =
+        apiHelper.getPODetails(mainURL, sessionID, companyName, branchName, userHeadOfficeCardCode)
 
     suspend fun PurchaseDeliveryNotes(
         mainURL: String,

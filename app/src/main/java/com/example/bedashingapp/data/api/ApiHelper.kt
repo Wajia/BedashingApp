@@ -151,7 +151,23 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.getPO(url, headers)
     }
 
-     fun PurchaseDeliveryNotes(
+    suspend fun getPODetails(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        branchName: String,
+        userHeadOfficeCardCode: String
+    ): GetPoResponse {
+        val url =
+            mainURL + "/b1s/v1/PurchaseOrders?\$filter=DocumentStatus eq 'bost_Open' and  BPL_IDAssignedToInvoice eq " + branchName + " and CardCode eq '" + userHeadOfficeCardCode + "' "
+        val headers = HashMap<String, String>()
+        headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"
+        headers["Prefer"] = "odata.maxpagesize=2000"
+        headers["Content-Type"] = "application/json; charset=UTF-8"
+        return apiService.getPODetails(url, headers)
+    }
+
+    fun PurchaseDeliveryNotes(
         mainURL: String,
         sessionID: String,
         companyName: String,
@@ -305,7 +321,12 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.deliveryNotes(url, headers, payload)
     }
 
-    fun postPO(mainURL: String, companyName: String, sessionID: String, payload: PostPurchaseOrderRequest): Call<AddPurchaseOderResponse>{
+    fun postPO(
+        mainURL: String,
+        companyName: String,
+        sessionID: String,
+        payload: PostPurchaseOrderRequest
+    ): Call<AddPurchaseOderResponse> {
         val url = "$mainURL/b1s/v1/PurchaseOrders"
         val headers = HashMap<String, String>()
         headers["Cookie"] = "B1SESSION=$sessionID;CompanyDB=$companyName"

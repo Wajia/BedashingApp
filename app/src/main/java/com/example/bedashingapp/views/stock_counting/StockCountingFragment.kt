@@ -32,10 +32,7 @@ import com.example.bedashingapp.data.model.remote.InventoryCountingRequest
 import com.example.bedashingapp.helper.DateUtilsApp
 import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
-import com.example.bedashingapp.utils.Constants
-import com.example.bedashingapp.utils.OnItemClickListener
-import com.example.bedashingapp.utils.Status
-import com.example.bedashingapp.utils.openInventoryStatusDialog
+import com.example.bedashingapp.utils.*
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
 import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.adapter.InventoryCountingLineAdapter
@@ -188,6 +185,7 @@ class StockCountingFragment : BaseFragment() {
                         availableInStock
                     )
 
+
                     //reset details
                     resetSelectedItemDetails()
                     adapter!!.notifyDataSetChanged()
@@ -211,7 +209,7 @@ class StockCountingFragment : BaseFragment() {
                         showToastShort("Another item already exists with selected item and uom.")
                     }
                 }
-
+            hideKeyboard()
             }
         }
 
@@ -220,6 +218,10 @@ class StockCountingFragment : BaseFragment() {
                 showConfirmationAlert()
             }
         }
+    }
+
+    override fun apiCaller(purpose: String) {
+        TODO("Not yet implemented")
     }
 
     private var adapter: InventoryCountingLineAdapter? = null
@@ -737,6 +739,11 @@ class StockCountingFragment : BaseFragment() {
         })
     }
 
+
+    override fun onResume() {
+        super.onResume()
+        hideKeyboard(getBaseActivity())
+    }
 
     class PortraitCaptureActivity : CaptureActivity()
 

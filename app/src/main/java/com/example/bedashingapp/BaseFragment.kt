@@ -7,7 +7,10 @@ import android.graphics.Color
 import android.net.ConnectivityManager
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.ContextThemeWrapper
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ProgressBar
 import android.widget.RelativeLayout
@@ -22,7 +25,7 @@ import butterknife.Unbinder
 import com.google.android.material.snackbar.Snackbar
 import java.util.*
 
-abstract class BaseFragment: Fragment() {
+abstract class BaseFragment : Fragment() {
 
     private var unbinder: Unbinder? = null
     private var globalProgressLayout: RelativeLayout? = null
@@ -30,7 +33,11 @@ abstract class BaseFragment: Fragment() {
     private var progressErrorTxt: TextView? = null
 
     @Nullable
-    override fun onCreateView(inflater: LayoutInflater, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        @Nullable container: ViewGroup?,
+        @Nullable savedInstanceState: Bundle?
+    ): View {
         val view: View = inflater.inflate(getLayout(), null)
         unbinder = ButterKnife.bind(this, view)
         globalProgressLayout = view.findViewById(R.id.progress_bar_layout)
@@ -45,6 +52,8 @@ abstract class BaseFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
     }
+
+    abstract fun apiCaller(purpose: String)
 
     open fun hideKeyboard(activity: Activity) {
         val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -82,29 +91,30 @@ abstract class BaseFragment: Fragment() {
     }
 
 
-
     open fun showToastShort(message: String) {
         getBaseActivity().showToastShort(message)
     }
 
-    open fun showToastLong(message: String){
+    open fun showToastLong(message: String) {
         getBaseActivity().showToastLong(message)
     }
 
-    open fun showAlert(title: String, message:String, fragmentId: Int, bundle: Bundle? = null){
-        val builder = AlertDialog.Builder(ContextThemeWrapper(requireActivity(),R.style.MypopUp))
+    open fun showAlert(title: String, message: String, fragmentId: Int, bundle: Bundle? = null) {
+        val builder = AlertDialog.Builder(ContextThemeWrapper(requireActivity(), R.style.MypopUp))
         //set title for alert dialog
         builder.setTitle(title)
         //set message for alert dialog
         builder.setMessage(message)
         //performing positive action
-        builder.setPositiveButton("Ok"){ _, _ ->
-            if(bundle == null){
+        builder.setPositiveButton("Ok") { _, _ ->
+            if (bundle == null) {
                 Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
-                        fragmentId,Bundle())
-            }else {
+                    fragmentId, Bundle()
+                )
+            } else {
                 Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
-                        fragmentId, bundle)
+                    fragmentId, bundle
+                )
             }
         }
 
@@ -116,13 +126,13 @@ abstract class BaseFragment: Fragment() {
     }
 
 
-
-    protected fun showSnackBar(msg: String, rootLayout: View?, fragmentId: Int){
+    protected fun showSnackBar(msg: String, rootLayout: View?, fragmentId: Int) {
         var mySnackBar: Snackbar = Snackbar.make(rootLayout!!, msg, Snackbar.LENGTH_INDEFINITE)
         mySnackBar.setAction("OK", View.OnClickListener {
 
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
-                fragmentId,Bundle())
+                fragmentId, Bundle()
+            )
             mySnackBar.dismiss()
         })
 
@@ -130,17 +140,19 @@ abstract class BaseFragment: Fragment() {
         mySnackBar.view.setBackgroundColor(resources.getColor(R.color.primvar))
 
         //Changing textColor of message
-        val mainTextView = mySnackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+        val mainTextView =
+            mySnackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
         mainTextView.setTextColor(Color.WHITE)
-        if (Build.VERSION.SDK_INT>=26) {
+        if (Build.VERSION.SDK_INT >= 26) {
             mainTextView.setAutoSizeTextTypeUniformWithConfiguration(8, 12, 1, 1)
         }
 
         //Changing textColor, backGroundColor of action
-        var actionTextView = mySnackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+        var actionTextView =
+            mySnackBar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
         actionTextView.setTextColor(Color.BLACK)
         actionTextView.setBackgroundColor(resources.getColor(R.color.appbar_color))
-        actionTextView.setPadding(80,0,80,0)
+        actionTextView.setPadding(80, 0, 80, 0)
         actionTextView.textSize = 15F
 
 
@@ -149,8 +161,7 @@ abstract class BaseFragment: Fragment() {
     }
 
 
-
-    protected open fun showProgressBar(title: String?, message: String?) {
+    open fun showProgressBar(title: String?, message: String?) {
         //getBaseActivity().showLoadingBar(title, message);
         globalProgressBar?.visibility = View.VISIBLE
         progressErrorTxt?.visibility = View.VISIBLE
@@ -159,6 +170,7 @@ abstract class BaseFragment: Fragment() {
             globalProgressLayout!!.visibility = View.VISIBLE
         }
     }
+
     open fun hideProgressBar() {
         if (globalProgressLayout != null && globalProgressLayout!!.visibility == View.VISIBLE) {
             globalProgressLayout!!.visibility = View.GONE
@@ -167,17 +179,17 @@ abstract class BaseFragment: Fragment() {
 
 
     fun checkPermission(
-            permission: Array<String>,
-            requestCode: Array<Int> = arrayOf(101)
+        permission: Array<String>,
+        requestCode: Array<Int> = arrayOf(101)
     ): Boolean {
         var check = true
         val notGPermission: ArrayList<String> = ArrayList()
         val notGPermissionRequest: ArrayList<Int> = ArrayList()
         for (i in permission.indices) {
             if (ContextCompat.checkSelfPermission(
-                            requireActivity(),
-                            permission[i]
-                    ) != PackageManager.PERMISSION_GRANTED
+                    requireActivity(),
+                    permission[i]
+                ) != PackageManager.PERMISSION_GRANTED
             ) {
 //                log(javaClass.name, "Permission for : ${permission[i]} not granted")
                 notGPermission.add(permission[i])
@@ -189,19 +201,19 @@ abstract class BaseFragment: Fragment() {
         }
         if (!check) {
             requestPermissions(
-                    notGPermission.toArray(arrayOfNulls<String>(notGPermission.size)),
-                    requestCode[0]
+                notGPermission.toArray(arrayOfNulls<String>(notGPermission.size)),
+                requestCode[0]
             )
         }
         return check
     }
 
-    protected fun isConnectedToNetwork(): Boolean{
-        val connectivityManager = requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    protected fun isConnectedToNetwork(): Boolean {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val networkInfo = connectivityManager.activeNetworkInfo
         return networkInfo != null && networkInfo.isConnected
     }
-
 
 
 }

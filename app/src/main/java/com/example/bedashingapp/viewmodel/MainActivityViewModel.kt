@@ -267,6 +267,28 @@ class MainActivityViewModel(private val mainActivityRepository: MainActivityRepo
                 emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
             }
         }
+    fun getPODetails(
+        mainURL: String,
+        sessionID: String,
+        companyName: String,
+        branchName: String,
+        userHeadOfficeCardCode: String
+    ) =
+        liveData(Dispatchers.IO) {
+
+            emit(Resource.loading(data = null))
+            try {
+                emit(
+                    Resource.success(
+                        data = mainActivityRepository.getPODetails(
+                            mainURL, sessionID, companyName, branchName, userHeadOfficeCardCode
+                        )
+                    )
+                )
+            } catch (exception: Exception) {
+                emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+            }
+        }
 
     fun getOpenPO(
         mainURL: String,

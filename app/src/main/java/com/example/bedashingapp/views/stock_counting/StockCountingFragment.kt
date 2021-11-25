@@ -113,7 +113,7 @@ class StockCountingFragment : BaseFragment() {
         btn_check_status.setOnClickListener {
             if (it.alpha == 1.0f) {
 
-                (context as MainActivity).checkSessionConnection(this, requireContext().resources.getString(R.string.fetch_quantity))
+                (context as MainActivity).checkSessionConnection(this, requireContext().resources.getString(R.string.check_inventory_status))
             }
         }
 

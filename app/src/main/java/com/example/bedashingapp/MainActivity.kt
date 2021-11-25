@@ -104,8 +104,8 @@ class MainActivity : BaseActivity() {
             }
 
         }
+        hideActionIcon()
         return super.onOptionsItemSelected(item)
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -194,7 +194,7 @@ class MainActivity : BaseActivity() {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            (fragment as BaseFragment).apiCaller(purpose)
+                            (fragment as BaseFragment).invoke(purpose)
                             fragment.hideProgressBar()
                         }
                         Status.LOADING -> {
@@ -244,9 +244,7 @@ class MainActivity : BaseActivity() {
                             sessionManager!!.putIsLoggedIn(false)
                             sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
                             sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
-
-                            startActivity(Intent(this, LoginActivity::class.java))
-                            finishAffinity()
+                            reLogin(Fragment(), "activity")
                         }
                     }
                 }
@@ -257,32 +255,52 @@ class MainActivity : BaseActivity() {
 
     }
 
-    fun reLogin(fragment: Fragment, purpose: String) {
+    private fun reLogin(fragment: Fragment, purpose: String) {
         if (isConnectedToNetwork()) {
             mainActivityViewModel.login(
                 sessionManager!!.getBaseURL(),
                 sessionManager!!.getCompany(),
                 sessionManager!!.getCurrentPassword(),
                 username = sessionManager!!.getCurrentUserName()
-            ).observe(this,  {
+            ).observe(this, {
                 it?.let { resource ->
                     when (resource.status) {
                         Status.SUCCESS -> {
                             if (resource.data!!.error == null) {
                                 sessionManager!!.setSessionId(resource.data.SessionId)
                                 sessionManager!!.setSessionTimeOut(resource.data.SessionTimeout!!)
-                                (fragment as BaseFragment).apiCaller(purpose)
-                                fragment.hideProgressBar()
+                                if (purpose == "activity") {
+                                    getItemsMaster()
+                                    hideProgressBar()
+                                } else {
+                                    (fragment as BaseFragment).invoke(purpose)
+                                    fragment.hideProgressBar()
+                                }
                             } else {
-                                (fragment as BaseFragment).hideProgressBar()
+                                if (purpose !== "activity") {
+                                    (fragment as BaseFragment).hideProgressBar()
+                                } else {
+                                    hideProgressBar()
+                                }
                                 showToastLong(resource.data.error!!.message.value)
                             }
                         }
                         Status.LOADING -> {
-                            (fragment as BaseFragment).showProgressBar("", "")
+                            if (purpose !== "activity") {
+                                (fragment as BaseFragment).showProgressBar("", "")
+                            } else {
+                                showProgressBar("")
+                            }
+
+
                         }
                         Status.ERROR -> {
-                            (fragment as BaseFragment).hideProgressBar()
+                            if (purpose !== "activity") {
+                                (fragment as BaseFragment).hideProgressBar()
+                            } else {
+                                hideProgressBar()
+                            }
+                            startActivity(Intent(this, LoginActivity::class.java))
                             if (resource.data?.error == null) {
                                 showToastLong(resource.message!!)
                             } else {

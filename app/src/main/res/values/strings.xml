@@ -62,4 +62,7 @@
     <string name="open_po">openPo</string>
     <string name="check_inventory_status">checkInventoryStatus</string>
     <string name="fetch_quantity">fetchQuantity</string>
+    <string name="get_open_po">getOpenPO</string>
+    <string name="inventory_counting">inventoryCounting</string>
+    <string name="get_data">getData</string>
 </resources>

@@ -7,15 +7,6 @@ import retrofit2.Call
 class ApiHelper(private val apiService: ApiService) {
 
 
-//    suspend fun receiveGoodsPO(crfToken: String, cookie: String, payload: ReceiveGoodsPORequest): ReceiveGoodsResponse1 {
-//        val headers = HashMap<String, String>()
-//        headers["Authorization"] = Constants.BASIC_AUTH
-//        headers["x-csrf-token"] = crfToken
-//        headers["Cookie"] = cookie
-//
-//        return apiService.receiveGoodsPO(headers, payload)
-//    }
-
     suspend fun login(mainURL: String, payload: LoginRequest): LoginResponse {
         val url = "$mainURL/b1s/v1/Login"
         return apiService.login(url, payload)
@@ -167,7 +158,7 @@ class ApiHelper(private val apiService: ApiService) {
         return apiService.getPODetails(url, headers)
     }
 
-    fun PurchaseDeliveryNotes(
+    fun purchaseDeliveryNotes(
         mainURL: String,
         sessionID: String,
         companyName: String,

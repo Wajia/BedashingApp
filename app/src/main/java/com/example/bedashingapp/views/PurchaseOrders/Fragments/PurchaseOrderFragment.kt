@@ -21,7 +21,6 @@ import com.example.bedashingapp.data.model.remote.PurchaseOderDocumentLine
 import com.example.bedashingapp.utils.*
 import com.example.bedashingapp.views.PurchaseOrders.Adapters.PurchaseOrderItemsAdapter
 import com.example.bedashingapp.views.interfaces.SingleButtonListener
-import com.example.bedashingapp.views.login.LoginActivity
 import com.example.bedashingapp.views.stock_counting.InventoryStatusDialogFragment
 import com.example.bedashingapp.views.stock_counting.ItemsDialogFragment
 import com.google.zxing.integration.android.IntentIntegrator
@@ -67,8 +66,18 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         init()
     }
 
-    override fun apiCaller(purpose: String) {
-        TODO("Not yet implemented")
+    override fun invoke(purpose: String) {
+        when (purpose) {
+            requireContext().resources.getString(R.string.post_document) -> {
+                saveDocument()
+            }
+            requireContext().resources.getString(R.string.check_inventory_status) -> {
+                getInventoryStatus()
+            }
+            requireContext().resources.getString(R.string.fetch_quantity) -> {
+                getItemQuantityAndDetails()
+            }
+        }
     }
 
     private fun init() {
@@ -130,7 +139,11 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
             }
             btn_check_status -> {
                 if (btn_check_status.alpha == 1.0f) {
-                    checkSessionConnection("checkInventoryStatus")
+
+                    (context as MainActivity).checkSessionConnection(
+                        this,
+                        getString(R.string.check_inventory_status)
+                    )
                 }
 
             }
@@ -325,7 +338,10 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
 
 
         //get Latest details of item
-        checkSessionConnection("fetchQuantity")
+        (context as MainActivity).checkSessionConnection(
+            this,
+            getString(R.string.fetch_quantity)
+        )
 
     }
 
@@ -361,53 +377,6 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         }
     }
 
-    private fun checkSessionConnection(purpose: String) {
-        if (isConnectedToNetwork()) {
-            (context as MainActivity).mainActivityViewModel.checkConnection(
-                (context as MainActivity).sessionManager!!.getBaseURL(),
-                (context as MainActivity).sessionManager!!.getCompany(),
-                (context as MainActivity).sessionManager!!.getSessionId(),
-                (context as MainActivity).sessionManager!!.getUserId()
-            ).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            hideProgressBar()
-                            when (purpose) {
-                                "checkInventoryStatus" -> {
-                                    getInventoryStatus()
-                                }
-                                "fetchQuantity" -> {
-                                    getItemQuantityAndDetails()
-                                }
-                                getString(R.string.post_document) -> {
-                                    saveDocument()
-                                }
-                            }
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("", "")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            (context as MainActivity).sessionManager!!.putIsLoggedIn(false)
-                            (context as MainActivity).sessionManager!!.putPreviousPassword(
-                                (context as MainActivity).sessionManager!!.getCurrentPassword()
-                            )
-                            (context as MainActivity).sessionManager!!.putPreviousUserName(
-                                (context as MainActivity).sessionManager!!.getCurrentUserName()
-                            )
-
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
-    }
 
     private fun getItemQuantityAndDetails() {
         (context as MainActivity).mainActivityViewModel.getItemPO(
@@ -537,7 +506,11 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         fetchUomsByUomGroupEntry(item.UoMGroupEntry)
 
         //get Latest details of item
-        checkSessionConnection("fetchQuantity")
+        (context as MainActivity).checkSessionConnection(
+            this,
+            getString(R.string.fetch_quantity)
+        )
+
     }
 
 
@@ -703,7 +676,11 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                 NavigationWrapper.navigateToFragmentDashboard(true)
             }
             getString(R.string.post_document) -> {
-                checkSessionConnection(getString(R.string.post_document))
+                (context as MainActivity).checkSessionConnection(
+                    this,
+                    getString(R.string.post_document)
+                )
+
             }
         }
     }

@@ -1,12 +1,10 @@
 package com.example.bedashingapp.views.dashboard
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.Navigation
 import com.example.bedashingapp.BaseFragment
 import com.example.bedashingapp.MainActivity
 import com.example.bedashingapp.R
@@ -16,7 +14,6 @@ import com.example.bedashingapp.helper.SessionManager
 import com.example.bedashingapp.helper.ViewModelFactory
 import com.example.bedashingapp.utils.Status
 import com.example.bedashingapp.viewmodel.MainActivityViewModel
-import com.example.bedashingapp.views.login.LoginActivity
 import com.sixlogics.flexspace.wrappers.NavigationWrapper
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 
@@ -66,7 +63,7 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
 
     }
 
-    override fun apiCaller(purpose: String) {
+    override fun invoke(purpose: String) {
         getPOCount()
         getGPROCount()
         getDeliveryCount()
@@ -82,40 +79,6 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
         })
     }
 
-     fun checkSessionConnection() {
-        if (isConnectedToNetwork()) {
-            mainActivityViewModel.checkConnection(
-                sessionManager!!.getBaseURL(),
-                sessionManager!!.getCompany(),
-                sessionManager!!.getSessionId(),
-                sessionManager!!.getUserId()
-            ).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            hideProgressBar()
-
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("", "")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            sessionManager!!.putIsLoggedIn(false)
-                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
-                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
-
-                            (context as MainActivity).reLogin(this,"")
-                          /*  startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()*/
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
-    }
 
     private fun getPOCount() {
         mainActivityViewModel.getPOCount(
@@ -124,7 +87,7 @@ class DashboardFragment : BaseFragment(), View.OnClickListener {
             sessionManager!!.getSessionId(),
             sessionManager!!.getUserBplid(),
             sessionManager!!.getUserHeadOfficeCardCode()
-        ).observe(viewLifecycleOwner, Observer {
+        ).observe(viewLifecycleOwner, {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {

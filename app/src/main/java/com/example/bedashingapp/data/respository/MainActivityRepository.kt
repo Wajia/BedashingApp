@@ -119,7 +119,7 @@ class MainActivityRepository(
         userHeadOfficeCardCode: String,
         payload: PurchaseDeliveryNotesRequest
     ) =
-        apiHelper.PurchaseDeliveryNotes(mainURL, sessionID, companyName, payload)
+        apiHelper.purchaseDeliveryNotes(mainURL, sessionID, companyName, payload)
 
 
     suspend fun getOpenPO(

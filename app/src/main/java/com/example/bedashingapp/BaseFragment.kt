@@ -53,7 +53,7 @@ abstract class BaseFragment : Fragment() {
         setupViews(view)
     }
 
-    abstract fun apiCaller(purpose: String)
+    abstract fun invoke(purpose: String)
 
     open fun hideKeyboard(activity: Activity) {
         val imm = activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

@@ -7,7 +7,6 @@ import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Environment
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -74,10 +73,15 @@ class PurchaseOrderListingFragment : BaseFragment(), View.OnClickListener {
         )
         (context as MainActivity).img_action.setOnClickListener(this)
         (context as MainActivity).showActionIcon()
-
+        sw_data.setOnRefreshListener {
+            (context as MainActivity).checkSessionConnection(
+                this,
+                getString(R.string.open_po)
+            )
+        }
     }
 
-    override fun apiCaller(purpose: String) {
+    override fun invoke(purpose: String) {
         when (purpose) {
             getString(R.string.poDetails) -> {
                 getPurchaseOrdersDetails()
@@ -137,9 +141,9 @@ class PurchaseOrderListingFragment : BaseFragment(), View.OnClickListener {
                 when (resource.status) {
                     Status.SUCCESS -> {
                         hideProgressBar()
-
                         if (it.data!!.value.isEmpty()) {
                             tv_no_po.visible()
+                            sw_data.gone()
                         } else {
                             poList.addAll(it.data.value)
                             tv_no_po.gone()
@@ -155,6 +159,8 @@ class PurchaseOrderListingFragment : BaseFragment(), View.OnClickListener {
                         showToastLong(resource.message)
                     }
                 }
+                sw_data.isRefreshing = false
+
             }
         })
     }
@@ -170,7 +176,7 @@ class PurchaseOrderListingFragment : BaseFragment(), View.OnClickListener {
             it?.let { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
-                        var response = it.data
+                        val response = it.data
                         hideProgressBar()
                         checkPermissions(response)
                     }
@@ -190,7 +196,8 @@ class PurchaseOrderListingFragment : BaseFragment(), View.OnClickListener {
     @Throws(FileNotFoundException::class, DocumentException::class)
     fun createPdf(model: List<PurchaseOder>) {
         var purchaseOrder: PurchaseOder
-        val docsFolder = File(Environment.getExternalStorageDirectory().toString() + "/Documents")
+
+        val docsFolder = File(requireContext().getExternalFilesDir("/Documents").toString())
         if (!docsFolder.exists()) {
             docsFolder.mkdir()
             Log.i("Error_createPdf", "Created a new directory for PDF")
@@ -375,7 +382,7 @@ class PurchaseOrderListingFragment : BaseFragment(), View.OnClickListener {
         poAdapter = PurchaseOrderAdapter(
             requireContext(), poList
         )
-        rv_purchase_oder.visible()
+        sw_data.visible()
         rv_purchase_oder.adapter = poAdapter
         rv_purchase_oder.setHasFixedSize(true)
         rv_purchase_oder.layoutManager = LinearLayoutManager(context)

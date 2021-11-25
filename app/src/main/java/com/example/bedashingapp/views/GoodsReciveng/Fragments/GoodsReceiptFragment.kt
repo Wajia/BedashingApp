@@ -58,8 +58,18 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
         init()
     }
 
-    override fun apiCaller(purpose: String) {
-        TODO("Not yet implemented")
+    override fun invoke(purpose: String) {
+        when (purpose) {
+            getString(R.string.check_inventory_status) -> {
+                getInventoryStatus()
+            }
+            getString(R.string.open_po) -> {
+                getOpenPO()
+            }
+            requireContext().resources. getString(R.string.post_document) -> {
+                saveDocument()
+            }
+        }
     }
 
 
@@ -93,11 +103,8 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
         })
 
         (context as MainActivity).mainActivityViewModel.getSelectedItems().clear()
+        (context as MainActivity).checkSessionConnection(this ,getString(R.string.open_po))
 
-
-        if ((context as MainActivity).checkSessionConnection(this ,"")) {
-            getOpenPO()
-        }
     }
 
     private fun filterItems(text: String) {
@@ -141,51 +148,6 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
                     }
                 }
             })
-    }
-
-    private fun checkSessionConnection(purpose: String) {
-        if (isConnectedToNetwork()) {
-            (context as MainActivity).mainActivityViewModel.checkConnection(
-                (context as MainActivity).sessionManager!!.getBaseURL(),
-                (context as MainActivity).sessionManager!!.getCompany(),
-                (context as MainActivity).sessionManager!!.getSessionId(),
-                (context as MainActivity).sessionManager!!.getUserId()
-            ).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            hideProgressBar()
-                            when (purpose) {
-                                "checkInventoryStatus" -> {
-                                    getInventoryStatus()
-                                }
-                               requireContext().resources. getString(R.string.post_document) -> {
-                                    saveDocument()
-                                }
-                            }
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("", "")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            (context as MainActivity).sessionManager!!.putIsLoggedIn(false)
-                            (context as MainActivity).sessionManager!!.putPreviousPassword(
-                                (context as MainActivity).sessionManager!!.getCurrentPassword()
-                            )
-                            (context as MainActivity).sessionManager!!.putPreviousUserName(
-                                (context as MainActivity).sessionManager!!.getCurrentUserName()
-                            )
-
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
     }
 
     private fun saveDocument() {
@@ -424,8 +386,6 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
         uomCode = addedItem.UoMCode!!
         fetchUomsByUomGroupEntry(item.UoMGroupEntry)
 
-        //get Latest details of item
-        checkSessionConnection("fetchQuantity")
     }
 
     private fun fetchUomsByUomGroupEntry(uomGroupEntry: String) {
@@ -484,7 +444,7 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
                 NavigationWrapper.navigateToFragmentDashboard(true)
             }
             getString(R.string.post_document) -> {
-                checkSessionConnection(getString(R.string.post_document))
+                (context as MainActivity).checkSessionConnection(this, getString(R.string.post_document))
             }
             "editPO" -> {
 
@@ -574,7 +534,12 @@ class GoodsReceiptFragment : BaseFragment(), SingleButtonListener, View.OnClickL
                 openDatePickerDialog(requireContext(), et_due_date)
             }
             btn_post -> {
-                checkSessionConnection(requireContext().resources. getString(R.string.post_document))
+                showConfirmationAlert(
+                    requireContext(),
+                    this,
+                    resources.getString(R.string.post_doc),
+                    getString(R.string.post_document)
+                )
             }
             btn_cancel -> {
                 requireActivity().onBackPressed()

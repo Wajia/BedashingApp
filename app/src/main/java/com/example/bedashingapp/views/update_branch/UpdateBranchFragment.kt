@@ -48,8 +48,7 @@ class UpdateBranchFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        checkSessionConnection()
-
+        (context as MainActivity).checkSessionConnection(this,getString(R.string.get_data))
 
         spinner_branch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
@@ -110,41 +109,11 @@ class UpdateBranchFragment : BaseFragment() {
         }
     }
 
-    override fun apiCaller(purpose: String) {
-        TODO("Not yet implemented")
-    }
-
-
-    private fun checkSessionConnection() {
-        if (isConnectedToNetwork()) {
-            mainActivityViewModel.checkConnection(
-                sessionManager!!.getBaseURL(),
-                sessionManager!!.getCompany(),
-                sessionManager!!.getSessionId(),
-                sessionManager!!.getUserId()
-            ).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            getData()
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("", "")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            sessionManager!!.putIsLoggedIn(false)
-                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
-                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
-
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
+    override fun invoke(purpose: String) {
+        when (purpose) {
+            requireContext().resources.getString(R.string.get_data) -> {
+            getData()
+            }
         }
     }
 

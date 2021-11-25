@@ -13,14 +13,21 @@
         android:layout_marginTop="@dimen/dp20"
         android:orientation="horizontal">
 
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_purchase_oder"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/sw_data"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            tools:itemCount="15"
-            tools:listitem="@layout/list_inventory_countings_single_item" />
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_purchase_oder"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+
+                tools:itemCount="15"
+                tools:listitem="@layout/list_inventory_countings_single_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
         <TextView
             android:id="@+id/tv_no_po"
@@ -28,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:text="No Purchase oders against Selected Branch"
+            android:text="No Purchase Orders in Selected Branch"
             android:textColor="@color/black" />
     </LinearLayout>
 

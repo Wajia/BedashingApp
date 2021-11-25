@@ -20,7 +20,7 @@ import com.example.bedashingapp.data.model.remote.PcLine
 import com.example.bedashingapp.data.model.remote.ProfessionalCheckoutRequest
 import com.example.bedashingapp.utils.*
 import com.example.bedashingapp.views.PurchaseOrders.Adapters.PurchaseOrderItemsAdapter
-import com.example.bedashingapp.views.login.LoginActivity
+import com.example.bedashingapp.views.interfaces.SingleButtonListener
 import com.example.bedashingapp.views.stock_counting.ItemsDialogFragment
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureActivity
@@ -33,7 +33,7 @@ import java.util.*
 
 
 class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
-    PurchaseOrderItemsAdapter.OnItemClickListener {
+    PurchaseOrderItemsAdapter.OnItemClickListener, SingleButtonListener {
 
     private var customerCode: String = ""
     private var uomAbsEntry: String = ""
@@ -115,7 +115,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
         setRecyclerView()
     }
 
-    override fun apiCaller(purpose: String) {
+    override fun invoke(purpose: String) {
         when (purpose) {
             requireContext().resources.getString(R.string.post_document) -> {
                 saveDocument()
@@ -123,7 +123,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
             requireContext().resources.getString(R.string.check_inventory_status) -> {
                 getInventoryStatus()
             }
-            requireContext().resources. getString(R.string.fetch_quantity) ->{
+            requireContext().resources.getString(R.string.fetch_quantity) -> {
                 getItemQuantityAndDetails()
             }
         }
@@ -158,13 +158,15 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                 openDatePickerDialog(requireContext(), et_due_date)
             }
             btn_post -> {
-                if (postingValidation()) {
-                    (context as MainActivity).checkSessionConnection(
-                        this,
-                        getString(R.string.post_document)
-                    )
 
-                }
+
+                showConfirmationAlert(
+                    requireContext(),
+                    this,
+                    resources.getString(R.string.post_doc),
+                    getString(R.string.post_document)
+                )
+
             }
             btn_cancel -> {
                 requireActivity().onBackPressed()
@@ -667,6 +669,18 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
 
         (context as MainActivity).mainActivityViewModel.removeSelectedItem(item)
         pcItemsAdapter.notifyDataSetChanged()
+    }
+
+    override fun onButtonClick(type: String, position: Int) {
+        if (type == getString(R.string.post_document)) {
+            if (postingValidation()) {
+                (context as MainActivity).checkSessionConnection(
+                    this,
+                    getString(R.string.post_document)
+                )
+            }
+        }
+
     }
 
 

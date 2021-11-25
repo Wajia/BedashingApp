@@ -9,6 +9,7 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bedashingapp.BaseFragment
+import com.example.bedashingapp.MainActivity
 import com.example.bedashingapp.R
 import com.example.bedashingapp.data.api.ApiHelper
 import com.example.bedashingapp.data.api.RetrofitBuilder
@@ -45,9 +46,9 @@ class InventoryCountingListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        checkSessionConnection()
 
 
+        (context as MainActivity).checkSessionConnection(this,getString(R.string.inventory_counting))
         float_btn_add_inventory.setOnClickListener {
             mainActivityViewModel.clearSelectedItems()
             Navigation.findNavController(requireActivity(), R.id.nav_host_fragment).navigate(
@@ -56,43 +57,15 @@ class InventoryCountingListFragment : BaseFragment() {
         }
     }
 
-    override fun apiCaller(purpose: String) {
-        TODO("Not yet implemented")
-    }
-
-
-    private fun checkSessionConnection() {
-        if (isConnectedToNetwork()) {
-            mainActivityViewModel.checkConnection(
-                sessionManager!!.getBaseURL(),
-                sessionManager!!.getCompany(),
-                sessionManager!!.getSessionId(),
-                sessionManager!!.getUserId()
-            ).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            getInventoryCountings()
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("", "Fetching Inventory Counting...")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            sessionManager!!.putIsLoggedIn(false)
-                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
-                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
-
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
+    override fun invoke(purpose: String) {
+        when (purpose) {
+            getString(R.string.inventory_counting)-> {
+                getInventoryCountings()
+            }
         }
     }
+
+
 
 
     private fun getInventoryCountings() {

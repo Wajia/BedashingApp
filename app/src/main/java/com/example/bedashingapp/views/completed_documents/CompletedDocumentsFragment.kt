@@ -57,7 +57,7 @@ class CompletedDocumentsFragment : BaseFragment() {
         setupObserver()
     }
 
-    override fun apiCaller(purpose: String) {
+    override fun invoke(purpose: String) {
         TODO("Not yet implemented")
     }
 

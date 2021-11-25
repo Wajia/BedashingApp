@@ -112,7 +112,8 @@ class StockCountingFragment : BaseFragment() {
 
         btn_check_status.setOnClickListener {
             if (it.alpha == 1.0f) {
-                checkSessionConnection("checkInventoryStatus")
+
+                (context as MainActivity).checkSessionConnection(this, requireContext().resources.getString(R.string.fetch_quantity))
             }
         }
 
@@ -220,8 +221,18 @@ class StockCountingFragment : BaseFragment() {
         }
     }
 
-    override fun apiCaller(purpose: String) {
-        TODO("Not yet implemented")
+    override fun invoke(purpose: String) {
+        when (purpose) {
+            requireContext().resources.getString(R.string.post_document) -> {
+                saveDocument()
+            }
+            requireContext().resources.getString(R.string.check_inventory_status) -> {
+                getInventoryStatus()
+            }
+            requireContext().resources.getString(R.string.fetch_quantity) -> {
+                getItemQuantityAndDetails()
+            }
+        }
     }
 
     private var adapter: InventoryCountingLineAdapter? = null
@@ -282,42 +293,6 @@ class StockCountingFragment : BaseFragment() {
         btn_check_status.alpha = 0.5f
     }
 
-    private fun checkSessionConnection(purpose: String) {
-        if (isConnectedToNetwork()) {
-            mainActivityViewModel.checkConnection(
-                sessionManager!!.getBaseURL(),
-                sessionManager!!.getCompany(),
-                sessionManager!!.getSessionId(),
-                sessionManager!!.getUserId()
-            ).observe(viewLifecycleOwner, Observer {
-                it?.let { resource ->
-                    when (resource.status) {
-                        Status.SUCCESS -> {
-                            if (purpose == "checkInventoryStatus") {
-                                getInventoryStatus()
-                            } else {
-                                getItemQuantityAndDetails()
-                            }
-                        }
-                        Status.LOADING -> {
-                            showProgressBar("", "")
-                        }
-                        Status.ERROR -> {
-                            hideProgressBar()
-                            sessionManager!!.putIsLoggedIn(false)
-                            sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
-                            sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())
-
-                            startActivity(Intent(requireContext(), LoginActivity::class.java))
-                            requireActivity().finishAffinity()
-                        }
-                    }
-                }
-            })
-        } else {
-            showToastLong(resources.getString(R.string.network_not_connected_msg))
-        }
-    }
 
     private fun getItemQuantityAndDetails() {
         mainActivityViewModel.getItem(
@@ -431,7 +406,8 @@ class StockCountingFragment : BaseFragment() {
         fetchUomsByUomGroupEntry(item.UoMGroupEntry)
 
         //get Latest details of item
-        checkSessionConnection("fetchQuantity")
+
+        (context as MainActivity).checkSessionConnection(this,requireContext().resources.getString(R.string.fetch_quantity))
     }
 
     private fun retainItemData(item: ItemEntity, addedItem: Line) {
@@ -455,7 +431,8 @@ class StockCountingFragment : BaseFragment() {
         fetchUomsByUomGroupEntry(item.UoMGroupEntry)
 
         //get Latest details of item
-        checkSessionConnection("fetchQuantity")
+
+        (context as MainActivity).checkSessionConnection(this,requireContext().resources.getString(R.string.fetch_quantity))
     }
 
     private fun fetchUomsByUomGroupEntry(uomGroupEntry: String) {
@@ -526,7 +503,8 @@ class StockCountingFragment : BaseFragment() {
         builder.setMessage(resources.getString(R.string.post_doc))
 
         builder.setPositiveButton("YES") { _, _ ->
-            saveDocument()
+
+            (context as MainActivity).checkSessionConnection(this,resources.getString(R.string.post_document))
         }
         builder.setNegativeButton("NO") { _, _ ->
 

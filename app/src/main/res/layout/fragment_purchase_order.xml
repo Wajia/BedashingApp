@@ -241,8 +241,8 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
                 android:layout_marginBottom="14dp"
+                android:focusable="false"
                 android:hint="Stock in Hand">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -314,13 +314,13 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_welcome"
+                android:id="@+id/tv_items_count"
                 style="@style/myHeadingStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp20"
                 android:layout_marginBottom="@dimen/dp10"
-                android:text="List of Items" />
+                android:text="Items ( 0 )" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_purchase_order_lines"

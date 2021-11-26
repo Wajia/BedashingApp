@@ -25,6 +25,16 @@ import com.example.bedashingapp.views.stock_counting.ItemsDialogFragment
 import com.google.zxing.integration.android.IntentIntegrator
 import com.journeyapps.barcodescanner.CaptureActivity
 import kotlinx.android.synthetic.main.fragment_professional_checkout.*
+import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_add_item
+import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_cancel
+import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_check_status
+import kotlinx.android.synthetic.main.fragment_professional_checkout.btn_post
+import kotlinx.android.synthetic.main.fragment_professional_checkout.et_counted_quantity
+import kotlinx.android.synthetic.main.fragment_professional_checkout.et_doc_date
+import kotlinx.android.synthetic.main.fragment_professional_checkout.root
+import kotlinx.android.synthetic.main.fragment_professional_checkout.rv_inventory_counting_lines
+import kotlinx.android.synthetic.main.fragment_professional_checkout.spinner_uom
+import kotlinx.android.synthetic.main.fragment_professional_checkout.tv_items_count
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -223,8 +233,9 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
                         resetSelectedItemDetails()
                     }
                     hideKeyboard()
-                    pcItemsAdapter.notifyDataSetChanged()
 
+                    pcItemsAdapter.notifyDataSetChanged()
+                    tv_items_count.text=  " Items ( "+ (context as MainActivity).mainActivityViewModel.getSelectedItems().size.toString() + " ) "
                 }
 
             }
@@ -669,6 +680,7 @@ class ProfessionalCheckout : BaseFragment(), View.OnClickListener,
 
         (context as MainActivity).mainActivityViewModel.removeSelectedItem(item)
         pcItemsAdapter.notifyDataSetChanged()
+        tv_items_count.text=  " Items ( "+ (context as MainActivity).mainActivityViewModel.getSelectedItems().size.toString() + " ) "
     }
 
     override fun onButtonClick(type: String, position: Int) {

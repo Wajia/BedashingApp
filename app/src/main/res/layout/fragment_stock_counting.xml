@@ -267,14 +267,17 @@
 
             </LinearLayout>
 
+
+
+
             <TextView
-                android:id="@+id/tv_welcome"
+                android:id="@+id/tv_items_count"
                 style="@style/myHeadingStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp20"
                 android:layout_marginBottom="@dimen/dp10"
-                android:text="List of Items" />
+                android:text="Items ( 0 )" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_inventory_counting_lines"

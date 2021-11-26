@@ -190,6 +190,7 @@ class StockCountingFragment : BaseFragment() {
                     //reset details
                     resetSelectedItemDetails()
                     adapter!!.notifyDataSetChanged()
+                    tv_items_count.text=  " Items ( "+ (context as MainActivity).mainActivityViewModel.getSelectedItems().size.toString() + " ) "
 
                 } else {
                     if (mainActivityViewModel.updateInventoryCountingLine(
@@ -257,6 +258,7 @@ class StockCountingFragment : BaseFragment() {
                         resetSelectedItemDetails()
                     }
                     adapter!!.notifyItemRemoved(position)
+                    tv_items_count.text=  " Items ( "+ (context as MainActivity).mainActivityViewModel.getSelectedItems().size.toString() + " ) "
                 } else {
                     selectedPositionForUpdate = position
                     getItemByItemCode(data!!.ItemCode!!, data)

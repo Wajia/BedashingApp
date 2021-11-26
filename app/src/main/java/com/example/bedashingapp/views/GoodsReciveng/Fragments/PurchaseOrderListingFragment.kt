@@ -145,6 +145,7 @@ class PurchaseOrderListingFragment : BaseFragment(), View.OnClickListener {
                             tv_no_po.visible()
                             sw_data.gone()
                         } else {
+                            poList.clear()
                             poList.addAll(it.data.value)
                             tv_no_po.gone()
                             setRecyclerView()

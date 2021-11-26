@@ -203,7 +203,7 @@ class MainActivity : BaseActivity() {
                         Status.ERROR -> {
                             isSessionOk = false
                             (fragment as BaseFragment).hideProgressBar()
-                            sessionManager!!.putIsLoggedIn(false)
+                    //        sessionManager!!.putIsLoggedIn(false)
                             /*                      sessionManager!!.putPreviousPassword(sessionManager!!.getCurrentPassword())
                                                   sessionManager!!.putPreviousUserName(sessionManager!!.getCurrentUserName())*/
                             reLogin(fragment, purpose)

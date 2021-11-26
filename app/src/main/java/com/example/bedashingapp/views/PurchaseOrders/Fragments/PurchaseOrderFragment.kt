@@ -187,7 +187,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
                         hideKeyboard()
                     }
 
-
+                    tv_items_count.text=  " Items ( "+ (context as MainActivity).mainActivityViewModel.getSelectedItems().size.toString() + " ) "
                 }
 
             }
@@ -668,6 +668,7 @@ class PurchaseOrderFragment : BaseFragment(), View.OnClickListener,
         }
         (context as MainActivity).mainActivityViewModel.removeSelectedItem(item)
         pOItemsAdapter.notifyDataSetChanged()
+        tv_items_count.text=  " Items ( "+ (context as MainActivity).mainActivityViewModel.getSelectedItems().size.toString() + " ) "
     }
 
     override fun onButtonClick(type: String, position: Int) {
